@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BMIAPP</string>
+    <string name="login_email">EMAIL</string>
+    <string name="login_password">PASSWORD</string>
+    <string name="app_logo">App Logo</string>
+    <string name="btn_login">Login</string>
 </resources>
