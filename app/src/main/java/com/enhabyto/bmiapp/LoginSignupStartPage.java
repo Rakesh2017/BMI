@@ -53,10 +53,10 @@ import java.util.logging.LogRecord;
         window.setStatusBarColor(ContextCompat.getColor(LoginSignupStartPage.this,R.color.red));
 
         ScaleAnimation animation_left_to_right = new ScaleAnimation(0,1,1,1);
-        animation_left_to_right.setDuration(1000);
+        animation_left_to_right.setDuration(1100);
 
         ScaleAnimation animation_right_to_left = new ScaleAnimation(0,1,1,1, Animation.RELATIVE_TO_SELF, 1, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation_right_to_left.setDuration(1000);
+        animation_right_to_left.setDuration(1100);
 
 
 
