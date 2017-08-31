@@ -3,26 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/loginpagebackoground"
+    android:background="@drawable/yoga"
     tools:context="com.enhabyto.bmiapp.LoginSignupStartPage">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/rounded_background_black"
+        android:contentDescription="@string/unable_to_display_background"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="460dp"
+        android:src="@drawable/rounded_background_black"
+        android:contentDescription="@string/unable_to_display_background"
+        />
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentTop="true"
         android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp"
         android:id="@+id/linear1"
-        >
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="220dp"
-            android:layout_height="150dp"
+            android:layout_width="135dp"
+            android:layout_height="110dp"
             android:contentDescription="@string/app_logo"
-            android:background="@drawable/applogo" />
+            android:background="@drawable/app_logo" />
 
 
     </LinearLayout>
@@ -31,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="170dp"
         android:weightSum="2"
         >
 
@@ -47,8 +69,8 @@
                 android:layout_gravity="center"
                 android:inputType="textEmailAddress"
                 android:hint="@string/login_email"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:layout_weight="1"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
@@ -76,27 +98,88 @@
                 android:paddingRight="10dp"
                 android:fontFamily="serif"
                 android:hint="@string/login_password"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:layout_weight="1"
-
                 />
         </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/btn_login"
-            android:layout_width="340dp"
-            android:layout_gravity="center"
+            android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginTop="20dip"
-            android:background="#ea4949"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_background_red"
             android:text="@string/btn_login"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
 
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="365dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sign_in_with_google"
+            android:layout_weight="1"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/signingoogle"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sign_in_with_fb"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/fb_login"
+            android:layout_marginEnd="15dp"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="470dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/forgot_password"
+            android:layout_weight="1"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/forgot_password"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sign_up"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/sign_up_with_us"
+            android:layout_marginEnd="15dp"
+            android:contentDescription="@string/unable_to_display_background"
+            />
 
     </LinearLayout>
 

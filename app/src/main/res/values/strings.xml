@@ -4,4 +4,5 @@
     <string name="login_password">PASSWORD</string>
     <string name="app_logo">App Logo</string>
     <string name="btn_login">Login</string>
+    <string name="unable_to_display_background">unable to display background</string>
 </resources>
