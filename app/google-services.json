@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "333514160382",
+    "firebase_url": "https://enhabyto-bmi.firebaseio.com",
+    "project_id": "enhabyto-bmi",
+    "storage_bucket": "enhabyto-bmi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333514160382:android:d5ec62e2333e83df",
+        "android_client_info": {
+          "package_name": "com.enhabyto.bmiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333514160382-374mjck5luls4nc4il0ic18m6okh7qva.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enhabyto.bmiapp",
+            "certificate_hash": "09af7b1d5b85c1dd01f83e30ec3da5d2dd85700e"
+          }
+        },
+        {
+          "client_id": "333514160382-ig2evrk6enrgd8r764nkqbp1ilvhl0f0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNpC970pNk65qMLRuGAO1LKLITzNRJzlY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333514160382-ig2evrk6enrgd8r764nkqbp1ilvhl0f0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

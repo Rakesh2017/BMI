@@ -1,37 +1,43 @@
  package com.enhabyto.bmiapp;
 
+
+import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.TextInputLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
  public class LoginSignupStartPage extends AppCompatActivity {
 
-     EditText email, password;
-     ImageButton imageButton1, imageButton2, imageButton3, imageButton4;
+     private EditText email, password;
+     private ImageButton imageButton1, imageButton2, imageButton3, imageButton4;
+     private Button button_login;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +56,9 @@ import java.util.logging.LogRecord;
             // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             //now change color
-        window.setStatusBarColor(ContextCompat.getColor(LoginSignupStartPage.this,R.color.red));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(ContextCompat.getColor(LoginSignupStartPage.this,R.color.red));
+        }
 
         ScaleAnimation animation_left_to_right = new ScaleAnimation(0,1,1,1);
         animation_left_to_right.setDuration(1100);
@@ -72,11 +80,21 @@ import java.util.logging.LogRecord;
 
 
 
-        email=(EditText)findViewById(R.id.email);
-        password=(EditText)findViewById(R.id.pass);
+        email=(EditText)findViewById(R.id.login_email);
+        password=(EditText)findViewById(R.id.login_password);
+        button_login=(Button)findViewById(R.id.btn_login);
+
+        imageButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent  = new Intent(getApplicationContext(), SignupPage.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
+
 
 
 }
