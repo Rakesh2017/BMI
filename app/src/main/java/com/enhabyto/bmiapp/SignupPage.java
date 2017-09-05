@@ -1,8 +1,12 @@
 package com.enhabyto.bmiapp;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,15 +20,12 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.makeramen.roundedimageview.RoundedImageView;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,8 +38,8 @@ public class SignupPage extends AppCompatActivity {
     private String emailText, passwordText;
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-    private Matcher matcher;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +88,9 @@ public class SignupPage extends AppCompatActivity {
             public void onClick(View v) {
                 emailText=editText1.getText().toString().trim();
                 passwordText=editText2.getText().toString().trim();
-                if(!validateEmail(emailText)){
+
+
+                    if(!validateEmail(emailText)){
                     String message;
                     int color;
                     message = "                  Invalid Email Address";
@@ -116,6 +119,20 @@ public class SignupPage extends AppCompatActivity {
                     snackbar.show();
                     return;
                 }
+                if(!isNetworkAvailable()) {
+                    String message;
+                    int color;
+                    message = "                  No Internet Connection";
+                    color = Color.BLACK;
+                    Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_reg), message, Snackbar.LENGTH_LONG);
+                    View view = snackbar.getView();
+                    FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
+                    params.gravity = Gravity.TOP;
+                    view.setLayoutParams(params);
+                    view.setBackgroundColor(color);
+                    snackbar.show();
+                    return;
+                }
                 emailText=editText1.getText().toString().trim();
                 passwordText=editText2.getText().toString().trim();
 
@@ -123,17 +140,22 @@ public class SignupPage extends AppCompatActivity {
                         .addOnCompleteListener(SignupPage.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(SignupPage.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
+
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(SignupPage.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    //startActivity(new Intent(SignupActivity.this, MainActivity.class));
-                                    //finish();
-                                    Toast.makeText(SignupPage.this, "Success", Toast.LENGTH_SHORT).show();
+                                    String message;
+                                    int color;
+                                    message = "             Account Successfully Created ";
+                                    color = Color.BLACK;
+                                    Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_reg), message, Snackbar.LENGTH_LONG);
+                                    View view = snackbar.getView();
+                                    FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
+                                    params.gravity = Gravity.TOP;
+                                    view.setLayoutParams(params);
+                                    view.setBackgroundColor(color);
+                                    snackbar.show();;
                                 }
                             }
                         });
@@ -142,11 +164,28 @@ public class SignupPage extends AppCompatActivity {
         });
 
 
+        imageButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_SignupPage,new GoogleSignup()).addToBackStack(null).commit();
+
+            }
+        });
+
+
 
     }
 
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     public boolean validateEmail(String email) {
-        matcher = pattern.matcher(email);
+        Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
     @Override

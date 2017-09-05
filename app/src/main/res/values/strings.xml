@@ -7,4 +7,17 @@
     <string name="btn_register">Register</string>
     <string name="unable_to_display_background">unable to display background</string>
     <string name="register_using">Register using</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="desc_firebase_lockup">Firebase logo and name</string>
+    <string name="google_title_text">Google Sign In</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="google_status_fmt">Signed in as %s</string>
+    <string name="loading">Loading…</string>
+    <string name="title_text">Google Sign-In\nQuickstart</string>
+    <string name="signed_in_fmt">Signed in as %s</string>
+
 </resources>

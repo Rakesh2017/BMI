@@ -16,9 +16,12 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenLocal()
+        maven { url 'https://maven.google.com'  }
+        maven { url 'https://maven.fabric.io/public' }
     }
-
 }
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir

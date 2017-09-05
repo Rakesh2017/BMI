@@ -1,0 +1,107 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/yoga"
+    android:orientation="vertical"
+    android:weightSum="4"
+    tools:context="com.enhabyto.bmiapp.GoogleSignup">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center_horizontal"
+        android:background="@drawable/rounded_background_black"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:id="@+id/google_icon"
+            android:src="@drawable/google_logo"
+            android:scaleType="fitCenter"
+            app:riv_corner_radius="30dip"
+            app:riv_mutate_background="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="60dp"
+            android:layout_gravity="center"
+            app:riv_oval="true"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/title_bottom_margin"
+            android:text="@string/google_title_text"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:theme="@style/ThemeOverlay.MyTitleText" />
+
+        <TextView
+            android:id="@+id/status"
+            style="@style/ThemeOverlay.MyTextDetail"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/signed_out" />
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/rounded_background_black"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+       >
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            tools:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/sign_out_and_disconnect"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <Button
+                android:id="@+id/sign_out_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sign_out"
+                android:layout_marginStart="85dp"
+                android:layout_marginEnd="85dp"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

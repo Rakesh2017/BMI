@@ -7,6 +7,10 @@
     <color name="loginpagebackoground">#6991c7</color>
     <color name="white">#ffffff</color>
     <color name="red">#ea4949</color>
-
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="brown">#795548</color>
+    <color name="blue_grey_700">#455A64</color>
+    <color name="blue_grey_900">#263238</color>
 
 </resources>
