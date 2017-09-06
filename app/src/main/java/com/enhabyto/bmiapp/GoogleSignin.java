@@ -241,4 +241,11 @@ public class GoogleSignin extends Fragment implements GoogleApiClient.OnConnecti
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
+    }
+
 }

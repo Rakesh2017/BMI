@@ -1,6 +1,7 @@
 package com.enhabyto.bmiapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -94,7 +95,7 @@ public class SignupPage extends AppCompatActivity {
                     String message;
                     int color;
                     message = "                  Invalid Email Address";
-                    color = Color.BLACK;
+                    color = Color.RED;
                     Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_reg), message, Snackbar.LENGTH_LONG);
                     View view = snackbar.getView();
                     FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
@@ -109,7 +110,7 @@ public class SignupPage extends AppCompatActivity {
                     String message;
                     int color;
                     message = "   Length of Password should be greater than 5";
-                    color = Color.BLACK;
+                    color = Color.RED;
                     Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_reg), message, Snackbar.LENGTH_LONG);
                     View view = snackbar.getView();
                     FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
@@ -123,7 +124,7 @@ public class SignupPage extends AppCompatActivity {
                     String message;
                     int color;
                     message = "                  No Internet Connection";
-                    color = Color.BLACK;
+                    color = Color.RED;
                     Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_reg), message, Snackbar.LENGTH_LONG);
                     View view = snackbar.getView();
                     FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
@@ -142,20 +143,20 @@ public class SignupPage extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(SignupPage.this, "Authentication failed." + task.getException(),
+                                    Toast.makeText(SignupPage.this, "Authentication failed. " + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     String message;
-                                    int color;
-                                    message = "             Account Successfully Created ";
-                                    color = Color.BLACK;
-                                    Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_reg), message, Snackbar.LENGTH_LONG);
-                                    View view = snackbar.getView();
-                                    FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
-                                    params.gravity = Gravity.TOP;
-                                    view.setLayoutParams(params);
-                                    view.setBackgroundColor(color);
-                                    snackbar.show();;
+                                    try{
+                                        message = task.getException().getLocalizedMessage();
+                                    }
+                                    catch (NullPointerException e){
+                                        message="Account Created Successfully";
+                                    }
+
+                                    Toast.makeText(SignupPage.this, message, Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), LoginSignupStartPage.class);
+                                    startActivity(intent);
                                 }
                             }
                         });
