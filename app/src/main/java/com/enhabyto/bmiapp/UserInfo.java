@@ -118,8 +118,8 @@ public class UserInfo extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             //return title
-            //return mFragmentTitleList.get(position);
-            return null;
+            return mFragmentTitleList.get(position);
+            //return null;
         }
     }
 }

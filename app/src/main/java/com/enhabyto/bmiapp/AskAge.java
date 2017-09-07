@@ -1,10 +1,12 @@
 package com.enhabyto.bmiapp;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 /**
@@ -12,6 +14,8 @@ import android.view.ViewGroup;
  */
 public class AskAge extends Fragment {
 
+    private View view;
+    TextView ageText;
 
     public AskAge() {
         // Required empty public constructor
@@ -22,7 +26,12 @@ public class AskAge extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ask_age, container, false);
+        view = inflater.inflate(R.layout.fragment_ask_age, container, false);
+        ageText = (TextView)view.findViewById(R.id.textView_age);
+        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/GoodDog.otf");
+        ageText.setTypeface(typeface);
+
+        return view;
     }
 
 }

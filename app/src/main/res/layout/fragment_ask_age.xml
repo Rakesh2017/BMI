@@ -1,11 +1,55 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/age_background"
     tools:context="com.enhabyto.bmiapp.AskAge">
 
-    <!-- TODO: Update blank fragment layout -->
 
 
-</FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="11dp"
+        android:id="@+id/ll1"
+        android:weightSum="1">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/sign_in_with_fb"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:adjustViewBounds="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_gravity="center"
+            android:background="@color/brown"
+            android:contentDescription="@string/unable_to_display_background"
+            android:cropToPadding="true"
+            android:scaleType="fitCenter"
+            app:riv_corner_radius="5dip"
+            app:riv_mutate_background="true"
+            app:riv_oval="true" />
+
+    </LinearLayout>
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="What is your\n age?"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:id="@+id/textView_age"
+        android:layout_marginTop="230dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
+
+
+
+</RelativeLayout>
