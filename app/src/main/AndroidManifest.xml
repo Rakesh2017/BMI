@@ -25,7 +25,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignupPage" />
-        <activity android:name=".UserInfo"></activity>
+        <activity android:name=".UserInfo"
+         android:theme="@style/MyMaterialTheme" />
+
+
     </application>
 
 </manifest>

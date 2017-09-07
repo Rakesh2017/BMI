@@ -148,26 +148,37 @@
         android:weightSum="2"
         >
 
-        <ImageButton
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/sign_in_with_google"
             android:layout_weight="1"
-            android:layout_marginStart="15dp"
+            android:src="@drawable/signingoogle"
+            android:scaleType="fitCenter"
+            app:riv_corner_radius="5dip"
+            app:riv_mutate_background="true"
             android:layout_marginEnd="5dp"
-            android:background="@drawable/signingoogle"
+            android:layout_marginStart="15dp"
             android:contentDescription="@string/unable_to_display_background"
             />
-        <ImageButton
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/sign_in_with_fb"
             android:layout_weight="1"
             android:layout_marginStart="5dp"
-            android:background="@drawable/fb_login"
+            android:src="@drawable/fb_login"
+            android:scaleType="fitCenter"
+            app:riv_corner_radius="5dip"
+            app:riv_mutate_background="true"
             android:layout_marginEnd="15dp"
             android:contentDescription="@string/unable_to_display_background"
             />
+
 
     </LinearLayout>
 
@@ -179,26 +190,37 @@
         android:weightSum="2"
         >
 
-        <ImageButton
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/forgot_password"
             android:layout_weight="1"
-            android:layout_marginStart="15dp"
+            android:src="@drawable/forgot_password"
+            android:scaleType="fitCenter"
+            app:riv_corner_radius="5dip"
+            app:riv_mutate_background="true"
             android:layout_marginEnd="5dp"
-            android:background="@drawable/forgot_password"
+            android:layout_marginStart="15dp"
             android:contentDescription="@string/unable_to_display_background"
             />
-        <ImageButton
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/sign_up"
             android:layout_weight="1"
             android:layout_marginStart="5dp"
-            android:background="@drawable/sign_up_with_us"
+            android:src="@drawable/sign_up_with_us"
+            android:scaleType="fitCenter"
+            app:riv_corner_radius="5dip"
+            app:riv_mutate_background="true"
             android:layout_marginEnd="15dp"
             android:contentDescription="@string/unable_to_display_background"
             />
+
 
     </LinearLayout>
 

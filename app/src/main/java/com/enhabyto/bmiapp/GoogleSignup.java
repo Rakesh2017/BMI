@@ -199,7 +199,7 @@ public class GoogleSignup extends Fragment implements
                 Log.d(TAG, "Unable load url");
             }
 
-            Log.d(TAG, url);
+          //  Log.d(TAG, url);
             if(url != null){
                 Picasso.with(getActivity())
                         .load(url)

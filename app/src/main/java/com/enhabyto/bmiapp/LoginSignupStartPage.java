@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,9 +39,8 @@ import java.util.regex.Pattern;
  public class LoginSignupStartPage extends AppCompatActivity {
 
      protected EditText email, password;
-     protected ImageButton imageButton1, imageButton2, imageButton3, imageButton4;
+     RoundedImageView imageButton1, imageButton2, imageButton3, imageButton4;
      protected Button button_login;
-
      private FirebaseAuth mAuth;
      private String TAG = "tag message ";
      private String emailText, passwordText;
@@ -70,9 +70,8 @@ import java.util.regex.Pattern;
             // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        }
+
         //now change color
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(ContextCompat.getColor(LoginSignupStartPage.this,R.color.red));
         }
 
@@ -96,10 +95,10 @@ import java.util.regex.Pattern;
 
 
 
-        imageButton1=(ImageButton)findViewById(R.id.sign_in_with_google);
-        imageButton2=(ImageButton)findViewById(R.id.sign_in_with_fb);
-        imageButton3=(ImageButton)findViewById(R.id.forgot_password);
-        imageButton4=(ImageButton)findViewById(R.id.sign_up);
+        imageButton1=(RoundedImageView) findViewById(R.id.sign_in_with_google);
+        imageButton2=(RoundedImageView) findViewById(R.id.sign_in_with_fb);
+        imageButton3=(RoundedImageView) findViewById(R.id.forgot_password);
+        imageButton4=(RoundedImageView) findViewById(R.id.sign_up);
 
         imageButton1.startAnimation(animation_left_to_right);
         imageButton3.startAnimation(animation_left_to_right);

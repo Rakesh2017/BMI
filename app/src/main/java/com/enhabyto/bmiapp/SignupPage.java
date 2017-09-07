@@ -168,7 +168,7 @@ public class SignupPage extends AppCompatActivity {
         imageButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_SignupPage,new GoogleSignup()).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_SignupPage,new GoogleSignup()).addToBackStack(null).commit();
 
             }
         });

@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#000000</color>
+    <color name="colorAccent">#c8e8ff</color>
     <color name="black">#000000</color>
     <color name="loginpagebackoground">#6991c7</color>
     <color name="white">#ffffff</color>
@@ -12,5 +12,12 @@
     <color name="brown">#795548</color>
     <color name="blue_grey_700">#455A64</color>
     <color name="blue_grey_900">#263238</color>
+    <color name="invisible">#00000000</color>
+
+
+    <!-- tab layout -->
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+
 
 </resources>
