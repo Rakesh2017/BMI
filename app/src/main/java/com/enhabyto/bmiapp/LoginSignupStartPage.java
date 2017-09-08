@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.nfc.Tag;
@@ -82,6 +83,9 @@ import java.util.regex.Pattern;
         animation_right_to_left.setDuration(1100);
         email=(EditText)findViewById(R.id.login_email);
         password=(EditText)findViewById(R.id.login_password);
+
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/ReprineatoRegular.otf");
+        email.setTypeface(typeface);
 
         // Shared Preferences
         sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE);

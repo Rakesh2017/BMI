@@ -17,16 +17,22 @@
         android:theme="@style/AppTheme"
         >
 
-        <activity android:name=".LoginSignupStartPage">
+        <activity android:name=".LoginSignupStartPage"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignupPage" />
+        <activity android:name=".SignupPage"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".UserInfo"
-         android:theme="@style/MyMaterialTheme" />
+         android:theme="@style/MyMaterialTheme"
+            android:screenOrientation="portrait"
+            />
 
 
     </application>

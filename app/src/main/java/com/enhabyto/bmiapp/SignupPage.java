@@ -3,6 +3,7 @@ package com.enhabyto.bmiapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -82,7 +83,8 @@ public class SignupPage extends AppCompatActivity {
         imageButton2.startAnimation(animation_right_to_left);
 
 
-
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/ReprineatoRegular.otf");
+        editText1.setTypeface(typeface);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

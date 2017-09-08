@@ -7,24 +7,6 @@
     android:id="@+id/fragment_container_SignupPage"
     tools:context="com.enhabyto.bmiapp.SignupPage">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/signin"
-        android:layout_marginTop="145dp"
-        android:layout_marginStart="20dp"
-        android:id="@+id/iv1"
-        android:contentDescription="@string/unable_to_display_background"
-        />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/password"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="210dp"
-        android:contentDescription="@string/unable_to_display_background"
-        />
 
 
     <LinearLayout
@@ -103,17 +85,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:inputType="textEmailAddress"
-                android:hint="@string/login_email"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:paddingLeft="40dp"
-                android:paddingRight="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="25dp"
                 android:fontFamily="serif"
-                android:textStyle="bold"
+                android:hint="@string/login_email"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                />
+                android:textStyle="bold" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -129,15 +110,13 @@
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:inputType="textPassword"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:paddingLeft="40dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="20dp"
+                android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:fontFamily="serif"
                 android:hint="@string/login_password"
-
-
-                />
+                android:textSize="15sp"/>
         </android.support.design.widget.TextInputLayout>
 
         <Button
@@ -158,6 +137,25 @@
 
 
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@mipmap/signin"
+        android:layout_marginTop="145dp"
+        android:layout_marginStart="20dp"
+        android:id="@+id/iv1"
+        android:contentDescription="@string/unable_to_display_background"
+        />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@mipmap/password"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="210dp"
+        android:contentDescription="@string/unable_to_display_background"
+        />
 
 
 

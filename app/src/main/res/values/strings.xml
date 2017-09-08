@@ -7,6 +7,7 @@
     <string name="btn_register">Register</string>
     <string name="unable_to_display_background">unable to display background</string>
     <string name="register_using">Register using</string>
+    <string name="age">What is your\n age?</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
