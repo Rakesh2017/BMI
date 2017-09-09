@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class AskHeight extends Fragment {
     TextView textView1, textView2;
     private View view;
     Button button;
+    ImageButton ft_to_cm, cm_to_ft;
     private int feet_num, inch_num, centimeter_num;
     private static final double inch_to_centimeter  = 2.54;
 
@@ -44,61 +46,27 @@ public class AskHeight extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          view = inflater.inflate(R.layout.fragment_ask_height, container, false);
-         textView1 = (TextView)view.findViewById(R.id.textView_you_are);
-         textView2 = (TextView)view.findViewById(R.id.textView_tall);
          button = (Button)view.findViewById(R.id.set_age);
+        ft_to_cm = (ImageButton)view. findViewById(R.id.ft_to_cm_btn);
+        cm_to_ft = (ImageButton)view. findViewById(R.id.cm_to_ft_btn);
 
         feet = (NumberPicker) view.findViewById(R.id.number_picker_feet);
         inch = (NumberPicker) view.findViewById(R.id.number_picker_inches);
         centimeter = (NumberPicker) view.findViewById(R.id.number_picker_cm);
 
-        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/sportsfont.ttf");
-        textView1.setTypeface(typeface);
-        textView2.setTypeface(typeface);
-
-        feet.setOnTouchListener(new View.OnTouchListener() {
+        ft_to_cm.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if(event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_HOVER_MOVE){
-
-                    touch_fun();
-                    // Do what you want
-                    return true;
-                }
-                return false;
+            public void onClick(View v) {
+                touch_fun();
             }
         });
 
-        inch.setOnTouchListener(new View.OnTouchListener() {
+
+        cm_to_ft.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if(event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_HOVER_MOVE){
-                    touch_fun();
-
-                    // Do what you want
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        centimeter.setOnTouchListener(new View.OnTouchListener() {
-
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if(event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_HOVER_MOVE){
-                    String str = String.valueOf(centimeter.getValue());
-
-                    centimeterToFeet(str);
-
-                    // Do what you want
-                    return true;
-                }
-                return false;
+            public void onClick(View v) {
+                String str = String.valueOf(centimeter.getValue());
+                centimeterToFeet(str);
             }
         });
 

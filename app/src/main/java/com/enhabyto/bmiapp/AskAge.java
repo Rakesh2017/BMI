@@ -33,13 +33,10 @@ public class AskAge extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_ask_age, container, false);
-        ageText = (TextView)view.findViewById(R.id.id_age_Text);
+
 
 
         age = (Button)view.findViewById(R.id.set_age);
-        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/sportsfont.ttf");
-        ageText.setTypeface(typeface);
-
 
         numberPicker = (com.shawnlin.numberpicker.NumberPicker) view. findViewById(R.id.number_picker);
 

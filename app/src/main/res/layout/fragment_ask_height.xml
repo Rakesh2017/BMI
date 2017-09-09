@@ -9,42 +9,30 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="270dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        android:id="@+id/relativeHeight"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="130dp"
-        android:id="@+id/relativeHeight"
         android:background="@drawable/rounded_background_black"
         android:contentDescription="@string/unable_to_display_background"
-        android:layout_marginBottom="20dp"
+
         />
 
-    <TextView
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="YOU ARE "
-        android:gravity="center"
-        android:textSize="35sp"
-        android:id="@+id/textView_you_are"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_alignTop="@+id/relativeHeight"
-        android:layout_marginTop="15dp"
-        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/linearHeight"
-        android:layout_below="@+id/textView_you_are"
-        android:layout_marginBottom="15dp"
         android:weightSum="4"
-        android:layout_marginTop="15dp"
-        android:layout_alignLeft="@id/relativeHeight"
-        android:layout_alignRight="@id/relativeHeight"
-        >
+        android:layout_alignTop="@+id/relativeHeight"
+        android:layout_alignStart="@id/relativeHeight"
+        android:layout_alignEnd="@id/relativeHeight"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_centerHorizontal="true">
 
         <com.shawnlin.numberpicker.NumberPicker
             android:id="@+id/number_picker_feet"
@@ -130,7 +118,7 @@
             app:np_height="50dp"
             app:np_dividerColor="@color/red"
             app:np_max="241"
-            app:np_min="30"
+            app:np_min="61"
             app:np_selectedTextColor="@color/white"
             app:np_selectedTextSize="25dp"
             app:np_textColor="@color/red"
@@ -154,28 +142,47 @@
 
     </LinearLayout>
 
-
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TALL"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:id="@+id/textView_tall"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_below="@id/linearHeight1"
-        android:layout_marginTop="10dp"
-        />
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_below="@id/relativeHeight"
+        android:layout_alignStart="@id/relativeHeight"
+        android:layout_alignEnd="@id/relativeHeight"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+          >
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ft_to_cm"
+            android:id="@+id/ft_to_cm_btn"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+
+        <ImageButton
+            android:id="@+id/cm_to_ft_btn"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/cm_to_ft"
+            android:layout_marginStart="110dp"
+            android:contentDescription="@string/unable_to_display_background" />
+
+    </LinearLayout>
+
+
 
       <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="set"
         android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@id/relativeHeight"
-        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/rounded_background_red"
         android:id="@+id/set_age"
 

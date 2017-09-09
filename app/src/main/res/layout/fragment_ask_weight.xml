@@ -1,13 +1,145 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/weight_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.enhabyto.bmiapp.AskWeight">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="180dp"
+        android:id="@+id/relativeWeight"
+        android:background="@drawable/rounded_background_black"
+        android:contentDescription="@string/unable_to_display_background"
+        android:layout_marginBottom="20dp"
+        />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/relativeWeight"
+        android:orientation="horizontal"
+        android:id="@+id/linearWeight"
+        android:layout_centerHorizontal="true"
+        android:weightSum="4"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignStart="@id/relativeWeight"
+        android:layout_alignEnd="@id/relativeWeight"
+        >
+
+        <com.shawnlin.numberpicker.NumberPicker
+            android:id="@+id/number_picker_kg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:np_width="50dp"
+            app:np_height="180dp"
+            app:np_dividerColor="@color/red"
+            app:np_max="7"
+            app:np_min="2"
+            app:np_selectedTextColor="@color/white"
+            app:np_selectedTextSize="25dp"
+            app:np_textColor="@color/red"
+            app:np_textSize="15dp"
+            app:np_orientation="vertical"
+            android:layout_weight="1"
+            app:np_value="5" />
+
+        <TextView
+            android:id="@+id/textView_feet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Kg"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <com.shawnlin.numberpicker.NumberPicker
+            android:id="@+id/number_picker_lb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:np_width="50dp"
+            app:np_height="180dp"
+            app:np_dividerColor="@color/red"
+            app:np_max="11"
+            app:np_min="0"
+            app:np_selectedTextColor="@color/white"
+            app:np_selectedTextSize="25dp"
+            app:np_textColor="@color/red"
+            app:np_textSize="15dp"
+            app:np_orientation="vertical"
+            android:layout_weight="1"
+            app:np_value="9" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lb"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:id="@+id/textView_inches"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_below="@id/relativeWeight"
+        android:layout_alignStart="@id/relativeWeight"
+        android:layout_alignEnd="@id/relativeWeight"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        >
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/kg_to_lb"
+            android:id="@+id/kg_to_lb_btn"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+
+        <ImageButton
+            android:id="@+id/lb_to_kg_btn"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/lb_to_kg"
+            android:layout_marginStart="110dp"
+            android:contentDescription="@string/unable_to_display_background" />
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="set"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/rounded_background_red"
+        android:id="@+id/set_age"
+         />
+
+
+
+</RelativeLayout>

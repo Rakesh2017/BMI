@@ -239,4 +239,22 @@ import java.util.regex.Pattern;
          Matcher matcher = pattern.matcher(email);
          return matcher.matches();
      }
+
+     protected void onStart(){
+         super.onStart();
+         if(!isNetworkAvailable()) {
+             String message;
+             int color;
+             message = "                  No Internet Connection";
+             color = Color.RED;
+             Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_login), message, Snackbar.LENGTH_LONG);
+             View view = snackbar.getView();
+             FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
+             params.gravity = Gravity.TOP;
+             view.setLayoutParams(params);
+             view.setBackgroundColor(color);
+             snackbar.show();
+         }
+     }
+
  }
