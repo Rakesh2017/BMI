@@ -96,7 +96,7 @@ public class SignupPage extends AppCompatActivity {
                     if(!validateEmail(emailText)){
                     String message;
                     int color;
-                    message = "                  Invalid Email Address";
+                    message = "Invalid Email Address";
                     color = Color.RED;
                     Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_reg), message, Snackbar.LENGTH_LONG);
                     View view = snackbar.getView();
@@ -111,7 +111,7 @@ public class SignupPage extends AppCompatActivity {
                 if(passwordText.length() <= 5){
                     String message;
                     int color;
-                    message = "   Length of Password should be greater than 5";
+                    message = "Length of Password should be greater than 5";
                     color = Color.RED;
                     Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_reg), message, Snackbar.LENGTH_LONG);
                     View view = snackbar.getView();
@@ -125,7 +125,7 @@ public class SignupPage extends AppCompatActivity {
                 if(!isNetworkAvailable()) {
                     String message;
                     int color;
-                    message = "                  No Internet Connection";
+                    message = "No Internet Connection";
                     color = Color.RED;
                     Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_reg), message, Snackbar.LENGTH_LONG);
                     View view = snackbar.getView();
@@ -197,7 +197,7 @@ public class SignupPage extends AppCompatActivity {
         if(!isNetworkAvailable()) {
             String message;
             int color;
-            message = "                  No Internet Connection";
+            message = "No Internet Connection";
             color = Color.RED;
             Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_reg), message, Snackbar.LENGTH_LONG);
             View view = snackbar.getView();

@@ -1,13 +1,63 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gender_background"
     tools:context="com.enhabyto.bmiapp.Askgender">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv1"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/rounded_background_black"
+        android:padding="10dp"
+        android:id="@+id/l1"
+        android:layout_centerHorizontal="true"
+        android:weightSum="2"
+        >
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_weight="1"
+            android:background="@drawable/male"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_weight="1"
+            android:background="@drawable/female"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+
+</LinearLayout>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="set"
+        android:background="@drawable/rounded_background_red"
+        android:id="@+id/set_age"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/l1"
+        android:layout_marginTop="50dp"
+        />
+
+
+
+
+
+</RelativeLayout>

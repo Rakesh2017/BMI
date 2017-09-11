@@ -31,10 +31,15 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+
 
 
  public class LoginSignupStartPage extends AppCompatActivity {
@@ -47,6 +52,10 @@ import java.util.regex.Pattern;
      private String emailText, passwordText;
      private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
      private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+
+     CircularProgressBar circularProgressBar;
+     private DatabaseReference mDatabase;
+
 
      SharedPreferences sharedPreferences;
      SharedPreferences.Editor editor;
@@ -76,6 +85,8 @@ import java.util.regex.Pattern;
             window.setStatusBarColor(ContextCompat.getColor(LoginSignupStartPage.this,R.color.red));
         }
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         ScaleAnimation animation_left_to_right = new ScaleAnimation(0,1,1,1);
         animation_left_to_right.setDuration(1100);
 
@@ -83,6 +94,12 @@ import java.util.regex.Pattern;
         animation_right_to_left.setDuration(1100);
         email=(EditText)findViewById(R.id.login_email);
         password=(EditText)findViewById(R.id.login_password);
+
+        circularProgressBar = (CircularProgressBar)findViewById(R.id.login_progressbar);
+        circularProgressBar.setColor(ContextCompat.getColor(this, R.color.red));
+        circularProgressBar.setBackgroundColor(ContextCompat.getColor(this, R.color.blue_grey_700));
+        circularProgressBar.setProgressBarWidth(getResources().getDimension(R.dimen.width_pb));
+        circularProgressBar.setBackgroundProgressBarWidth(getResources().getDimension(R.dimen.width_load_pb));
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/ReprineatoRegular.otf");
         email.setTypeface(typeface);
@@ -140,7 +157,7 @@ import java.util.regex.Pattern;
                 if(!validateEmail(emailText)){
                     String message;
                     int color;
-                    message = "                  Invalid Email Address";
+                    message = "Invalid Email Address";
                     color = Color.RED;
                     Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_login), message, Snackbar.LENGTH_LONG);
                     View view = snackbar.getView();
@@ -155,7 +172,7 @@ import java.util.regex.Pattern;
                 if(passwordText.length() <= 5){
                     String message;
                     int color;
-                    message = "   Length of Password should be greater than 5";
+                    message = "Length of Password should be greater than 5";
                     color = Color.RED;
                     Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_login), message, Snackbar.LENGTH_LONG);
                     View view = snackbar.getView();
@@ -169,7 +186,7 @@ import java.util.regex.Pattern;
                 if(!isNetworkAvailable()) {
                     String message;
                     int color;
-                    message = "                  No Internet Connection";
+                    message = "No Internet Connection";
                     color = Color.RED;
                     Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_login), message, Snackbar.LENGTH_LONG);
                     View view = snackbar.getView();
@@ -199,7 +216,7 @@ import java.util.regex.Pattern;
                                         message =  task.getException().getLocalizedMessage();
                                     }
                                     catch (NullPointerException e){
-                                        message = "     Authentication Failed ! Try Again";
+                                        message = "Authentication Failed ! Try Again";
                                     }
 
                                     color = Color.RED;
@@ -211,6 +228,10 @@ import java.util.regex.Pattern;
                                     view.setBackgroundColor(color);
                                     snackbar.show();
                                 } else {
+
+                                    circularProgressBar.setVisibility(View.VISIBLE);
+                                    int animationDuration = 2500; // 2500ms = 2,5s
+                                    circularProgressBar.setProgressWithAnimation(65, animationDuration); // Default duration = 1500ms
                                     editor.putString("A",email.getText().toString()).apply();
                                     editor.putString("B",password.getText().toString()).apply();
                                     Intent intent = new Intent(getApplicationContext(), UserInfo.class);
@@ -245,7 +266,7 @@ import java.util.regex.Pattern;
          if(!isNetworkAvailable()) {
              String message;
              int color;
-             message = "                  No Internet Connection";
+             message = "No Internet Connection";
              color = Color.RED;
              Snackbar snackbar = Snackbar.make(findViewById(R.id.btn_login), message, Snackbar.LENGTH_LONG);
              View view = snackbar.getView();

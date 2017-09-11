@@ -40,15 +40,15 @@
             app:np_width="50dp"
             app:np_height="180dp"
             app:np_dividerColor="@color/red"
-            app:np_max="7"
-            app:np_min="2"
+            app:np_max="300"
+            app:np_min="10"
             app:np_selectedTextColor="@color/white"
             app:np_selectedTextSize="25dp"
             app:np_textColor="@color/red"
             app:np_textSize="15dp"
             app:np_orientation="vertical"
             android:layout_weight="1"
-            app:np_value="5" />
+            app:np_value="80" />
 
         <TextView
             android:id="@+id/textView_feet"
@@ -69,15 +69,15 @@
             app:np_width="50dp"
             app:np_height="180dp"
             app:np_dividerColor="@color/red"
-            app:np_max="11"
-            app:np_min="0"
+            app:np_max="661"
+            app:np_min="22"
             app:np_selectedTextColor="@color/white"
             app:np_selectedTextSize="25dp"
             app:np_textColor="@color/red"
             app:np_textSize="15dp"
             app:np_orientation="vertical"
             android:layout_weight="1"
-            app:np_value="9" />
+            app:np_value="176" />
 
         <TextView
             android:layout_width="wrap_content"

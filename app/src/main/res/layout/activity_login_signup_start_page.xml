@@ -3,228 +3,250 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/yoga"
     android:id="@+id/fragment_container_LoginSIgnupStartPage"
     tools:context="com.enhabyto.bmiapp.LoginSignupStartPage">
 
 
 
-    <ImageView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="120dp"
+        android:id="@+id/imageViewBackOne"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/rounded_background_black"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_background_black"
         android:contentDescription="@string/unable_to_display_background"
-        />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="460dp"
-        android:src="@drawable/rounded_background_black"
-        android:contentDescription="@string/unable_to_display_background"
-        />
+        >
 
 
 
+            <ImageView
+                android:id="@+id/imageViewAppLogo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_logo"
+                android:background="@drawable/app_logo"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="190dp"
+                android:layout_marginBottom="310dp"
+                android:layout_marginTop="10dp"
+                />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="40dp"
-        android:id="@+id/linear1"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:weightSum="3"
+            android:layout_marginBottom="110dp"
+            android:id="@+id/credentials_login"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/login_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawable="@mipmap/signin"
+                    android:layout_gravity="center"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/login_email"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:fontFamily="serif"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:inputType="textPassword"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:fontFamily="serif"
+                    android:hint="@string/login_password"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_weight="1"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rounded_background_red"
+                android:text="@string/btn_login"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:weightSum="2"
+            >
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/sign_in_with_google"
+                android:layout_weight="1"
+                android:src="@drawable/signingoogle"
+                android:scaleType="fitCenter"
+                app:riv_corner_radius="5dip"
+                app:riv_mutate_background="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="15dp"
+                android:contentDescription="@string/unable_to_display_background"
+                />
+
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/sign_in_with_fb"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/fb_login"
+                android:scaleType="fitCenter"
+                app:riv_corner_radius="5dip"
+                app:riv_mutate_background="true"
+                android:layout_marginEnd="15dp"
+                android:contentDescription="@string/unable_to_display_background"
+                />
+
+
+
+        </LinearLayout>
+
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="135dp"
-            android:layout_height="110dp"
-            android:contentDescription="@string/app_logo"
-            android:background="@drawable/app_logo" />
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@mipmap/signin"
+            android:layout_marginBottom="240dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@string/unable_to_display_background"
+            android:id="@+id/mail_icon"
+            />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="185dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:src="@mipmap/password"
+            android:id="@+id/password_icon"
+            android:contentDescription="@string/unable_to_display_background"
+            />
 
 
-    </LinearLayout>
+
+
+    </RelativeLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="170dp"
-        android:weightSum="2"
-        >
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-            <EditText
-                android:id="@+id/login_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:inputType="textEmailAddress"
-                android:hint="@string/login_email"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="30dp"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:fontFamily="serif"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-            <EditText
-                android:id="@+id/login_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:inputType="textPassword"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:fontFamily="serif"
-                android:hint="@string/login_password"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="30dp"
-                android:layout_weight="1"
-                />
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/rounded_background_red"
-            android:text="@string/btn_login"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="365dp"
+        android:id="@+id/imageViewTwo"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_background_black"
         android:orientation="horizontal"
         android:weightSum="2"
-        >
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/imageViewBackOne"
+        android:layout_alignEnd="@+id/imageViewBackOne">
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/sign_in_with_google"
-            android:layout_weight="1"
-            android:src="@drawable/signingoogle"
-            android:scaleType="fitCenter"
-            app:riv_corner_radius="5dip"
-            app:riv_mutate_background="true"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="15dp"
-            android:contentDescription="@string/unable_to_display_background"
-            />
-
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/sign_in_with_fb"
-            android:layout_weight="1"
-            android:layout_marginStart="5dp"
-            android:src="@drawable/fb_login"
-            android:scaleType="fitCenter"
-            app:riv_corner_radius="5dip"
-            app:riv_mutate_background="true"
-            android:layout_marginEnd="15dp"
-            android:contentDescription="@string/unable_to_display_background"
-            />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="470dp"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        >
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/forgot_password"
-            android:layout_weight="1"
-            android:src="@drawable/forgot_password"
-            android:scaleType="fitCenter"
-            app:riv_corner_radius="5dip"
-            app:riv_mutate_background="true"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="15dp"
-            android:contentDescription="@string/unable_to_display_background"
-            />
-
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/sign_up"
             android:layout_weight="1"
-            android:layout_marginStart="5dp"
-            android:src="@drawable/sign_up_with_us"
-            android:scaleType="fitCenter"
-            app:riv_corner_radius="5dip"
-            app:riv_mutate_background="true"
-            android:layout_marginEnd="15dp"
             android:contentDescription="@string/unable_to_display_background"
-            />
+            android:scaleType="fitCenter"
+            android:src="@drawable/forgot_password"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:riv_corner_radius="5dip"
+            app:riv_mutate_background="true" />
+
+
+        <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/unable_to_display_background"
+            android:scaleType="fitCenter"
+            android:src="@drawable/sign_up_with_us"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:riv_corner_radius="5dip"
+            app:riv_mutate_background="true" />
 
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:src="@mipmap/signin"
-        android:layout_marginTop="190dp"
-        android:layout_marginStart="25dp"
-        android:contentDescription="@string/unable_to_display_background"
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/login_progressbar"
+        android:layout_centerHorizontal="true"
+       android:layout_above="@id/imageViewTwo"
+        android:visibility="invisible"
         />
 
-    <ImageView
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:src="@mipmap/password"
-        android:layout_marginTop="250dp"
-        android:layout_marginStart="25dp"
-        android:contentDescription="@string/unable_to_display_background"
-        />
 
 
 

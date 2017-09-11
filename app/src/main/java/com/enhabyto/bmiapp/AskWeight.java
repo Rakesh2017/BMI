@@ -1,6 +1,7 @@
 package com.enhabyto.bmiapp;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -41,10 +42,32 @@ public class AskWeight extends Fragment {
         kg_to_lb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                kg_num = kg.getValue();
+                double temp;
+                int converted_lb;
+                temp = kg_num * 2.20462;
+                converted_lb = (int)(temp+0.5d);
+                lb.setValue(converted_lb);
+                lb.setDividerColorResource(R.color.white);
+
 
             }
         });
 
+        lb_to_kg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lb_num = lb.getValue();
+                double temp;
+                int converted_kg;
+                temp = lb_num * 0.453592;
+                converted_kg = (int)(temp+0.5d);
+                kg.setValue(converted_kg);
+                kg.setDividerColorResource(R.color.white);
+
+
+            }
+        });
         return view;
     }
 
