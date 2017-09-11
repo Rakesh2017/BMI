@@ -54,7 +54,6 @@ import java.util.regex.Pattern;
      private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 
      CircularProgressBar circularProgressBar;
-     private DatabaseReference mDatabase;
 
 
      SharedPreferences sharedPreferences;
@@ -84,8 +83,6 @@ import java.util.regex.Pattern;
         //now change color
             window.setStatusBarColor(ContextCompat.getColor(LoginSignupStartPage.this,R.color.red));
         }
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         ScaleAnimation animation_left_to_right = new ScaleAnimation(0,1,1,1);
         animation_left_to_right.setDuration(1100);
@@ -228,7 +225,6 @@ import java.util.regex.Pattern;
                                     view.setBackgroundColor(color);
                                     snackbar.show();
                                 } else {
-
                                     circularProgressBar.setVisibility(View.VISIBLE);
                                     int animationDuration = 2500; // 2500ms = 2,5s
                                     circularProgressBar.setProgressWithAnimation(65, animationDuration); // Default duration = 1500ms

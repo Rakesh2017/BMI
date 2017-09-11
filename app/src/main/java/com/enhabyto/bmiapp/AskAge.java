@@ -11,6 +11,10 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +26,11 @@ public class AskAge extends Fragment {
     com.shawnlin.numberpicker.NumberPicker numberPicker;
     Button age;
     private int user_age;
+
+    private FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+    private String UserId = currentFirebaseUser.getUid();
+    private  String pid = currentFirebaseUser.getProviderId();
+    private DatabaseReference mDatabase;
 
     public AskAge() {
         // Required empty public constructor
@@ -46,8 +55,12 @@ public class AskAge extends Fragment {
             public void onClick(View v) {
                 user_age  = numberPicker.getValue();
                 Toast.makeText(getActivity(), "You are "+ user_age+ " old", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), UserId  + pid, Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
 
         return view;
     }
