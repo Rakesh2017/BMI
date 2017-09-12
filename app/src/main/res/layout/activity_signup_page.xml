@@ -9,66 +9,32 @@
 
 
 
+
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:paddingBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:weightSum="2"
-        android:background="@drawable/rounded_background_black"
-        >
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:id="@+id/imageView1"
-            android:src="@drawable/register_using_google"
-            android:scaleType="fitCenter"
-            app:riv_corner_radius="5dip"
-            app:riv_mutate_background="true"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/unable_to_display_background"
-            />
-
-
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:id="@+id/imageView2"
-            android:src="@drawable/register_using_fb"
-            android:scaleType="fitCenter"
-            app:riv_corner_radius="5dip"
-            app:riv_mutate_background="true"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/unable_to_display_background"
-            />
-
-    </LinearLayout>
-
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/rounded_background_black"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+
+
             >
+
+        <ImageView
+            android:id="@+id/imageViewAppLogoSignup"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/app_logo"
+            android:background="@drawable/app_logo"
+            android:layout_marginTop="20dp"
+            />
+
 
 
 
@@ -142,7 +108,7 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:src="@mipmap/signin"
-        android:layout_marginTop="145dp"
+        android:layout_marginTop="215dp"
         android:layout_marginStart="20dp"
         android:id="@+id/iv1"
         android:contentDescription="@string/unable_to_display_background"
@@ -153,7 +119,7 @@
         android:layout_height="15dp"
         android:src="@mipmap/password"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="280dp"
         android:contentDescription="@string/unable_to_display_background"
         />
 

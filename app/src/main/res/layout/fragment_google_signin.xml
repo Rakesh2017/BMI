@@ -97,14 +97,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/sign_out"
+                android:textStyle="italic"
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
 
             <Button
-                android:id="@+id/disconnect_button"
+                android:id="@+id/set_go_with_google"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/disconnect"
+                android:text="@string/set_go"
+                android:background="@color/red"
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
         </LinearLayout>
 

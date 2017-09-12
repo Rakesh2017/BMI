@@ -15,7 +15,7 @@
     <string name="google_title_text">Google Sign Up</string>
     <string name="signed_out">Signed Out</string>
     <string name="sign_out">Sign Out</string>
-    <string name="disconnect">Disconnect</string>
+    <string name="set_go">Set Go</string>
     <string name="google_status_fmt">Signed in as %s</string>
     <string name="loading">Loading…</string>
     <string name="title_text">Google Sign-In\nQuickstart</string>

@@ -66,21 +66,13 @@ public class SignupPage extends AppCompatActivity {
             window.setStatusBarColor(ContextCompat.getColor(SignupPage.this,R.color.red));
         }
 
-        ScaleAnimation animation_left_to_right = new ScaleAnimation(0,1,1,1);
-        animation_left_to_right.setDuration(1100);
 
-        ScaleAnimation animation_right_to_left = new ScaleAnimation(0,1,1,1, Animation.RELATIVE_TO_SELF, 1, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation_right_to_left.setDuration(1100);
 
-        imageButton1 = (RoundedImageView) findViewById(R.id.imageView1);
-        imageButton2 = (RoundedImageView) findViewById(R.id.imageView2);
         editText1=(EditText)findViewById(R.id.login_email);
         editText2=(EditText)findViewById(R.id.login_password);
         button=(Button)findViewById(R.id.btn_reg);
         auth = FirebaseAuth.getInstance();
 
-        imageButton1.startAnimation(animation_left_to_right);
-        imageButton2.startAnimation(animation_right_to_left);
 
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/ReprineatoRegular.otf");
@@ -166,14 +158,6 @@ public class SignupPage extends AppCompatActivity {
             }
         });
 
-
-        imageButton1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_SignupPage,new GoogleSignup()).addToBackStack(null).commit();
-
-            }
-        });
 
 
 

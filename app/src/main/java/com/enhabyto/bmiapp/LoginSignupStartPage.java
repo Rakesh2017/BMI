@@ -21,11 +21,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,11 +55,22 @@ import java.util.regex.Pattern;
      private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
      private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 
+     private int num = 2;
+
      CircularProgressBar circularProgressBar;
+     ImageButton forgot_icon;
 
 
-     SharedPreferences sharedPreferences;
-     SharedPreferences.Editor editor;
+     private SharedPreferences sharedPreferences;
+     private SharedPreferences.Editor editor;
+
+     private  ScaleAnimation animation_left_to_right;
+     private ScaleAnimation animation_right_to_left;
+
+     private ImageView app_logo;
+     Animation animBlink, fadeIn, animRot;
+
+
 
 
 
@@ -84,14 +97,23 @@ import java.util.regex.Pattern;
             window.setStatusBarColor(ContextCompat.getColor(LoginSignupStartPage.this,R.color.red));
         }
 
-        ScaleAnimation animation_left_to_right = new ScaleAnimation(0,1,1,1);
+        app_logo = (ImageView)findViewById(R.id.imageViewAppLogo);
+        animBlink = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+        fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+        animRot = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
+
+        app_logo.startAnimation(fadeIn);
+
+        animation_left_to_right = new ScaleAnimation(0,1,1,1);
         animation_left_to_right.setDuration(1100);
 
-        ScaleAnimation animation_right_to_left = new ScaleAnimation(0,1,1,1, Animation.RELATIVE_TO_SELF, 1, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation_right_to_left = new ScaleAnimation(0,1,1,1, Animation.RELATIVE_TO_SELF, 1, Animation.RELATIVE_TO_SELF, 0.5f);
         animation_right_to_left.setDuration(1100);
         email=(EditText)findViewById(R.id.login_email);
         password=(EditText)findViewById(R.id.login_password);
 
+        forgot_icon = (ImageButton)findViewById(R.id.forgot_pass_icon);
+        forgot_icon.startAnimation(animRot);
         circularProgressBar = (CircularProgressBar)findViewById(R.id.login_progressbar);
         circularProgressBar.setColor(ContextCompat.getColor(this, R.color.red));
         circularProgressBar.setBackgroundColor(ContextCompat.getColor(this, R.color.blue_grey_700));
@@ -119,9 +141,11 @@ import java.util.regex.Pattern;
         imageButton4=(RoundedImageView) findViewById(R.id.sign_up);
 
         imageButton1.startAnimation(animation_left_to_right);
-        imageButton3.startAnimation(animation_left_to_right);
         imageButton2.startAnimation(animation_right_to_left);
         imageButton4.startAnimation(animation_right_to_left);
+
+
+
 
 
 
@@ -136,13 +160,29 @@ import java.util.regex.Pattern;
             }
         });
 
-        imageButton4.setOnClickListener(new View.OnClickListener() {
+      imageButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent  = new Intent(getApplicationContext(), SignupPage.class);
                 startActivity(intent);
             }
         });
+
+        forgot_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(num == 2 ){
+                    imageButton3.setVisibility(View.VISIBLE);
+                    imageButton3.startAnimation(animation_right_to_left);
+                    num++;
+                    forgot_icon.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+
+
 
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +192,7 @@ import java.util.regex.Pattern;
                 emailText=email.getText().toString().trim();
                 passwordText=password.getText().toString().trim();
                 if(!validateEmail(emailText)){
+                    email.startAnimation(animBlink);
                     String message;
                     int color;
                     message = "Invalid Email Address";
@@ -167,6 +208,7 @@ import java.util.regex.Pattern;
 
                 }
                 if(passwordText.length() <= 5){
+                    password.startAnimation(animBlink);
                     String message;
                     int color;
                     message = "Length of Password should be greater than 5";
@@ -181,6 +223,7 @@ import java.util.regex.Pattern;
                     return;
                 }
                 if(!isNetworkAvailable()) {
+                    app_logo.startAnimation(animBlink);
                     String message;
                     int color;
                     message = "No Internet Connection";
@@ -260,6 +303,7 @@ import java.util.regex.Pattern;
      protected void onStart(){
          super.onStart();
          if(!isNetworkAvailable()) {
+             app_logo.startAnimation(animBlink);
              String message;
              int color;
              message = "No Internet Connection";
