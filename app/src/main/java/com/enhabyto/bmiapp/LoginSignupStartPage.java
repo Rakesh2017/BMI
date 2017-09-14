@@ -33,8 +33,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
@@ -59,6 +62,10 @@ import java.util.regex.Pattern;
 
      CircularProgressBar circularProgressBar;
      ImageButton forgot_icon;
+
+     DatabaseReference d_parent = FirebaseDatabase.getInstance().getReference();
+     DatabaseReference d_ref_database;
+
 
 
      private SharedPreferences sharedPreferences;
@@ -155,7 +162,7 @@ import java.util.regex.Pattern;
         imageButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_LoginSIgnupStartPage,new GoogleSignin()).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_LoginSIgnupStartPage,new GoogleSignin()).addToBackStack(null).commit();
 
             }
         });
@@ -273,10 +280,46 @@ import java.util.regex.Pattern;
                                     circularProgressBar.setProgressWithAnimation(65, animationDuration); // Default duration = 1500ms
                                     editor.putString("A",email.getText().toString()).apply();
                                     editor.putString("B",password.getText().toString()).apply();
-                                    Intent intent = new Intent(getApplicationContext(), UserInfo.class);
-                                    startActivity(intent);
-                                    finish();
+
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    d_ref_database = d_parent.child("users").child(user.getUid()).child("flag");
+                                    // Toast.makeText(getActivity(), user.getProviderId(), Toast.LENGTH_SHORT).show();
+
+
+                                    d_ref_database.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                                            String checker = dataSnapshot.getValue(String.class);
+                                            if (checker == null) {
+                                                Intent intent = new Intent(LoginSignupStartPage.this, UserInfo.class);
+                                                startActivity(intent);
+                                                finish();
+                                                return;
+                                            }
+
+                                            if (!checker.equals("confirmed")) {
+                                                Intent intent = new Intent(LoginSignupStartPage.this, UserInfo.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                Intent intent = new Intent(LoginSignupStartPage.this, HomePage.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            // Toast.makeText(getActivity(), "Database server error", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+
                                 }
+
                             }
                         });
 

@@ -3,65 +3,57 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_grey_700"
+    android:background="@drawable/yoga"
     android:orientation="vertical"
-    android:weightSum="4"
-    tools:context="com.enhabyto.bmiapp.GoogleSignin">
+    android:clickable="true"
+    android:weightSum="4">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
         android:gravity="center_horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_background_black"
         android:orientation="vertical">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            style="@style/ThemeOverlay.FirebaseIcon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:id="@+id/google_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/google_logo"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="@dimen/g_top_margin"
-            android:contentDescription="@string/unable_to_display_background"
-            android:src="@drawable/googleg_color" />
+            android:contentDescription="@string/desc_firebase_lockup"
+            app:riv_corner_radius="5dip"
+            app:riv_mutate_background="true"
+            app:riv_oval="true"
+            />
+
 
         <TextView
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="@string/title_text"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="36sp" />
+            android:layout_marginBottom="@dimen/title_bottom_margin"
+            android:text="@string/google_title_text"
+            android:theme="@style/ThemeOverlay.MyTitleText" />
 
         <TextView
             android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/signed_out"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            style="@style/ThemeOverlay.MyTextDetail"
+            android:text="@string/signed_out" />
 
         <TextView
             android:id="@+id/detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fadeScrollbars="true"
-            android:gravity="center"
-            android:maxLines="5"
-            android:padding="10dp"
-            android:scrollbars="vertical"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/button_optional_action"
-            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:text="Optional Action"
-            tools:visibility="visible" />
+            style="@style/ThemeOverlay.MyTextDetail"
+            tools:text="Google User: User Name" />
 
     </LinearLayout>
 
@@ -70,7 +62,13 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/blue_grey_900">
+        android:background="@drawable/rounded_background_black"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingTop="10dp"
+       >
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
@@ -97,20 +95,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/sign_out"
-                android:textStyle="italic"
+                android:contentDescription="@string/unable_to_display_background"
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
 
             <Button
-                android:id="@+id/set_go_with_google"
+                android:id="@+id/land_in_app_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/set_go"
-                android:background="@color/red"
-                android:theme="@style/ThemeOverlay.MyDarkButton" />
+                android:contentDescription="@string/unable_to_display_background"
+                android:theme="@style/ThemeOverlay.MyDarkButtonSetGo" />
         </LinearLayout>
 
     </RelativeLayout>
-
 
 </LinearLayout>

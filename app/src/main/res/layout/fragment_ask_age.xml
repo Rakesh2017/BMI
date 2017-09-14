@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/age_background"
+    android:clickable="true"
     tools:context="com.enhabyto.bmiapp.AskAge">
 
 
@@ -45,12 +46,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:layout_below="@id/agel1"
-
+        android:onClick="onClick"
         />
 
-
-
-
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:contentDescription="@string/unable_to_display_background"
+        android:layout_alignRight="@+id/agel1"
+        android:background="@drawable/tick"
+        android:layout_alignTop="@id/agel1"
+        android:padding="5dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="2dp"
+        android:id="@+id/tick_age"
+        android:visibility="invisible"
+        />
 
 
 </RelativeLayout>

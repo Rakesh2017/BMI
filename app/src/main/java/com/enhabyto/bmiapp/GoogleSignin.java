@@ -1,15 +1,26 @@
 package com.enhabyto.bmiapp;
 
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.app.ProgressDialog;
-import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,39 +29,52 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.*;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.squareup.picasso.Picasso;
+
+import java.util.concurrent.Executor;
+
 
 /**
- * Activity to demonstrate basic retrieval of the Google user's ID, email address, and basic
- * profile.
-
  * A simple {@link Fragment} subclass.
  */
-public class GoogleSignin extends Fragment implements GoogleApiClient.OnConnectionFailedListener,
-        View.OnClickListener{
+public class GoogleSignin extends Fragment implements
+        GoogleApiClient.OnConnectionFailedListener,
+        View.OnClickListener {
 
-    private View view;
 
-    private static final String TAG = "SignInActivity";
+    @VisibleForTesting
+    public ProgressDialog mProgressDialog;
+
+    private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
-    private GoogleApiClient mGoogleApiClient;
-    private TextView mStatusTextView;
-    private ProgressDialog mProgressDialog;
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
+
+    private GoogleApiClient mGoogleApiClient;
+    private TextView mStatusTextView;
+    private TextView mDetailTextView;
+
+    private RoundedImageView disp_image;
+
+    View view;
+
+    DatabaseReference d_parent = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference d_ref_database;
+
 
     public GoogleSignin() {
         // Required empty public constructor
@@ -63,36 +87,35 @@ public class GoogleSignin extends Fragment implements GoogleApiClient.OnConnecti
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_google_signin, container, false);
 
+        disp_image = (RoundedImageView) view.findViewById(R.id.google_icon);
+
+
         // Views
-        mStatusTextView = (TextView)view. findViewById(R.id.status);
+        mStatusTextView = (TextView) view.findViewById(R.id.status);
+        mDetailTextView = (TextView) view.findViewById(R.id.detail);
 
         // Button listeners
         view.findViewById(R.id.sign_in_button).setOnClickListener(this);
         view.findViewById(R.id.sign_out_button).setOnClickListener(this);
-        view.findViewById(R.id.set_go_with_google).setOnClickListener(this);
+        view.findViewById(R.id.land_in_app_btn).setOnClickListener(this);
 
-        // [START configure_signin]
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        // [START config_signin]
+        // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        // [END configure_signin]
+        // [END config_signin]
 
-        // [START build_client]
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity().getApplicationContext())
                 .enableAutoManage(getActivity() /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        // [END build_client]
 
-        // [START customize_button]
-        // Set the dimensions of the sign-in button.
-        SignInButton signInButton = (SignInButton)view. findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
-        // [END customize_button]
+        // [START initialize_auth]
+        mAuth = FirebaseAuth.getInstance();
+        // [END initialize_auth]
+
 
         return view;
     }
@@ -103,15 +126,24 @@ public class GoogleSignin extends Fragment implements GoogleApiClient.OnConnecti
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = null;
-        try{
-             currentUser = mAuth.getCurrentUser();
-        }
-        catch (NullPointerException e)
-        {
-            Toast.makeText(getActivity(), "ok", Toast.LENGTH_SHORT).show();
-        }
 
+
+        if (!isNetworkAvailable()) {
+            String message;
+            int color;
+            message = "No Internet Connection, Try again";
+            color = Color.RED;
+            Snackbar snackbar = Snackbar.make(view.findViewById(R.id.sign_out_button), message, Snackbar.LENGTH_LONG);
+            View view = snackbar.getView();
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+            params.gravity = Gravity.TOP;
+            view.setLayoutParams(params);
+            view.setBackgroundColor(color);
+            snackbar.show();
+            return;
+        }
+        mGoogleApiClient.connect();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
     // [END on_start_check_user]
@@ -173,26 +205,65 @@ public class GoogleSignin extends Fragment implements GoogleApiClient.OnConnecti
 
     // [START signin]
     private void signIn() {
+
+        if (!isNetworkAvailable()) {
+            String message;
+            int color;
+            message = "No Internet Connection, Try again";
+            color = Color.RED;
+            Snackbar snackbar = Snackbar.make(view.findViewById(R.id.sign_out_button), message, Snackbar.LENGTH_LONG);
+            View view = snackbar.getView();
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+            params.gravity = Gravity.TOP;
+            view.setLayoutParams(params);
+            view.setBackgroundColor(color);
+            snackbar.show();
+            return;
+        }
+
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     // [END signin]
 
     private void signOut() {
+
+        if (!isNetworkAvailable()) {
+            String message;
+            int color;
+            message = "No Internet Connection, Try again";
+            color = Color.RED;
+            Snackbar snackbar = Snackbar.make(view.findViewById(R.id.sign_out_button), message, Snackbar.LENGTH_LONG);
+            View view = snackbar.getView();
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+            params.gravity = Gravity.TOP;
+            view.setLayoutParams(params);
+            view.setBackgroundColor(color);
+            snackbar.show();
+            return;
+        }
+
         // Firebase sign out
         mAuth.signOut();
 
+        try {
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            updateUI(null);
+                        }
+                    });
+        } catch (IllegalStateException e) {
+            Toast.makeText(getActivity(), "Server Error Try again" + e, Toast.LENGTH_SHORT).show();
+        }
+
         // Google sign out
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
-                        updateUI(null);
-                    }
-                });
+
     }
 
-    private void revokeAccess() {
+
+  /*  private void revokeAccess() {
         // Firebase sign out
         mAuth.signOut();
 
@@ -204,19 +275,86 @@ public class GoogleSignin extends Fragment implements GoogleApiClient.OnConnecti
                         updateUI(null);
                     }
                 });
+    }*/
+
+    public void land_to_home_or_userinfo() {
+
+        if (!isNetworkAvailable()) {
+            String message;
+            int color;
+            message = "No Internet Connection, Try again";
+            color = Color.RED;
+            Snackbar snackbar = Snackbar.make(view.findViewById(R.id.sign_out_button), message, Snackbar.LENGTH_LONG);
+            View view = snackbar.getView();
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+            params.gravity = Gravity.TOP;
+            view.setLayoutParams(params);
+            view.setBackgroundColor(color);
+            snackbar.show();
+            return;
+        }
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        d_ref_database = d_parent.child("users").child(user.getUid()).child("flag");
+        // Toast.makeText(getActivity(), user.getProviderId(), Toast.LENGTH_SHORT).show();
+
+
+        d_ref_database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                String checker = dataSnapshot.getValue(String.class);
+                if (checker == null) {
+                    Intent intent = new Intent(getActivity(), UserInfo.class);
+                    startActivity(intent);
+                    return;
+                }
+
+                if (!checker.equals("confirmed")) {
+                    Intent intent = new Intent(getActivity(), UserInfo.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), HomePage.class);
+                    startActivity(intent);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Toast.makeText(getActivity(), "Database server error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
             mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
-           // mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getDisplayName()));
+
+            Uri url = user.getPhotoUrl();
+
+            Picasso.with(getActivity())
+                    .load(url)
+                    .resize(200, 200)
+                    .centerCrop()
+                    .into(disp_image);
+
 
             view.findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             view.findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
         } else {
             mStatusTextView.setText(R.string.signed_out);
-          //  mDetailTextView.setText(null);
+            mDetailTextView.setText(null);
+            Picasso.with(getActivity())
+                    .load("https://maxcdn.icons8.com/Share/icon/Logos//google_logo1600.png")
+                    .resize(200, 200)
+                    .centerCrop()
+                    .into(disp_image);
+
 
             view.findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             view.findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
@@ -238,20 +376,12 @@ public class GoogleSignin extends Fragment implements GoogleApiClient.OnConnecti
             signIn();
         } else if (i == R.id.sign_out_button) {
             signOut();
+        } else if (i == R.id.land_in_app_btn) {
+            land_to_home_or_userinfo();
         }
     }
 
-
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mProgressDialog != null) {
-            mProgressDialog.dismiss();
-        }
-    }
-
-    private void showProgressDialog() {
+    public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(getActivity());
             mProgressDialog.setMessage(getString(R.string.loading));
@@ -261,17 +391,25 @@ public class GoogleSignin extends Fragment implements GoogleApiClient.OnConnecti
         mProgressDialog.show();
     }
 
-    private void hideProgressDialog() {
+    public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
+            mProgressDialog.dismiss();
         }
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
+        hideProgressDialog();
         mGoogleApiClient.stopAutoManage(getActivity());
         mGoogleApiClient.disconnect();
+
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) (getActivity()).getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }

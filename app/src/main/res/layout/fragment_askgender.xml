@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gender_background"
+    android:clickable="true"
     tools:context="com.enhabyto.bmiapp.Askgender">
 
 
@@ -30,6 +31,7 @@
             android:layout_height="160dp"
             android:layout_weight="1"
             android:background="@drawable/male"
+            android:id="@+id/male"
             android:layout_marginEnd="5dp"
             android:contentDescription="@string/unable_to_display_background"
             />
@@ -37,6 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="160dp"
             android:layout_weight="1"
+            android:id="@+id/female"
             android:background="@drawable/female"
             android:layout_marginStart="5dp"
             android:contentDescription="@string/unable_to_display_background"
@@ -45,16 +48,55 @@
 </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv1"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="150dp"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:weightSum="2"
+        >
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            android:background="@drawable/male_selected"
+            android:id="@+id/male_s"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            android:id="@+id/female_s"
+            android:background="@drawable/female_selected"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+
+    </LinearLayout>
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="set"
         android:background="@drawable/rounded_background_red"
-        android:id="@+id/set_age"
+        android:id="@+id/enter_home"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/l1"
         android:layout_marginTop="50dp"
         />
+
+
 
 
 

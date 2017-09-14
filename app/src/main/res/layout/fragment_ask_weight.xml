@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/weight_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
     tools:context="com.enhabyto.bmiapp.AskWeight">
 
     <ImageView
@@ -95,51 +96,127 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_below="@id/relativeWeight"
-        android:layout_alignStart="@id/relativeWeight"
-        android:layout_alignEnd="@id/relativeWeight"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        >
-
-        <ImageButton
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/kg_to_lb"
-            android:id="@+id/kg_to_lb_btn"
-            android:contentDescription="@string/unable_to_display_background"
-            />
-
-        <ImageButton
-            android:id="@+id/lb_to_kg_btn"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:background="@drawable/lb_to_kg"
-            android:layout_marginStart="110dp"
-            android:contentDescription="@string/unable_to_display_background" />
-
-    </LinearLayout>
 
 
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="set"
+        android:text="Set"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/rounded_background_red"
-        android:id="@+id/set_age"
+        android:id="@+id/set_weight_kg"
          />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:visibility="invisible"
+        android:background="@drawable/rounded_background_red"
+        android:id="@+id/set_weight_lb"
+         />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:contentDescription="@string/unable_to_display_background"
+        android:layout_alignRight="@+id/relativeWeight"
+        android:background="@drawable/tick"
+        android:layout_alignTop="@id/relativeWeight"
+        android:padding="5dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="2dp"
+        android:id="@+id/tick_weight"
+        android:visibility="invisible"
+        />
 
 
-</RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@id/relativeWeight"
+            android:layout_alignEnd="@id/relativeWeight"
+            android:layout_alignTop="@id/relativeWeight"
+            android:layout_alignStart="@id/relativeWeight"
+            android:padding="10dp"
+            android:weightSum="2"
+            android:id="@+id/ll3"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                android:visibility="invisible"
+                android:id="@+id/ivback1"
+                android:background="@drawable/rounded_yellow"
+                android:contentDescription="@string/unable_to_display_background"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:id="@+id/ivback2"
+                android:background="@drawable/rounded_yellow"
+                android:contentDescription="@string/unable_to_display_background"
+                />
+
+
+        </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ll3"
+        android:layout_alignEnd="@id/ll3"
+        android:layout_alignTop="@id/ll3"
+        android:layout_alignStart="@id/ll3"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+
+        >
+        <View android:id="@+id/strut"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_alignRight="@id/strut"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/kg_blur"
+            android:visibility="invisible"
+            android:background="@drawable/rounded_background_red"
+            android:text="Kilograms"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_alignLeft="@id/strut"
+            android:layout_alignParentRight="true"
+            android:id="@+id/pounds_blur"
+            android:background="@drawable/rounded_background_red"
+            android:layout_centerInParent="true"
+            android:text="Pounds"/>
+    </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+

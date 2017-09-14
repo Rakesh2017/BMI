@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/height_background"
+    android:clickable="true"
     tools:context="com.enhabyto.bmiapp.AskHeight">
 
 
@@ -142,39 +143,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_below="@id/relativeHeight"
-        android:layout_alignStart="@id/relativeHeight"
-        android:layout_alignEnd="@id/relativeHeight"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-          >
-
-        <ImageButton
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/ft_to_cm"
-            android:id="@+id/ft_to_cm_btn"
-            android:contentDescription="@string/unable_to_display_background"
-            />
-
-        <ImageButton
-            android:id="@+id/cm_to_ft_btn"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:background="@drawable/cm_to_ft"
-            android:layout_marginStart="110dp"
-            android:contentDescription="@string/unable_to_display_background" />
-
-    </LinearLayout>
-
-
 
       <Button
         android:layout_width="wrap_content"
@@ -182,11 +150,91 @@
         android:text="set"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/rounded_background_red"
-        android:id="@+id/set_age"
+        android:id="@+id/set_height_feet"
 
         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="set"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/rounded_background_red"
+        android:id="@+id/set_height_cm"
+        android:visibility="invisible"
+
+        />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:contentDescription="@string/unable_to_display_background"
+        android:layout_alignEnd="@+id/relativeHeight"
+        android:background="@drawable/tick"
+        android:layout_alignTop="@id/relativeHeight"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="2dp"
+        android:id="@+id/tick_height"
+        android:visibility="invisible"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignStart="@id/linearHeight"
+        android:layout_alignTop="@id/linearHeight"
+        android:layout_alignEnd="@id/linearHeight"
+        android:layout_alignBottom="@id/linearHeight"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rounded_yellow"
+        android:id="@+id/rl1"
+        android:visibility="invisible"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background_red"
+            android:id="@+id/feet_blur"
+            android:layout_centerHorizontal="true"
+            android:text="feet +  inches"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignStart="@id/linearHeight1"
+        android:layout_alignTop="@id/linearHeight1"
+        android:layout_alignEnd="@id/linearHeight1"
+        android:layout_alignBottom="@id/linearHeight1"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rounded_yellow"
+        android:id="@+id/rl2"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background_red"
+            android:id="@+id/cm_blur"
+            android:layout_centerHorizontal="true"
+            android:text="Centimeter"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            />
+
+    </RelativeLayout>
 
 
 

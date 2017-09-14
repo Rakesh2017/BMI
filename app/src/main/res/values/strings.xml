@@ -17,8 +17,13 @@
     <string name="sign_out">Sign Out</string>
     <string name="set_go">Set Go</string>
     <string name="google_status_fmt">Signed in as %s</string>
+    <string name="firebase_status_fmt">Google User: %s</string>
     <string name="loading">Loading…</string>
     <string name="title_text">Google Sign-In\nQuickstart</string>
     <string name="signed_in_fmt">Signed in as %s</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="desc_google_icon">Google Logo</string>
+
+
 
 </resources>
