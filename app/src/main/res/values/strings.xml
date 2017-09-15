@@ -23,7 +23,13 @@
     <string name="signed_in_fmt">Signed in as %s</string>
     <string name="disconnect">Disconnect</string>
     <string name="desc_google_icon">Google Logo</string>
+    <string name="title_activity_home_page">HomePage</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title">Body Mass Index</string>
 
 
 </resources>

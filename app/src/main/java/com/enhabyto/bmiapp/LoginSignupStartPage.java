@@ -109,7 +109,7 @@ import java.util.regex.Pattern;
         fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         animRot = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
 
-        app_logo.startAnimation(fadeIn);
+
 
         animation_left_to_right = new ScaleAnimation(0,1,1,1);
         animation_left_to_right.setDuration(1100);
@@ -150,12 +150,6 @@ import java.util.regex.Pattern;
         imageButton1.startAnimation(animation_left_to_right);
         imageButton2.startAnimation(animation_right_to_left);
         imageButton4.startAnimation(animation_right_to_left);
-
-
-
-
-
-
 
         button_login=(Button)findViewById(R.id.btn_login);
 

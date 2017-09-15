@@ -306,12 +306,14 @@ public class GoogleSignin extends Fragment implements
 
                 String checker = dataSnapshot.getValue(String.class);
                 if (checker == null) {
+                    set_data();
                     Intent intent = new Intent(getActivity(), UserInfo.class);
                     startActivity(intent);
                     return;
                 }
 
                 if (!checker.equals("confirmed")) {
+                    set_data();
                     Intent intent = new Intent(getActivity(), UserInfo.class);
                     startActivity(intent);
                 } else {
@@ -410,6 +412,21 @@ public class GoogleSignin extends Fragment implements
         ConnectivityManager connectivityManager = (ConnectivityManager) (getActivity()).getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public void set_data(){
+        FirebaseUser user1 = mAuth.getCurrentUser();
+        DatabaseReference d_set_database = d_parent.child("users").child(user1.getUid());
+        final int dummy_value = 1;
+        d_set_database.child("age").setValue(dummy_value);
+        d_set_database.child("flag").setValue("unconfirmed");
+        d_set_database.child("age").setValue(1);
+        d_set_database.child("gender").setValue("uni");
+        d_set_database.child("height").child("centimeter").setValue(dummy_value);
+        d_set_database.child("height").child("feet_and_inches").child("feet").setValue(dummy_value);
+        d_set_database.child("height").child("feet_and_inches").child("inches").setValue(dummy_value);
+        d_set_database.child("weight").child("kilograms").setValue(dummy_value);
+        d_set_database.child("weight").child("pounds").setValue(dummy_value);
+        d_set_database.child("display_name").setValue(user1.getDisplayName());
     }
 
 }
