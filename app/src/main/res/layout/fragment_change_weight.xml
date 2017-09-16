@@ -1,0 +1,236 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginStart="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.enhabyto.bmiapp.changeWeight">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/unable_to_display_background"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_change_frags"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:riv_corner_radius="5dip"
+            app:riv_mutate_background="true" />
+
+
+        <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/relativeWeight_change"
+        android:background="@drawable/rounded_background_black"
+        android:contentDescription="@string/unable_to_display_background"
+        android:layout_marginBottom="20dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/relativeWeight_change"
+        android:orientation="horizontal"
+        android:id="@+id/linearWeight_change"
+        android:layout_centerHorizontal="true"
+        android:weightSum="4"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignStart="@id/relativeWeight_change"
+        android:layout_alignEnd="@id/relativeWeight_change"
+        >
+
+        <com.shawnlin.numberpicker.NumberPicker
+            android:id="@+id/number_picker_kg_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:np_width="50dp"
+            app:np_height="180dp"
+            app:np_dividerColor="@color/red"
+            app:np_max="300"
+            app:np_min="10"
+            app:np_selectedTextColor="@color/white"
+            app:np_selectedTextSize="25dp"
+            app:np_textColor="@color/red"
+            app:np_textSize="15dp"
+            app:np_orientation="vertical"
+            android:layout_weight="1"
+            app:np_value="80" />
+
+        <TextView
+            android:id="@+id/textView_feet_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Kg"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <com.shawnlin.numberpicker.NumberPicker
+            android:id="@+id/number_picker_lb_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:np_width="50dp"
+            app:np_height="180dp"
+            app:np_dividerColor="@color/red"
+            app:np_max="661"
+            app:np_min="22"
+            app:np_selectedTextColor="@color/white"
+            app:np_selectedTextSize="25dp"
+            app:np_textColor="@color/red"
+            app:np_textSize="15dp"
+            app:np_orientation="vertical"
+            android:layout_weight="1"
+            app:np_value="176" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lb"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:id="@+id/textView_inches_change"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            />
+
+
+    </LinearLayout>
+
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/rounded_background_red"
+        android:id="@+id/set_weight_kg_change"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:visibility="invisible"
+        android:background="@drawable/rounded_background_red"
+        android:id="@+id/set_weight_lb_change"
+        />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:contentDescription="@string/unable_to_display_background"
+        android:layout_alignRight="@+id/relativeWeight_change"
+        android:background="@drawable/tick"
+        android:layout_alignTop="@id/relativeWeight_change"
+        android:padding="5dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="2dp"
+        android:id="@+id/tick_weight_change"
+        android:visibility="invisible"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/relativeWeight_change"
+        android:layout_alignEnd="@id/relativeWeight_change"
+        android:layout_alignTop="@id/relativeWeight_change"
+        android:layout_alignStart="@id/relativeWeight_change"
+        android:padding="10dp"
+        android:weightSum="2"
+        android:id="@+id/ll3_change"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="5dp"
+            android:visibility="invisible"
+            android:id="@+id/ivback1_change"
+            android:background="@drawable/rounded_yellow"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:id="@+id/ivback2_change"
+            android:background="@drawable/rounded_yellow"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ll3_change"
+        android:layout_alignEnd="@id/ll3_change"
+        android:layout_alignTop="@id/ll3_change"
+        android:layout_alignStart="@id/ll3_change"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+
+        >
+        <View android:id="@+id/strut_change"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_alignRight="@id/strut_change"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/kg_blur_change"
+            android:visibility="invisible"
+            android:background="@drawable/rounded_background_red"
+            android:text="Kilograms"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_alignLeft="@id/strut_change"
+            android:layout_alignParentRight="true"
+            android:id="@+id/pounds_blur_change"
+            android:background="@drawable/rounded_background_red"
+            android:layout_centerInParent="true"
+            android:text="Pounds"/>
+    </RelativeLayout>
+    </RelativeLayout>
+
+</FrameLayout>

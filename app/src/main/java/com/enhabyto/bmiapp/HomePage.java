@@ -1,5 +1,6 @@
 package com.enhabyto.bmiapp;
 
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -11,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,11 +30,16 @@ import com.google.firebase.database.ValueEventListener;
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView name;
+    TextView name, agetx, heighttx, weighttx;
     DatabaseReference d_parent = FirebaseDatabase.getInstance().getReference();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     DatabaseReference d_ref;
+
+    private String gender;
+    private int weight_kg, height_ft, height_in , age, height_cm, weight_lb;
+    private Button btn_age, btn_height, btn_weight;
+
 
 
 
@@ -55,8 +63,21 @@ public class HomePage extends AppCompatActivity
         toolbar.setTitle("Body Mass Index");
         setSupportActionBar(toolbar);
 
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/ReprineatoRegular.otf");
+
+        agetx = (TextView)findViewById(R.id.u_age_text);
+        heighttx = (TextView)findViewById(R.id.u_height_text);
+        weighttx = (TextView)findViewById(R.id.u_weight_text);
+        btn_age = (Button)findViewById(R.id.change_age);
+        btn_height = (Button)findViewById(R.id.change_height);
+        btn_weight = (Button)findViewById(R.id.change_weight);
+
         d_ref = d_parent.child("users").child(user.getUid());
         name = (TextView)findViewById(R.id.disp_name);
+        name.setTypeface(typeface);
+        agetx.setTypeface(typeface);
+        heighttx.setTypeface(typeface);
+        weighttx.setTypeface(typeface);
 
 
 
@@ -68,11 +89,47 @@ public class HomePage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        btn_age.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home_page,new changeAge()).addToBackStack(null).commit();
+                btn_weight.setVisibility(View.INVISIBLE);
+                btn_height.setVisibility(View.INVISIBLE);
+                btn_age.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        btn_height.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home_page,new changeHeight()).addToBackStack(null).commit();
+                btn_weight.setVisibility(View.INVISIBLE);
+                btn_height.setVisibility(View.INVISIBLE);
+                btn_age.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        btn_weight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home_page,new changeWeight()).addToBackStack(null).commit();
+                btn_weight.setVisibility(View.INVISIBLE);
+                btn_height.setVisibility(View.INVISIBLE);
+                btn_age.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        btn_weight.setVisibility(View.VISIBLE);
+        btn_height.setVisibility(View.VISIBLE);
+        btn_age.setVisibility(View.VISIBLE);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -135,6 +192,18 @@ public class HomePage extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String d_name = dataSnapshot.child("display_name").getValue(String.class);
                 name.setText(String.format("Hi %s", d_name));
+                age = dataSnapshot.child("age").getValue(Integer.class);
+                height_ft = dataSnapshot.child("height").child("feet_and_inches").child("feet").getValue(Integer.class);
+                height_in = dataSnapshot.child("height").child("feet_and_inches").child("inches").getValue(Integer.class);
+                height_cm = dataSnapshot.child("height").child("centimeter").getValue(Integer.class);
+                weight_kg = dataSnapshot.child("weight").child("kilograms").getValue(Integer.class);
+                weight_lb = dataSnapshot.child("weight").child("pounds").getValue(Integer.class);
+
+
+
+                agetx.setText("You are "+ age + " years old");
+                heighttx.setText("You are "+ height_ft+"'' " +height_in+"' or "+ height_cm +" cm tall");
+                weighttx.setText("You are "+ weight_kg+" kg or "+ weight_lb +" pounds heavy");
 
 
             }
@@ -145,4 +214,5 @@ public class HomePage extends AppCompatActivity
             }
         });
     }
+
 }

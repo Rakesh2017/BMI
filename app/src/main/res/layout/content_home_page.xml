@@ -1,64 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    app:layout_collapseParallaxMultiplier="0.9"
     tools:context="com.enhabyto.bmiapp.HomePage"
+    android:paddingStart="4dp"
+    android:paddingEnd="4dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:id="@+id/fragment_container_home_page"
     tools:showIn="@layout/app_bar_home_page">
 
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="10dp"
-       android:layout_marginStart="10dp"
-       android:layout_marginEnd="10dp"
-       android:orientation="vertical"
-       >
-
 
       <TextView
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:background="@drawable/rounded_background_teal"
           android:text=" "
           android:textSize="20sp"
-          android:textColor="@color/white"
-          android:background="@drawable/rounded_background_black"
+          android:textColor="@color/black"
           android:textStyle="italic"
-          android:padding="10dp"
+          android:paddingTop="4dp"
+          android:paddingBottom="4dp"
+          android:paddingEnd="10dp"
+          android:paddingStart="10dp"
           android:id="@+id/disp_name"
           />
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:layout_marginTop="10dp"
-          android:layout_marginStart="10dp"
-          android:layout_marginEnd="10dp"
-          android:padding="10dp"
-          android:background="@drawable/rounded_background_black"
-          >
 
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text=""
-             android:textSize="20sp"
-             android:textColor="@color/white"
-             android:textStyle="bold"
-             />
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text=" "
+              android:textSize="20sp"
+              android:layout_marginTop="4dp"
+              android:textColor="@color/black"
+              android:textStyle="italic"
+              android:paddingTop="4dp"
+              android:paddingBottom="4dp"
+              android:paddingEnd="10dp"
+              android:paddingStart="10dp"
+              android:layout_below="@id/disp_name"
+              android:background="@drawable/rounded_background_blue"
+              android:id="@+id/u_age_text"
+              />
+          <Button
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="10dp"
+              android:textSize="15sp"
+              android:padding="5dp"
+              android:layout_marginTop="4dp"
+              android:layout_below="@id/disp_name"
+              android:text="change age"
+              android:id="@+id/change_age"
+              android:layout_toEndOf="@id/u_age_text"
+              android:textColor="@color/white"
+              android:background="@drawable/rounded_background_red"
+              android:layout_alignBottom="@+id/u_age_text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:textSize="20sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:layout_below="@id/u_age_text"
+        android:background="@drawable/rounded_background_green"
+        android:id="@+id/u_height_text"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        android:padding="5dp"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/u_age_text"
+        android:text="change height"
+        android:id="@+id/change_height"
+        android:layout_toEndOf="@id/u_height_text"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_background_red"
+        android:layout_alignBottom="@id/u_height_text"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:textSize="20sp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:layout_below="@id/u_height_text"
+        android:background="@drawable/rounded_background_amber"
+        android:id="@+id/u_weight_text"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        android:padding="5dp"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/u_height_text"
+        android:text="change weight"
+        android:id="@+id/change_weight"
+        android:layout_toEndOf="@id/u_weight_text"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_background_red"
+        android:layout_alignBottom="@id/u_weight_text"
+        />
 
 
 
-      </LinearLayout>
 
 
 
-   </LinearLayout>
 
 
-</ScrollView>
+
+</RelativeLayout>

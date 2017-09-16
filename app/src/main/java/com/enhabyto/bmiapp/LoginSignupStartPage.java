@@ -270,8 +270,8 @@ import java.util.regex.Pattern;
                                     snackbar.show();
                                 } else {
                                     circularProgressBar.setVisibility(View.VISIBLE);
-                                    int animationDuration = 2500; // 2500ms = 2,5s
-                                    circularProgressBar.setProgressWithAnimation(65, animationDuration); // Default duration = 1500ms
+                                    int animationDuration = 5000; // 2500ms = 2,5s
+                                    circularProgressBar.setProgressWithAnimation(100, animationDuration); // Default duration = 1500ms
                                     editor.putString("A",email.getText().toString()).apply();
                                     editor.putString("B",password.getText().toString()).apply();
 
@@ -287,6 +287,7 @@ import java.util.regex.Pattern;
 
                                             String checker = dataSnapshot.getValue(String.class);
                                             if (checker == null) {
+                                                set_data();
                                                 Intent intent = new Intent(LoginSignupStartPage.this, UserInfo.class);
                                                 startActivity(intent);
                                                 finish();
@@ -294,6 +295,7 @@ import java.util.regex.Pattern;
                                             }
 
                                             if (!checker.equals("confirmed")) {
+                                                set_data();
                                                 Intent intent = new Intent(LoginSignupStartPage.this, UserInfo.class);
                                                 startActivity(intent);
                                                 finish();
@@ -355,4 +357,19 @@ import java.util.regex.Pattern;
          }
      }
 
+     public void set_data(){
+         FirebaseUser user1 = mAuth.getCurrentUser();
+         DatabaseReference d_set_database = d_parent.child("users").child(user1.getUid());
+         final int dummy_value = 1;
+         d_set_database.child("age").setValue(dummy_value);
+         d_set_database.child("flag").setValue("unconfirmed");
+         d_set_database.child("age").setValue(1);
+         d_set_database.child("gender").setValue("uni");
+         d_set_database.child("height").child("centimeter").setValue(dummy_value);
+         d_set_database.child("height").child("feet_and_inches").child("feet").setValue(dummy_value);
+         d_set_database.child("height").child("feet_and_inches").child("inches").setValue(dummy_value);
+         d_set_database.child("weight").child("kilograms").setValue(dummy_value);
+         d_set_database.child("weight").child("pounds").setValue(dummy_value);
+         d_set_database.child("display_name").setValue("Spartan");
+     }
  }

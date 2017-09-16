@@ -14,8 +14,10 @@
     <color name="blue_grey_900">#263238</color>
     <color name="invisible">#00000000</color>
     <color name="green">#8ac18f</color>
-
-
+    <color name="amber_transparent">#90FFC107</color>
+    <color name="green_transparent">#9033691E</color>
+    <color name="blue_transparent">#9001579B</color>
+    <color name="teal_transparent">#90004D40</color>
 
     <!-- tab layout -->
     <color name="windowBackground">#FFFFFF</color>

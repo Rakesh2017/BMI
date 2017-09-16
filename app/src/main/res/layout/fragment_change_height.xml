@@ -1,0 +1,254 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginStart="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.enhabyto.bmiapp.changeHeight">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/unable_to_display_background"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_change_frags"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:riv_corner_radius="5dip"
+            app:riv_mutate_background="true" />
+
+
+        <ImageView
+            android:id="@+id/relativeHeight_change"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/rounded_background_black"
+            android:contentDescription="@string/unable_to_display_background"
+
+            />
+
+
+        <LinearLayout
+            android:id="@+id/linearHeight_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/relativeHeight_change"
+            android:layout_alignStart="@id/relativeHeight_change"
+            android:layout_alignTop="@+id/relativeHeight_change"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker_feet_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:np_dividerColor="@color/red"
+                app:np_height="160dp"
+                app:np_max="7"
+                app:np_min="2"
+                app:np_orientation="vertical"
+                app:np_selectedTextColor="@color/white"
+                app:np_selectedTextSize="25dp"
+                app:np_textColor="@color/red"
+                app:np_textSize="15dp"
+                app:np_value="5"
+                app:np_width="50dp" />
+
+            <TextView
+                android:id="@+id/textView_feet_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="feet"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker_inches_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:np_dividerColor="@color/red"
+                app:np_height="160dp"
+                app:np_max="11"
+                app:np_min="0"
+                app:np_orientation="vertical"
+                app:np_selectedTextColor="@color/white"
+                app:np_selectedTextSize="25dp"
+                app:np_textColor="@color/red"
+                app:np_textSize="15dp"
+                app:np_value="9"
+                app:np_width="50dp" />
+
+            <TextView
+                android:id="@+id/textView_inches_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="inches"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearHeight1_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/relativeHeight_change"
+            android:layout_alignStart="@id/relativeHeight_change"
+            android:layout_below="@id/linearHeight_change"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker_cm_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                app:np_dividerColor="@color/red"
+                app:np_height="50dp"
+                app:np_max="241"
+                app:np_min="61"
+                app:np_orientation="horizontal"
+                app:np_selectedTextColor="@color/white"
+                app:np_selectedTextSize="25dp"
+                app:np_textColor="@color/red"
+                app:np_textSize="15dp"
+                app:np_value="175"
+                app:np_width="160dp" />
+
+            <TextView
+                android:id="@+id/textView_cm_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:text="cm"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/set_height_feet_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="100dp"
+            android:background="@drawable/rounded_background_red"
+            android:text="set"
+
+            />
+
+        <Button
+            android:id="@+id/set_height_cm_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="100dp"
+            android:background="@drawable/rounded_background_red"
+            android:text="set"
+            android:visibility="invisible"
+
+            />
+
+        <ImageView
+            android:id="@+id/tick_height_change"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignEnd="@+id/relativeHeight_change"
+            android:layout_alignTop="@id/relativeHeight_change"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/tick"
+            android:contentDescription="@string/unable_to_display_background"
+            android:visibility="invisible" />
+
+        <RelativeLayout
+            android:id="@+id/rl1_change"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@id/linearHeight_change"
+            android:layout_alignEnd="@id/linearHeight_change"
+            android:layout_alignStart="@id/linearHeight_change"
+            android:layout_alignTop="@id/linearHeight_change"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_yellow"
+            android:visibility="invisible">
+
+            <Button
+                android:id="@+id/feet_blur_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/rounded_background_red"
+                android:padding="10dp"
+                android:text="feet +  inches" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl2_change"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@id/linearHeight1_change"
+            android:layout_alignEnd="@id/linearHeight1_change"
+            android:layout_alignStart="@id/linearHeight1_change"
+            android:layout_alignTop="@id/linearHeight1_change"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_yellow">
+
+            <Button
+                android:id="@+id/cm_blur_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/rounded_background_red"
+                android:padding="10dp"
+                android:text="Centimeter" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</FrameLayout>
