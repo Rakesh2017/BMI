@@ -22,6 +22,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,11 +50,17 @@ public class HomePage extends AppCompatActivity
 
     private int weight_for_bmi;
     private float height_for_bmi, temp, bmi_temp, bmi;
-    private String region;
+    private String region, gender;
     private WaveLoadingView mWaveLoadingView;
     int convert_bmi;
     private ImageView img_chaka, img_bmi_circle;
     Animation anim_anti_rotate, anim_rot;
+
+    TextView regiontext;
+    TextView ct1, ct2, ct3, ct4, ct5, ct6, ct7, ct8, ct9;
+    TextView r1, r2, r3, r4, r5, r6, r7, r8, r9;
+    private TextView placeholder;
+    ImageView right_wrong_img;
 
 
 
@@ -77,9 +84,32 @@ public class HomePage extends AppCompatActivity
         toolbar.setTitle("Body Mass Index");
         setSupportActionBar(toolbar);
 
+
+        ct1 = (TextView)findViewById(R.id.class_text1);
+        ct2 = (TextView)findViewById(R.id.class_text2);
+        ct3 = (TextView)findViewById(R.id.class_text3);
+        ct4 = (TextView)findViewById(R.id.class_text4);
+        ct5 = (TextView)findViewById(R.id.class_text5);
+        ct6 = (TextView)findViewById(R.id.class_text6);
+        ct7 = (TextView)findViewById(R.id.class_text7);
+        ct8 = (TextView)findViewById(R.id.class_text8);
+        ct9 = (TextView)findViewById(R.id.class_text9);
+
+        r1 = (TextView)findViewById(R.id.place_severe_thin);
+        r2 = (TextView)findViewById(R.id.place_moderate_thin);
+        r3 = (TextView)findViewById(R.id.place_mild_thin);
+        r4 = (TextView)findViewById(R.id.place_normal);
+        r5 = (TextView)findViewById(R.id.place_overweight);
+        r6 = (TextView)findViewById(R.id.obese);
+        r7 = (TextView)findViewById(R.id.place_type1);
+        r8 = (TextView)findViewById(R.id.place_type2);
+        r9 = (TextView)findViewById(R.id.place_type3);
+        right_wrong_img  = (ImageView)findViewById(R.id.right_wrong);
+        placeholder = (TextView)findViewById(R.id.placeholder);
+
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/ReprineatoRegular.otf");
 
-
+        regiontext = (TextView)findViewById(R.id.reg_text);
         heighttx = (TextView)findViewById(R.id.u_height_text);
         weighttx = (TextView)findViewById(R.id.u_weight_text);
         btn_height = (Button)findViewById(R.id.change_height);
@@ -196,6 +226,7 @@ public class HomePage extends AppCompatActivity
         return true;
     }
 
+
     public void onStart(){
         super.onStart();
 
@@ -203,14 +234,24 @@ public class HomePage extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String d_name = dataSnapshot.child("display_name").getValue(String.class);
-                name.setText(String.format("Hi %s", d_name));
+                name.setText(String.format("Welcome,\n%s", d_name));
                 age = dataSnapshot.child("age").getValue(Integer.class);
                 height_ft = dataSnapshot.child("height").child("feet_and_inches").child("feet").getValue(Integer.class);
                 height_in = dataSnapshot.child("height").child("feet_and_inches").child("inches").getValue(Integer.class);
                 height_cm = dataSnapshot.child("height").child("centimeter").getValue(Integer.class);
                 weight_kg = dataSnapshot.child("weight").child("kilograms").getValue(Integer.class);
                 weight_lb = dataSnapshot.child("weight").child("pounds").getValue(Integer.class);
+                gender = dataSnapshot.child("gender").getValue(String.class);
                 region = dataSnapshot.child("region").getValue(String.class);
+                regiontext.setText(region);
+
+                RelativeLayout layout =(RelativeLayout)findViewById(R.id.fragment_container_home_page);
+                if(gender.equals("male")){
+                    layout.setBackgroundResource(R.color.lightBlue);
+                }
+                else {
+                    layout.setBackgroundResource(R.color.lightPink);
+                }
 
 
                 heighttx.setText("You are "+ height_ft+"'' " +height_in+"' or "+ height_cm +" cm tall");
@@ -221,38 +262,71 @@ public class HomePage extends AppCompatActivity
                 temp = (height_for_bmi * height_for_bmi);
                 bmi = (weight_for_bmi) / temp;
 
+                if(region.equals("ASIA")){
+
+                    r3.setText("17 - 18.5");
+                    r4.setText("18.6 - 24.9");
+                    r5.setText("25 - 29.9");
+                    r6.setText("30 - 34.9");
+
+                } else if(region.equals("SOUTH AMERICA")){
+
+                    r3.setText("17 - 19");
+                    r4.setText("19 - 24.9");
+                    r5.setText("25 - 29.9");
+                    r6.setText("30 - 34.9");
+
+                } else{
+
+                    r3.setText("17 - 18.5");
+                    r4.setText("18.6 - 24.9");
+                    r5.setText("25 - 29.9");
+                    r6.setText("30 - 34.9");
+
+                }
+
 
                 convert_bmi = (int)(bmi);
             //   String.format("%.1f", bmi))+
-                if(region.equals("asia")){
+
+                // for Asia
+                if(region.equals("ASIA")){
                     if(bmi < 16){
-                    mWaveLoadingView.setCenterTitle("Severely Thin");
+                    mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
                     mWaveLoadingView.setProgressValue(convert_bmi);
 
-                        img_bmi_circle.setBackgroundResource(R.drawable.underweight);
-                        img_chaka.startAnimation(anim_anti_rotate);
-                        img_bmi_circle.startAnimation(anim_rot);
-
-                        underWeight();
-                    }
-                if(bmi >= 16 && bmi <17){
-
-
-                    mWaveLoadingView.setCenterTitle("Moderately Thin");
                     img_bmi_circle.setBackgroundResource(R.drawable.underweight);
                     img_chaka.startAnimation(anim_anti_rotate);
                     img_bmi_circle.startAnimation(anim_rot);
 
+                        changeAll();
+                       change1();
+
+
+                    underWeight();
+                    }
+                if(bmi >= 16 && bmi <17){
+
+
+                    mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                    img_bmi_circle.setBackgroundResource(R.drawable.underweight);
+                    img_chaka.startAnimation(anim_anti_rotate);
+                    img_bmi_circle.startAnimation(anim_rot);
+
+                    changeAll();
+                change2();
                     underWeight();
                 }
                 if(bmi >=17 && bmi < 18.5) {
 
                     mWaveLoadingView.setProgressValue(convert_bmi);
-                    mWaveLoadingView.setCenterTitle("Mild Thin");
+                    mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
                     img_bmi_circle.setBackgroundResource(R.drawable.underweight);
                     img_chaka.startAnimation(anim_anti_rotate);
                     img_bmi_circle.startAnimation(anim_rot);
 
+                    changeAll();
+                    change3();
                     underWeight();
 
                 }
@@ -260,34 +334,162 @@ public class HomePage extends AppCompatActivity
                  if(bmi >=18.5 && bmi <23){
 
                  mWaveLoadingView.setProgressValue(convert_bmi);
-                 mWaveLoadingView.setCenterTitle("Normal Weight");
-                     img_bmi_circle.setBackgroundResource(R.drawable.normal);
-                     img_chaka.startAnimation(anim_anti_rotate);
-                     img_bmi_circle.startAnimation(anim_rot);
+                 mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                 img_bmi_circle.setBackgroundResource(R.drawable.normal);
+                 img_chaka.startAnimation(anim_anti_rotate);
+                 img_bmi_circle.startAnimation(anim_rot);
 
+
+                     changeAll();
+                     change4();
                      normalWeight();
 
                        }
                  if(bmi >=23 && bmi <30){
 
                  mWaveLoadingView.setProgressValue(convert_bmi);
-                 mWaveLoadingView.setCenterTitle("Overweight");
-                     img_bmi_circle.setBackgroundResource(R.drawable.overweight);
-                     img_chaka.startAnimation(anim_anti_rotate);
-                     img_bmi_circle.startAnimation(anim_rot);
+                 mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                 img_bmi_circle.setBackgroundResource(R.drawable.overweight);
+                 img_chaka.startAnimation(anim_anti_rotate);
+                 img_bmi_circle.startAnimation(anim_rot);
+
+                     changeAll();
+                     change5();
 
                      overWeight();
                       }
                 if(bmi >=30 && bmi <35){
 
                  mWaveLoadingView.setProgressValue(convert_bmi);
-                 mWaveLoadingView.setCenterTitle("Obese");
+                 mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
                     img_bmi_circle.setBackgroundResource(R.drawable.obese);
                     img_chaka.startAnimation(anim_anti_rotate);
                     img_bmi_circle.startAnimation(anim_rot);
 
+                    changeAll();
+                    change6();
+
                     obese();
                                       }
+                    if(bmi >=35 && bmi <40){
+
+                        mWaveLoadingView.setProgressValue(convert_bmi);
+                        mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                        img_bmi_circle.setBackgroundResource(R.drawable.obese);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+
+                        changeAll();
+                        change7();
+
+                        extremeObese();
+                    }
+                    if(bmi >=40 && bmi <50){
+
+                        mWaveLoadingView.setProgressValue(convert_bmi);
+                        mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                        img_bmi_circle.setBackgroundResource(R.drawable.obese);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+
+                        changeAll();
+                        change8();
+                        extremeObese();
+                    }
+                    if(bmi >=50){
+
+                        mWaveLoadingView.setProgressValue(convert_bmi);
+                        mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                        img_bmi_circle.setBackgroundResource(R.drawable.obese);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+
+                        changeAll();
+                        change9();
+
+                        extremeObese();
+                    }
+
+             }
+
+             // for south america
+
+             else if(region.equals("South America")){
+                    if(bmi < 16){
+                        mWaveLoadingView.setCenterTitle("Severely Thin");
+                        mWaveLoadingView.setProgressValue(convert_bmi);
+
+                        img_bmi_circle.setBackgroundResource(R.drawable.underweight);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+                        changeAll();
+                        change1();
+
+                        underWeight();
+                    }
+                    if(bmi >= 16 && bmi <17){
+
+
+                        mWaveLoadingView.setCenterTitle("Moderately Thin");
+                        img_bmi_circle.setBackgroundResource(R.drawable.underweight);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+                        changeAll();
+                        change2();
+
+                        underWeight();
+                    }
+                    if(bmi >=17 && bmi < 19) {
+
+                        mWaveLoadingView.setProgressValue(convert_bmi);
+                        mWaveLoadingView.setCenterTitle("Mild Thin");
+                        img_bmi_circle.setBackgroundResource(R.drawable.underweight);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+                        changeAll();
+                        change3();
+
+                        underWeight();
+
+                    }
+
+                    if(bmi >= 19 && bmi < 25){
+
+                        mWaveLoadingView.setProgressValue(convert_bmi);
+                        mWaveLoadingView.setCenterTitle("Normal Weight");
+                        img_bmi_circle.setBackgroundResource(R.drawable.normal);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+                        changeAll();
+                        change4();
+
+                        normalWeight();
+
+                    }
+                    if(bmi >=25 && bmi <30){
+
+                        mWaveLoadingView.setProgressValue(convert_bmi);
+                        mWaveLoadingView.setCenterTitle("Overweight");
+                        img_bmi_circle.setBackgroundResource(R.drawable.overweight);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+                        changeAll();
+                        change5();
+
+                        overWeight();
+                    }
+                    if(bmi >=30 && bmi <35){
+
+                        mWaveLoadingView.setProgressValue(convert_bmi);
+                        mWaveLoadingView.setCenterTitle("Obese");
+                        img_bmi_circle.setBackgroundResource(R.drawable.obese);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+                        changeAll();
+                        change6();
+
+                        obese();
+                    }
                     if(bmi >=35 && bmi <40){
 
                         mWaveLoadingView.setProgressValue(convert_bmi);
@@ -295,6 +497,8 @@ public class HomePage extends AppCompatActivity
                         img_bmi_circle.setBackgroundResource(R.drawable.obese);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
+                        changeAll();
+                        change7();
 
                         extremeObese();
                     }
@@ -305,6 +509,8 @@ public class HomePage extends AppCompatActivity
                         img_bmi_circle.setBackgroundResource(R.drawable.obese);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
+                        changeAll();
+                        change8();
 
                         extremeObese();
                     }
@@ -315,11 +521,130 @@ public class HomePage extends AppCompatActivity
                         img_bmi_circle.setBackgroundResource(R.drawable.obese);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
+                        changeAll();
+                        change9();
 
                         extremeObese();
                     }
 
-             }
+                    // for rest of the regions
+
+                    else{
+                        if(bmi < 16){
+                            mWaveLoadingView.setCenterTitle("Severely Thin");
+                            mWaveLoadingView.setProgressValue(convert_bmi);
+
+                            img_bmi_circle.setBackgroundResource(R.drawable.underweight);
+                            img_chaka.startAnimation(anim_anti_rotate);
+                            img_bmi_circle.startAnimation(anim_rot);
+                            changeAll();
+                            change1();
+
+                            underWeight();
+                        }
+                        if(bmi >= 16 && bmi <17){
+
+
+                            mWaveLoadingView.setCenterTitle("Moderately Thin");
+                            img_bmi_circle.setBackgroundResource(R.drawable.underweight);
+                            img_chaka.startAnimation(anim_anti_rotate);
+                            img_bmi_circle.startAnimation(anim_rot);
+                            changeAll();
+                            change2();
+
+                            underWeight();
+                        }
+                        if(bmi >=17 && bmi < 18.5) {
+
+                            mWaveLoadingView.setProgressValue(convert_bmi);
+                            mWaveLoadingView.setCenterTitle("Mild Thin");
+                            img_bmi_circle.setBackgroundResource(R.drawable.underweight);
+                            img_chaka.startAnimation(anim_anti_rotate);
+                            img_bmi_circle.startAnimation(anim_rot);
+                            changeAll();
+                            change3();
+
+                            underWeight();
+
+                        }
+
+                        if(bmi >=18.5 && bmi <25){
+
+                            mWaveLoadingView.setProgressValue(convert_bmi);
+                            mWaveLoadingView.setCenterTitle("Normal Weight");
+                            img_bmi_circle.setBackgroundResource(R.drawable.normal);
+                            img_chaka.startAnimation(anim_anti_rotate);
+                            img_bmi_circle.startAnimation(anim_rot);
+                            changeAll();
+                            change4();
+
+                            normalWeight();
+
+                        }
+                        if(bmi >=25 && bmi <30){
+
+                            mWaveLoadingView.setProgressValue(convert_bmi);
+                            mWaveLoadingView.setCenterTitle("Overweight");
+                            img_bmi_circle.setBackgroundResource(R.drawable.overweight);
+                            img_chaka.startAnimation(anim_anti_rotate);
+                            img_bmi_circle.startAnimation(anim_rot);
+                            changeAll();
+                            change5();
+
+                            overWeight();
+                        }
+                        if(bmi >=30 && bmi <35){
+
+                            mWaveLoadingView.setProgressValue(convert_bmi);
+                            mWaveLoadingView.setCenterTitle("Obese");
+                            img_bmi_circle.setBackgroundResource(R.drawable.obese);
+                            img_chaka.startAnimation(anim_anti_rotate);
+                            img_bmi_circle.startAnimation(anim_rot);
+                            changeAll();
+                            change6();
+
+                            obese();
+                        }
+                        if(bmi >=35 && bmi <40){
+
+                            mWaveLoadingView.setProgressValue(convert_bmi);
+                            mWaveLoadingView.setCenterTitle("Mild Obese");
+                            img_bmi_circle.setBackgroundResource(R.drawable.obese);
+                            img_chaka.startAnimation(anim_anti_rotate);
+                            img_bmi_circle.startAnimation(anim_rot);
+                            changeAll();
+                            change7();
+
+                            extremeObese();
+                        }
+                        if(bmi >=40 && bmi <50){
+
+                            mWaveLoadingView.setProgressValue(convert_bmi);
+                            mWaveLoadingView.setCenterTitle("Moderately Obese");
+                            img_bmi_circle.setBackgroundResource(R.drawable.obese);
+                            img_chaka.startAnimation(anim_anti_rotate);
+                            img_bmi_circle.startAnimation(anim_rot);
+                            changeAll();
+                            change8();
+
+                            extremeObese();
+                        }
+                        if(bmi >=50){
+
+                            mWaveLoadingView.setProgressValue(convert_bmi);
+                            mWaveLoadingView.setCenterTitle("Severely Obese");
+                            img_bmi_circle.setBackgroundResource(R.drawable.obese);
+                            img_chaka.startAnimation(anim_anti_rotate);
+                            img_bmi_circle.startAnimation(anim_rot);
+                            changeAll();
+                            change9();
+
+                            extremeObese();
+                        }
+                    }
+
+
+                }
 
    }
 
@@ -341,8 +666,8 @@ public class HomePage extends AppCompatActivity
 
     private void underWeight(){
         mWaveLoadingView.setAmplitudeRatio(60);
-        mWaveLoadingView.setWaveColor(Color.BLUE);
-        mWaveLoadingView.setBorderColor(Color.BLUE);
+        mWaveLoadingView.setWaveColor(Color.RED);
+        mWaveLoadingView.setBorderColor(Color.RED);
         mWaveLoadingView.setAnimDuration(3000);
         mWaveLoadingView.pauseAnimation();
         mWaveLoadingView.resumeAnimation();
@@ -395,5 +720,173 @@ public class HomePage extends AppCompatActivity
         mWaveLoadingView.startAnimation();
 
     }
+
+    private void changeAll(){
+        ct1.setTextColor(Color.BLACK);
+        r1.setTextColor(Color.BLACK);
+        ct1.setTypeface(Typeface.DEFAULT);
+        r1.setTypeface(Typeface.DEFAULT);
+
+        ct2.setTextColor(Color.BLACK);
+        r2.setTextColor(Color.BLACK);
+        ct2.setTypeface(Typeface.DEFAULT);
+        r2.setTypeface(Typeface.DEFAULT);
+
+        ct3.setTextColor(Color.BLACK);
+        r3.setTextColor(Color.BLACK);
+        ct3.setTypeface(Typeface.DEFAULT);
+        r3.setTypeface(Typeface.DEFAULT);
+
+        ct4.setTextColor(Color.BLACK);
+        r4.setTextColor(Color.BLACK);
+        ct4.setTypeface(Typeface.DEFAULT);
+        r4.setTypeface(Typeface.DEFAULT);
+
+        ct5.setTextColor(Color.BLACK);
+        r5.setTextColor(Color.BLACK);
+        ct5.setTypeface(Typeface.DEFAULT);
+        r5.setTypeface(Typeface.DEFAULT);
+
+        ct6.setTextColor(Color.BLACK);
+        r6.setTextColor(Color.BLACK);
+        ct6.setTypeface(Typeface.DEFAULT);
+        r6.setTypeface(Typeface.DEFAULT);
+
+        ct7.setTextColor(Color.BLACK);
+        r7.setTextColor(Color.BLACK);
+        ct7.setTypeface(Typeface.DEFAULT);
+        r7.setTypeface(Typeface.DEFAULT);
+
+        ct8.setTextColor(Color.BLACK);
+        r8.setTextColor(Color.BLACK);
+        ct8.setTypeface(Typeface.DEFAULT);
+        r8.setTypeface(Typeface.DEFAULT);
+
+        ct9.setTextColor(Color.BLACK);
+        r9.setTextColor(Color.BLACK);
+        ct9.setTypeface(Typeface.DEFAULT);
+        r9.setTypeface(Typeface.DEFAULT);
+
+    }
+    private void change1(){
+        ct1.setTextColor(Color.RED);
+        r1.setTextColor(Color.RED);
+        ct1.setTypeface(Typeface.DEFAULT_BOLD);
+        r1.setTypeface(Typeface.DEFAULT_BOLD);
+
+        placeholder.setText("Severe Thinness");
+        placeholder.setTextColor(Color.RED);
+        placeholder.setTypeface(Typeface.DEFAULT_BOLD);
+        placeholder.setTextSize(20);
+        right_wrong_img.setBackgroundResource(R.drawable.wrong);
+
+
+    }
+    private void change2(){
+        ct2.setTextColor(Color.RED);
+        r2.setTextColor(Color.RED);
+        ct2.setTypeface(Typeface.DEFAULT_BOLD);
+        r2.setTypeface(Typeface.DEFAULT_BOLD);
+
+        placeholder.setText("Moderate Thinness");
+        placeholder.setTextColor(Color.RED);
+        placeholder.setTypeface(Typeface.DEFAULT_BOLD);
+        placeholder.setTextSize(20);
+        right_wrong_img.setBackgroundResource(R.drawable.wrong);
+
+    }
+
+    private void change3(){
+        ct3.setTextColor(Color.RED);
+        r3.setTextColor(Color.RED);
+        ct3.setTypeface(Typeface.DEFAULT_BOLD);
+        r3.setTypeface(Typeface.DEFAULT_BOLD);
+
+        placeholder.setText("Mild Thiness");
+        placeholder.setTextColor(Color.RED);
+        placeholder.setTypeface(Typeface.DEFAULT_BOLD);
+        placeholder.setTextSize(20);
+        right_wrong_img.setBackgroundResource(R.drawable.wrong);
+
+    }
+    private void change4(){
+        ct4.setTextColor(Color.GREEN);
+        r4.setTextColor(Color.GREEN);
+        ct4.setTypeface(Typeface.DEFAULT_BOLD);
+        r4.setTypeface(Typeface.DEFAULT_BOLD);
+        placeholder.setText("Normal");
+        placeholder.setTextColor(Color.GREEN);
+        placeholder.setTypeface(Typeface.DEFAULT_BOLD);
+        placeholder.setTextSize(20);
+        right_wrong_img.setBackgroundResource(R.drawable.right);
+
+    }
+    private void change5(){
+        ct5.setTextColor(Color.RED);
+        r5.setTextColor(Color.RED);
+        ct5.setTypeface(Typeface.DEFAULT_BOLD);
+        r5.setTypeface(Typeface.DEFAULT_BOLD);
+
+        placeholder.setText("Overweight");
+        placeholder.setTextColor(Color.RED);
+        placeholder.setTypeface(Typeface.DEFAULT_BOLD);
+        placeholder.setTextSize(20);
+        right_wrong_img.setBackgroundResource(R.drawable.wrong);
+
+    }
+    private void change6(){
+        ct6.setTextColor(Color.RED);
+        r6.setTextColor(Color.RED);
+        ct6.setTypeface(Typeface.DEFAULT_BOLD);
+        r6.setTypeface(Typeface.DEFAULT_BOLD);
+        placeholder.setText("Obese");
+        placeholder.setTextColor(Color.RED);
+        placeholder.setTypeface(Typeface.DEFAULT_BOLD);
+        placeholder.setTextSize(20);
+        right_wrong_img.setBackgroundResource(R.drawable.wrong);
+
+    }
+    private void change7(){
+        ct7.setTextColor(Color.RED);
+        r7.setTextColor(Color.RED);
+        ct7.setTypeface(Typeface.DEFAULT_BOLD);
+        r7.setTypeface(Typeface.DEFAULT_BOLD);
+
+        placeholder.setText("Type 1 Obese");
+        placeholder.setTextColor(Color.RED);
+        placeholder.setTypeface(Typeface.DEFAULT_BOLD);
+        placeholder.setTextSize(20);
+        right_wrong_img.setBackgroundResource(R.drawable.wrong);
+    }
+    private void change8(){
+        ct8.setTextColor(Color.RED);
+        r8.setTextColor(Color.RED);
+        ct8.setTypeface(Typeface.DEFAULT_BOLD);
+        r8.setTypeface(Typeface.DEFAULT_BOLD);
+
+        placeholder.setText("Type 2 Obese");
+        placeholder.setTextColor(Color.RED);
+        placeholder.setTypeface(Typeface.DEFAULT_BOLD);
+        placeholder.setTextSize(20);
+        right_wrong_img.setBackgroundResource(R.drawable.wrong);
+
+    }
+
+    private void change9(){
+        ct9.setTextColor(Color.RED);
+        r9.setTextColor(Color.RED);
+        ct9.setTypeface(Typeface.DEFAULT_BOLD);
+        r9.setTypeface(Typeface.DEFAULT_BOLD);
+
+        placeholder.setText("Type 3 Obese");
+        placeholder.setTextColor(Color.RED);
+        placeholder.setTypeface(Typeface.DEFAULT_BOLD);
+        placeholder.setTextSize(20);
+
+        right_wrong_img.setBackgroundResource(R.drawable.wrong);
+    }
+
+
+
 
 }

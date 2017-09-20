@@ -371,5 +371,6 @@ import java.util.regex.Pattern;
          d_set_database.child("weight").child("kilograms").setValue(dummy_value);
          d_set_database.child("weight").child("pounds").setValue(dummy_value);
          d_set_database.child("display_name").setValue("Spartan");
+         d_set_database.child("region").setValue("who");
      }
  }

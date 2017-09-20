@@ -6,6 +6,7 @@
     <color name="black">#000000</color>
     <color name="loginpagebackoground">#6991c7</color>
     <color name="white">#ffffff</color>
+    <color name="white_transparent">#90ffffff</color>
     <color name="red">#ea4949</color>
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>
@@ -22,6 +23,8 @@
     <!-- tab layout -->
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
+    <color name="lightPink">#30ffb6c1</color>
+    <color name="lightBlue">#2000bfff</color>
 
 
 </resources>

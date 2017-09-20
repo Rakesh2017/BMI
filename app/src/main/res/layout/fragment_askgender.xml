@@ -7,10 +7,6 @@
     tools:context="com.enhabyto.bmiapp.Askgender">
 
 
-
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,6 +55,7 @@
         android:padding="10dp"
         android:layout_centerHorizontal="true"
         android:weightSum="2"
+        android:id="@+id/ll4"
         >
 
         <ImageButton
@@ -84,6 +81,33 @@
 
     </LinearLayout>
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:scrollbars="vertical"
+        android:scrollbarSize="3dp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/ll4"
+        android:background="@drawable/rounded_background_white"
+        />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:contentDescription="@string/unable_to_display_background"
+        android:layout_alignEnd="@+id/spinner"
+        android:background="@drawable/tick"
+        android:layout_alignTop="@id/spinner"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="2dp"
+        android:id="@+id/tick_region"
+        android:visibility="invisible"
+        />
+
+
 
 
     <Button
@@ -94,7 +118,7 @@
         android:id="@+id/enter_home"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/l1"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="150dp"
 
         />
 
