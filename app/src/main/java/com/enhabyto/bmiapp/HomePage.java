@@ -1,6 +1,8 @@
 package com.enhabyto.bmiapp;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -15,7 +17,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +31,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import me.itangqi.waveloadingview.WaveLoadingView;
 
 
 public class HomePage extends AppCompatActivity
@@ -36,10 +44,16 @@ public class HomePage extends AppCompatActivity
     FirebaseUser user = mAuth.getCurrentUser();
     DatabaseReference d_ref;
 
-    private String gender;
     private int weight_kg, height_ft, height_in , age, height_cm, weight_lb;
     private Button btn_age, btn_height, btn_weight;
 
+    private int weight_for_bmi;
+    private float height_for_bmi, temp, bmi_temp, bmi;
+    private String region;
+    private WaveLoadingView mWaveLoadingView;
+    int convert_bmi;
+    private ImageView img_chaka, img_bmi_circle;
+    Animation anim_anti_rotate, anim_rot;
 
 
 
@@ -65,19 +79,26 @@ public class HomePage extends AppCompatActivity
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/ReprineatoRegular.otf");
 
-        agetx = (TextView)findViewById(R.id.u_age_text);
+
         heighttx = (TextView)findViewById(R.id.u_height_text);
         weighttx = (TextView)findViewById(R.id.u_weight_text);
-        btn_age = (Button)findViewById(R.id.change_age);
         btn_height = (Button)findViewById(R.id.change_height);
         btn_weight = (Button)findViewById(R.id.change_weight);
+        img_chaka = (ImageView)findViewById(R.id.chaka_bmi);
+        img_bmi_circle = (ImageView)findViewById(R.id.bmi_descriptor_circle);
+
+        anim_anti_rotate  = AnimationUtils.loadAnimation(this, R.anim.rotate_anti);
+        anim_rot   = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        img_chaka.startAnimation(anim_anti_rotate);
+        img_bmi_circle.startAnimation(anim_rot);
 
         d_ref = d_parent.child("users").child(user.getUid());
         name = (TextView)findViewById(R.id.disp_name);
         name.setTypeface(typeface);
-        agetx.setTypeface(typeface);
         heighttx.setTypeface(typeface);
         weighttx.setTypeface(typeface);
+
+        mWaveLoadingView = (WaveLoadingView)findViewById(R.id.waveLoadingView);
 
 
 
@@ -90,15 +111,6 @@ public class HomePage extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        btn_age.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home_page,new changeAge()).addToBackStack(null).commit();
-                btn_weight.setVisibility(View.INVISIBLE);
-                btn_height.setVisibility(View.INVISIBLE);
-                btn_age.setVisibility(View.INVISIBLE);
-            }
-        });
 
         btn_height.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +118,7 @@ public class HomePage extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home_page,new changeHeight()).addToBackStack(null).commit();
                 btn_weight.setVisibility(View.INVISIBLE);
                 btn_height.setVisibility(View.INVISIBLE);
-                btn_age.setVisibility(View.INVISIBLE);
+
             }
         });
 
@@ -116,7 +128,7 @@ public class HomePage extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home_page,new changeWeight()).addToBackStack(null).commit();
                 btn_weight.setVisibility(View.INVISIBLE);
                 btn_height.setVisibility(View.INVISIBLE);
-                btn_age.setVisibility(View.INVISIBLE);
+
             }
         });
 
@@ -128,7 +140,7 @@ public class HomePage extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         btn_weight.setVisibility(View.VISIBLE);
         btn_height.setVisibility(View.VISIBLE);
-        btn_age.setVisibility(View.VISIBLE);
+
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -198,21 +210,190 @@ public class HomePage extends AppCompatActivity
                 height_cm = dataSnapshot.child("height").child("centimeter").getValue(Integer.class);
                 weight_kg = dataSnapshot.child("weight").child("kilograms").getValue(Integer.class);
                 weight_lb = dataSnapshot.child("weight").child("pounds").getValue(Integer.class);
+                region = dataSnapshot.child("region").getValue(String.class);
 
 
-
-                agetx.setText("You are "+ age + " years old");
                 heighttx.setText("You are "+ height_ft+"'' " +height_in+"' or "+ height_cm +" cm tall");
                 weighttx.setText("You are "+ weight_kg+" kg or "+ weight_lb +" pounds heavy");
 
+                weight_for_bmi = weight_kg;
+                height_for_bmi = height_cm / 100f;
+                temp = (height_for_bmi * height_for_bmi);
+                bmi = (weight_for_bmi) / temp;
 
-            }
+
+                convert_bmi = (int)(bmi);
+            //   String.format("%.1f", bmi))+
+                if(region.equals("asia")){
+                    if(bmi < 16){
+                    mWaveLoadingView.setCenterTitle("Severely Thin");
+                    mWaveLoadingView.setProgressValue(convert_bmi);
+
+                        img_bmi_circle.setBackgroundResource(R.drawable.underweight);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+
+                        underWeight();
+                    }
+                if(bmi >= 16 && bmi <17){
+
+
+                    mWaveLoadingView.setCenterTitle("Moderately Thin");
+                    img_bmi_circle.setBackgroundResource(R.drawable.underweight);
+                    img_chaka.startAnimation(anim_anti_rotate);
+                    img_bmi_circle.startAnimation(anim_rot);
+
+                    underWeight();
+                }
+                if(bmi >=17 && bmi < 18.5) {
+
+                    mWaveLoadingView.setProgressValue(convert_bmi);
+                    mWaveLoadingView.setCenterTitle("Mild Thin");
+                    img_bmi_circle.setBackgroundResource(R.drawable.underweight);
+                    img_chaka.startAnimation(anim_anti_rotate);
+                    img_bmi_circle.startAnimation(anim_rot);
+
+                    underWeight();
+
+                }
+
+                 if(bmi >=18.5 && bmi <23){
+
+                 mWaveLoadingView.setProgressValue(convert_bmi);
+                 mWaveLoadingView.setCenterTitle("Normal Weight");
+                     img_bmi_circle.setBackgroundResource(R.drawable.normal);
+                     img_chaka.startAnimation(anim_anti_rotate);
+                     img_bmi_circle.startAnimation(anim_rot);
+
+                     normalWeight();
+
+                       }
+                 if(bmi >=23 && bmi <30){
+
+                 mWaveLoadingView.setProgressValue(convert_bmi);
+                 mWaveLoadingView.setCenterTitle("Overweight");
+                     img_bmi_circle.setBackgroundResource(R.drawable.overweight);
+                     img_chaka.startAnimation(anim_anti_rotate);
+                     img_bmi_circle.startAnimation(anim_rot);
+
+                     overWeight();
+                      }
+                if(bmi >=30 && bmi <35){
+
+                 mWaveLoadingView.setProgressValue(convert_bmi);
+                 mWaveLoadingView.setCenterTitle("Obese");
+                    img_bmi_circle.setBackgroundResource(R.drawable.obese);
+                    img_chaka.startAnimation(anim_anti_rotate);
+                    img_bmi_circle.startAnimation(anim_rot);
+
+                    obese();
+                                      }
+                    if(bmi >=35 && bmi <40){
+
+                        mWaveLoadingView.setProgressValue(convert_bmi);
+                        mWaveLoadingView.setCenterTitle("Mild Obese");
+                        img_bmi_circle.setBackgroundResource(R.drawable.obese);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+
+                        extremeObese();
+                    }
+                    if(bmi >=40 && bmi <50){
+
+                        mWaveLoadingView.setProgressValue(convert_bmi);
+                        mWaveLoadingView.setCenterTitle("Moderately Obese");
+                        img_bmi_circle.setBackgroundResource(R.drawable.obese);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+
+                        extremeObese();
+                    }
+                    if(bmi >=50){
+
+                        mWaveLoadingView.setProgressValue(convert_bmi);
+                        mWaveLoadingView.setCenterTitle("Severely Obese");
+                        img_bmi_circle.setBackgroundResource(R.drawable.obese);
+                        img_chaka.startAnimation(anim_anti_rotate);
+                        img_bmi_circle.startAnimation(anim_rot);
+
+                        extremeObese();
+                    }
+
+             }
+
+   }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+
+    }
+
+
+
+
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+
+    }
+
+    private void underWeight(){
+        mWaveLoadingView.setAmplitudeRatio(60);
+        mWaveLoadingView.setWaveColor(Color.BLUE);
+        mWaveLoadingView.setBorderColor(Color.BLUE);
+        mWaveLoadingView.setAnimDuration(3000);
+        mWaveLoadingView.pauseAnimation();
+        mWaveLoadingView.resumeAnimation();
+        mWaveLoadingView.cancelAnimation();
+        mWaveLoadingView.startAnimation();
+    }
+
+    private void normalWeight(){
+        mWaveLoadingView.setAmplitudeRatio(60);
+        mWaveLoadingView.setWaveColor(Color.GREEN);
+        mWaveLoadingView.setBorderColor(Color.GREEN);
+        mWaveLoadingView.setAnimDuration(3000);
+        mWaveLoadingView.pauseAnimation();
+        mWaveLoadingView.resumeAnimation();
+        mWaveLoadingView.cancelAnimation();
+        mWaveLoadingView.startAnimation();
+
+    }
+
+   private void overWeight(){
+       mWaveLoadingView.setAmplitudeRatio(60);
+       mWaveLoadingView.setWaveColor(Color.YELLOW);
+       mWaveLoadingView.setBorderColor(Color.YELLOW);
+       mWaveLoadingView.setAnimDuration(3000);
+       mWaveLoadingView.pauseAnimation();
+       mWaveLoadingView.resumeAnimation();
+       mWaveLoadingView.cancelAnimation();
+       mWaveLoadingView.startAnimation();
+
+    }
+    private void obese(){
+        mWaveLoadingView.setAmplitudeRatio(60);
+        mWaveLoadingView.setWaveColor(Color.RED);
+        mWaveLoadingView.setBorderColor(Color.RED);
+        mWaveLoadingView.setAnimDuration(3000);
+        mWaveLoadingView.pauseAnimation();
+        mWaveLoadingView.resumeAnimation();
+        mWaveLoadingView.cancelAnimation();
+        mWaveLoadingView.startAnimation();
+
+    }
+    private void extremeObese(){
+        mWaveLoadingView.setAmplitudeRatio(60);
+        mWaveLoadingView.setWaveColor(Color.RED);
+        mWaveLoadingView.setBorderColor(Color.RED);
+        mWaveLoadingView.setAnimDuration(3000);
+        mWaveLoadingView.pauseAnimation();
+        mWaveLoadingView.resumeAnimation();
+        mWaveLoadingView.cancelAnimation();
+        mWaveLoadingView.startAnimation();
+
     }
 
 }

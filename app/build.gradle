@@ -39,6 +39,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.shawnlin:number-picker:2.4.4'
     compile 'com.mikhaellopez:circularprogressbar:1.1.1'
+    compile 'me.itangqi.waveloadingview:library:0.3.5'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

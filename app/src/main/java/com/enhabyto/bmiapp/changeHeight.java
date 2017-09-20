@@ -1,6 +1,7 @@
 package com.enhabyto.bmiapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -131,6 +132,8 @@ public class changeHeight extends Fragment {
                 d_parent.child("users").child(user.getUid()).child("height").child("feet_and_inches").child("inches").setValue(inchesPart);
                 view.findViewById(R.id.tick_height_change).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.tick_height_change).startAnimation(anim);
+                Intent intent = new Intent();
+
             }
         });
 
@@ -139,5 +142,7 @@ public class changeHeight extends Fragment {
 
         return view;
     }
+
+
 
 }

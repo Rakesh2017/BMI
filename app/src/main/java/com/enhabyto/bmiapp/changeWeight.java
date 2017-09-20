@@ -33,6 +33,8 @@ public class changeWeight extends Fragment {
     private FirebaseUser user = mAuth.getCurrentUser();
     private DatabaseReference d_parent = FirebaseDatabase.getInstance().getReference();
 
+    private Button btn;
+
 
     public changeWeight() {
         // Required empty public constructor
@@ -44,8 +46,6 @@ public class changeWeight extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_change_weight, container, false);
-
-        view =  inflater.inflate(R.layout.fragment_ask_weight, container, false);
         anim = AnimationUtils.loadAnimation(getActivity(), R.anim.rotatetwo);
         btn_kg = (Button)view. findViewById(R.id.set_weight_kg_change);
         btn_lb = (Button)view. findViewById(R.id.set_weight_lb_change);
@@ -53,7 +53,9 @@ public class changeWeight extends Fragment {
         kg = (NumberPicker)view. findViewById(R.id.number_picker_kg_change);
         lb = (NumberPicker)view. findViewById(R.id.number_picker_lb_change);
 
-        view.findViewById(R.id.kg_blur_change).setOnClickListener(new View.OnClickListener() {
+
+        btn = (Button) view.findViewById(R.id.kg_blur_change);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 view.findViewById(R.id.kg_blur_change).setVisibility(View.INVISIBLE);
