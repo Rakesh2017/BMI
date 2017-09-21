@@ -25,6 +25,8 @@
     <color name="navigationBarColor">#000000</color>
     <color name="lightPink">#30ffb6c1</color>
     <color name="lightBlue">#2000bfff</color>
+    <color name="greenRight">#3dbb93</color>
+    <color name="redWrong">#e25b68</color>
 
 
 </resources>

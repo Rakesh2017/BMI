@@ -2,9 +2,13 @@ package com.enhabyto.bmiapp;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,7 +27,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +38,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.sql.Time;
 
 import me.itangqi.waveloadingview.WaveLoadingView;
 
@@ -48,19 +56,19 @@ public class HomePage extends AppCompatActivity
     private int weight_kg, height_ft, height_in , age, height_cm, weight_lb;
     private Button btn_age, btn_height, btn_weight;
 
-    private int weight_for_bmi;
+    private int weight_for_bmi, difference_kg, difference_lb, ideal_weight_lb, ideal_weight_kg;
     private float height_for_bmi, temp, bmi_temp, bmi;
     private String region, gender;
     private WaveLoadingView mWaveLoadingView;
     int convert_bmi;
     private ImageView img_chaka, img_bmi_circle;
-    Animation anim_anti_rotate, anim_rot;
+    Animation anim_anti_rotate, anim_rot, rot_slow;
 
-    TextView regiontext;
+    TextView regiontext, ideal_weight;
     TextView ct1, ct2, ct3, ct4, ct5, ct6, ct7, ct8, ct9;
     TextView r1, r2, r3, r4, r5, r6, r7, r8, r9;
-    private TextView placeholder;
-    ImageView right_wrong_img;
+    private TextView placeholder, greeting_btn;
+    ImageView right_wrong_img, moon_or_sun;
 
 
 
@@ -104,8 +112,12 @@ public class HomePage extends AppCompatActivity
         r7 = (TextView)findViewById(R.id.place_type1);
         r8 = (TextView)findViewById(R.id.place_type2);
         r9 = (TextView)findViewById(R.id.place_type3);
+        ideal_weight = (TextView)findViewById(R.id.ideal_weight_text);
         right_wrong_img  = (ImageView)findViewById(R.id.right_wrong);
+        moon_or_sun = (ImageView)findViewById(R.id.moon_sun);
         placeholder = (TextView)findViewById(R.id.placeholder);
+        greeting_btn = (TextView)findViewById(R.id.greeting);
+
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/ReprineatoRegular.otf");
 
@@ -119,6 +131,7 @@ public class HomePage extends AppCompatActivity
 
         anim_anti_rotate  = AnimationUtils.loadAnimation(this, R.anim.rotate_anti);
         anim_rot   = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        rot_slow   = AnimationUtils.loadAnimation(this, R.anim.rotate_slow);
         img_chaka.startAnimation(anim_anti_rotate);
         img_bmi_circle.startAnimation(anim_rot);
 
@@ -127,6 +140,7 @@ public class HomePage extends AppCompatActivity
         name.setTypeface(typeface);
         heighttx.setTypeface(typeface);
         weighttx.setTypeface(typeface);
+        greeting_btn.setTypeface(typeface);
 
         mWaveLoadingView = (WaveLoadingView)findViewById(R.id.waveLoadingView);
 
@@ -245,45 +259,114 @@ public class HomePage extends AppCompatActivity
                 region = dataSnapshot.child("region").getValue(String.class);
                 regiontext.setText(region);
 
+                int total_inches = (height_ft*12) + height_in;
+
+
+
                 RelativeLayout layout =(RelativeLayout)findViewById(R.id.fragment_container_home_page);
+
                 if(gender.equals("male")){
                     layout.setBackgroundResource(R.color.lightBlue);
+                    if(height_cm >= 152){
+                        ideal_weight_lb = 106 + (6 * (total_inches - 60));
+                        double temp_weight;
+
+                        temp_weight = ideal_weight_lb * 0.453592;
+                        ideal_weight_kg = (int)(temp_weight+0.5d);
+
+
+                        ideal_weight.setText(ideal_weight_kg +" kg / " + ideal_weight_lb+" lb");
+
+                    }
+                    else {
+                        ideal_weight_lb = (106 - ((height_ft-1) * 3) + 9 * 6 );
+                        double temp_weight;
+                        temp_weight = ideal_weight_lb * 0.453592;
+                        ideal_weight_kg = (int)(temp_weight+0.5d);
+                        ideal_weight.setText(ideal_weight_kg +" kg / " + ideal_weight_lb+" lb");
+                    }
+
                 }
                 else {
                     layout.setBackgroundResource(R.color.lightPink);
+
+                    if(height_cm >= 152){
+                        ideal_weight_lb = 100 + (5 * (total_inches - 60));
+                        double temp_weight;
+                        temp_weight = ideal_weight_lb * 0.453592;
+                        ideal_weight_kg = (int)(temp_weight+0.5d);
+                        ideal_weight.setText(ideal_weight_kg +" kg / " + ideal_weight_lb+" lb");
+                    }
+                    else {
+                        ideal_weight_lb = (100 - ((height_ft-1) * 3) + 9 * 5 );
+                        double temp_weight;
+                        temp_weight = ideal_weight_lb * 0.453592;
+                        ideal_weight_kg = (int)(temp_weight+0.5d);
+                        ideal_weight.setText(ideal_weight_kg +" kg / " + ideal_weight_lb+" lb");
+                    }
                 }
 
 
-                heighttx.setText("You are "+ height_ft+"'' " +height_in+"' or "+ height_cm +" cm tall");
-                weighttx.setText("You are "+ weight_kg+" kg or "+ weight_lb +" pounds heavy");
+
+
+                int hours = new Time(System.currentTimeMillis()).getHours();
+                Toast.makeText(HomePage.this, ""+hours, Toast.LENGTH_SHORT).show();
+                if(hours >= 5 && hours < 12){
+                    greeting_btn.setText("Good Morning");
+                    moon_or_sun.setBackgroundResource(R.drawable.sun);
+                    moon_or_sun.startAnimation(rot_slow);
+
+                }else if(hours >= 12 && hours < 18){
+                    greeting_btn.setText("Good Afternoon");
+                    moon_or_sun.setBackgroundResource(R.drawable.sun);
+                    moon_or_sun.startAnimation(rot_slow);
+
+                }else if(hours >= 18 && hours < 22){
+                    greeting_btn.setText("Good Evening");
+                    moon_or_sun.setBackgroundResource(R.drawable.moon);
+                    moon_or_sun.startAnimation(rot_slow);
+
+                }else {
+                    greeting_btn.setText("Sweet Dreams");
+                    moon_or_sun.setBackgroundResource(R.drawable.moon);
+                    moon_or_sun.startAnimation(rot_slow);
+                }
+
+
+
+                heighttx.setText(height_ft+"'' " +height_in+"' / "+ height_cm+" cm");
+                weighttx.setText(weight_kg+" kg / "+ weight_lb+" lb");
 
                 weight_for_bmi = weight_kg;
                 height_for_bmi = height_cm / 100f;
                 temp = (height_for_bmi * height_for_bmi);
                 bmi = (weight_for_bmi) / temp;
 
-                if(region.equals("ASIA")){
 
-                    r3.setText("17 - 18.5");
-                    r4.setText("18.6 - 24.9");
-                    r5.setText("25 - 29.9");
-                    r6.setText("30 - 34.9");
+                switch (region){
 
-                } else if(region.equals("SOUTH AMERICA")){
+                    case "ASIA" :
+                        r3.setText("17 - 18.5");
+                        r4.setText("18.6 - 24.9");
+                        r5.setText("25 - 29.9");
+                        r6.setText("30 - 34.9");
+                        break;
 
-                    r3.setText("17 - 19");
-                    r4.setText("19 - 24.9");
-                    r5.setText("25 - 29.9");
-                    r6.setText("30 - 34.9");
+                    case "SOUTH AMERICA":
+                        r3.setText("17 - 19");
+                        r4.setText("19 - 24.9");
+                        r5.setText("25 - 29.9");
+                        r6.setText("30 - 34.9");
+                        break;
 
-                } else{
-
-                    r3.setText("17 - 18.5");
-                    r4.setText("18.6 - 24.9");
-                    r5.setText("25 - 29.9");
-                    r6.setText("30 - 34.9");
-
+                    default:
+                        r3.setText("17 - 18.5");
+                        r4.setText("18.6 - 24.9");
+                        r5.setText("25 - 29.9");
+                        r6.setText("30 - 34.9");
                 }
+
+
 
 
                 convert_bmi = (int)(bmi);
@@ -292,12 +375,14 @@ public class HomePage extends AppCompatActivity
                 // for Asia
                 if(region.equals("ASIA")){
                     if(bmi < 16){
-                    mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                    mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                     mWaveLoadingView.setProgressValue(convert_bmi);
 
                     img_bmi_circle.setBackgroundResource(R.drawable.underweight);
                     img_chaka.startAnimation(anim_anti_rotate);
                     img_bmi_circle.startAnimation(anim_rot);
+                        differenceInWeightMinus();
+
 
                         changeAll();
                        change1();
@@ -312,15 +397,15 @@ public class HomePage extends AppCompatActivity
                     img_bmi_circle.setBackgroundResource(R.drawable.underweight);
                     img_chaka.startAnimation(anim_anti_rotate);
                     img_bmi_circle.startAnimation(anim_rot);
-
+                    differenceInWeightMinus();
                     changeAll();
-                change2();
+                    change2();
                     underWeight();
                 }
                 if(bmi >=17 && bmi < 18.5) {
 
                     mWaveLoadingView.setProgressValue(convert_bmi);
-                    mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                    mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                     img_bmi_circle.setBackgroundResource(R.drawable.underweight);
                     img_chaka.startAnimation(anim_anti_rotate);
                     img_bmi_circle.startAnimation(anim_rot);
@@ -334,12 +419,12 @@ public class HomePage extends AppCompatActivity
                  if(bmi >=18.5 && bmi <23){
 
                  mWaveLoadingView.setProgressValue(convert_bmi);
-                 mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                 mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                  img_bmi_circle.setBackgroundResource(R.drawable.normal);
                  img_chaka.startAnimation(anim_anti_rotate);
                  img_bmi_circle.startAnimation(anim_rot);
 
-
+                     differenceInWeightPlus();
                      changeAll();
                      change4();
                      normalWeight();
@@ -348,11 +433,11 @@ public class HomePage extends AppCompatActivity
                  if(bmi >=23 && bmi <30){
 
                  mWaveLoadingView.setProgressValue(convert_bmi);
-                 mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                 mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                  img_bmi_circle.setBackgroundResource(R.drawable.overweight);
                  img_chaka.startAnimation(anim_anti_rotate);
                  img_bmi_circle.startAnimation(anim_rot);
-
+                     differenceInWeightPlus();
                      changeAll();
                      change5();
 
@@ -361,11 +446,11 @@ public class HomePage extends AppCompatActivity
                 if(bmi >=30 && bmi <35){
 
                  mWaveLoadingView.setProgressValue(convert_bmi);
-                 mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                 mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                     img_bmi_circle.setBackgroundResource(R.drawable.obese);
                     img_chaka.startAnimation(anim_anti_rotate);
                     img_bmi_circle.startAnimation(anim_rot);
-
+                    differenceInWeightPlus();
                     changeAll();
                     change6();
 
@@ -374,11 +459,11 @@ public class HomePage extends AppCompatActivity
                     if(bmi >=35 && bmi <40){
 
                         mWaveLoadingView.setProgressValue(convert_bmi);
-                        mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                        mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                         img_bmi_circle.setBackgroundResource(R.drawable.obese);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
-
+                        differenceInWeightPlus();
                         changeAll();
                         change7();
 
@@ -387,11 +472,11 @@ public class HomePage extends AppCompatActivity
                     if(bmi >=40 && bmi <50){
 
                         mWaveLoadingView.setProgressValue(convert_bmi);
-                        mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                        mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                         img_bmi_circle.setBackgroundResource(R.drawable.obese);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
-
+                        differenceInWeightPlus();
                         changeAll();
                         change8();
                         extremeObese();
@@ -399,11 +484,11 @@ public class HomePage extends AppCompatActivity
                     if(bmi >=50){
 
                         mWaveLoadingView.setProgressValue(convert_bmi);
-                        mWaveLoadingView.setCenterTitle(String.format("%.1f", bmi));
+                        mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                         img_bmi_circle.setBackgroundResource(R.drawable.obese);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
-
+                        differenceInWeightPlus();
                         changeAll();
                         change9();
 
@@ -416,24 +501,25 @@ public class HomePage extends AppCompatActivity
 
              else if(region.equals("South America")){
                     if(bmi < 16){
-                        mWaveLoadingView.setCenterTitle("Severely Thin");
+                        mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                         mWaveLoadingView.setProgressValue(convert_bmi);
 
                         img_bmi_circle.setBackgroundResource(R.drawable.underweight);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
+                        differenceInWeightMinus();
                         changeAll();
                         change1();
 
                         underWeight();
                     }
                     if(bmi >= 16 && bmi <17){
-
-
-                        mWaveLoadingView.setCenterTitle("Moderately Thin");
+                        mWaveLoadingView.setProgressValue(convert_bmi);
                         img_bmi_circle.setBackgroundResource(R.drawable.underweight);
+                        mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
+                        differenceInWeightMinus();
                         changeAll();
                         change2();
 
@@ -442,13 +528,13 @@ public class HomePage extends AppCompatActivity
                     if(bmi >=17 && bmi < 19) {
 
                         mWaveLoadingView.setProgressValue(convert_bmi);
-                        mWaveLoadingView.setCenterTitle("Mild Thin");
+                        mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                         img_bmi_circle.setBackgroundResource(R.drawable.underweight);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
                         changeAll();
                         change3();
-
+                        differenceInWeightMinus();
                         underWeight();
 
                     }
@@ -456,7 +542,7 @@ public class HomePage extends AppCompatActivity
                     if(bmi >= 19 && bmi < 25){
 
                         mWaveLoadingView.setProgressValue(convert_bmi);
-                        mWaveLoadingView.setCenterTitle("Normal Weight");
+                        mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                         img_bmi_circle.setBackgroundResource(R.drawable.normal);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
@@ -469,22 +555,23 @@ public class HomePage extends AppCompatActivity
                     if(bmi >=25 && bmi <30){
 
                         mWaveLoadingView.setProgressValue(convert_bmi);
-                        mWaveLoadingView.setCenterTitle("Overweight");
+                        mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                         img_bmi_circle.setBackgroundResource(R.drawable.overweight);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
                         changeAll();
                         change5();
-
+                        differenceInWeightPlus();
                         overWeight();
                     }
                     if(bmi >=30 && bmi <35){
 
                         mWaveLoadingView.setProgressValue(convert_bmi);
-                        mWaveLoadingView.setCenterTitle("Obese");
+                        mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                         img_bmi_circle.setBackgroundResource(R.drawable.obese);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
+                        differenceInWeightPlus();
                         changeAll();
                         change6();
 
@@ -493,10 +580,11 @@ public class HomePage extends AppCompatActivity
                     if(bmi >=35 && bmi <40){
 
                         mWaveLoadingView.setProgressValue(convert_bmi);
-                        mWaveLoadingView.setCenterTitle("Mild Obese");
+                        mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                         img_bmi_circle.setBackgroundResource(R.drawable.obese);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
+                        differenceInWeightPlus();
                         changeAll();
                         change7();
 
@@ -505,10 +593,11 @@ public class HomePage extends AppCompatActivity
                     if(bmi >=40 && bmi <50){
 
                         mWaveLoadingView.setProgressValue(convert_bmi);
-                        mWaveLoadingView.setCenterTitle("Moderately Obese");
+                        mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                         img_bmi_circle.setBackgroundResource(R.drawable.obese);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
+                        differenceInWeightPlus();
                         changeAll();
                         change8();
 
@@ -517,10 +606,11 @@ public class HomePage extends AppCompatActivity
                     if(bmi >=50){
 
                         mWaveLoadingView.setProgressValue(convert_bmi);
-                        mWaveLoadingView.setCenterTitle("Severely Obese");
+                        mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                         img_bmi_circle.setBackgroundResource(R.drawable.obese);
                         img_chaka.startAnimation(anim_anti_rotate);
                         img_bmi_circle.startAnimation(anim_rot);
+                        differenceInWeightPlus();
                         changeAll();
                         change9();
 
@@ -531,12 +621,13 @@ public class HomePage extends AppCompatActivity
 
                     else{
                         if(bmi < 16){
-                            mWaveLoadingView.setCenterTitle("Severely Thin");
+                            mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                             mWaveLoadingView.setProgressValue(convert_bmi);
 
                             img_bmi_circle.setBackgroundResource(R.drawable.underweight);
                             img_chaka.startAnimation(anim_anti_rotate);
                             img_bmi_circle.startAnimation(anim_rot);
+                            differenceInWeightMinus();
                             changeAll();
                             change1();
 
@@ -545,10 +636,11 @@ public class HomePage extends AppCompatActivity
                         if(bmi >= 16 && bmi <17){
 
 
-                            mWaveLoadingView.setCenterTitle("Moderately Thin");
+                            mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                             img_bmi_circle.setBackgroundResource(R.drawable.underweight);
                             img_chaka.startAnimation(anim_anti_rotate);
                             img_bmi_circle.startAnimation(anim_rot);
+                            differenceInWeightMinus();
                             changeAll();
                             change2();
 
@@ -557,13 +649,13 @@ public class HomePage extends AppCompatActivity
                         if(bmi >=17 && bmi < 18.5) {
 
                             mWaveLoadingView.setProgressValue(convert_bmi);
-                            mWaveLoadingView.setCenterTitle("Mild Thin");
+                            mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                             img_bmi_circle.setBackgroundResource(R.drawable.underweight);
                             img_chaka.startAnimation(anim_anti_rotate);
                             img_bmi_circle.startAnimation(anim_rot);
                             changeAll();
                             change3();
-
+                            differenceInWeightMinus();
                             underWeight();
 
                         }
@@ -571,7 +663,7 @@ public class HomePage extends AppCompatActivity
                         if(bmi >=18.5 && bmi <25){
 
                             mWaveLoadingView.setProgressValue(convert_bmi);
-                            mWaveLoadingView.setCenterTitle("Normal Weight");
+                            mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                             img_bmi_circle.setBackgroundResource(R.drawable.normal);
                             img_chaka.startAnimation(anim_anti_rotate);
                             img_bmi_circle.startAnimation(anim_rot);
@@ -590,16 +682,17 @@ public class HomePage extends AppCompatActivity
                             img_bmi_circle.startAnimation(anim_rot);
                             changeAll();
                             change5();
-
+                            differenceInWeightPlus();
                             overWeight();
                         }
                         if(bmi >=30 && bmi <35){
 
                             mWaveLoadingView.setProgressValue(convert_bmi);
-                            mWaveLoadingView.setCenterTitle("Obese");
+                            mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                             img_bmi_circle.setBackgroundResource(R.drawable.obese);
                             img_chaka.startAnimation(anim_anti_rotate);
                             img_bmi_circle.startAnimation(anim_rot);
+                            differenceInWeightPlus();
                             changeAll();
                             change6();
 
@@ -608,10 +701,11 @@ public class HomePage extends AppCompatActivity
                         if(bmi >=35 && bmi <40){
 
                             mWaveLoadingView.setProgressValue(convert_bmi);
-                            mWaveLoadingView.setCenterTitle("Mild Obese");
+                            mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                             img_bmi_circle.setBackgroundResource(R.drawable.obese);
                             img_chaka.startAnimation(anim_anti_rotate);
                             img_bmi_circle.startAnimation(anim_rot);
+                            differenceInWeightPlus();
                             changeAll();
                             change7();
 
@@ -620,10 +714,11 @@ public class HomePage extends AppCompatActivity
                         if(bmi >=40 && bmi <50){
 
                             mWaveLoadingView.setProgressValue(convert_bmi);
-                            mWaveLoadingView.setCenterTitle("Moderately Obese");
+                            mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                             img_bmi_circle.setBackgroundResource(R.drawable.obese);
                             img_chaka.startAnimation(anim_anti_rotate);
                             img_bmi_circle.startAnimation(anim_rot);
+                            differenceInWeightPlus();
                             changeAll();
                             change8();
 
@@ -632,10 +727,11 @@ public class HomePage extends AppCompatActivity
                         if(bmi >=50){
 
                             mWaveLoadingView.setProgressValue(convert_bmi);
-                            mWaveLoadingView.setCenterTitle("Severely Obese");
+                            mWaveLoadingView.setCenterTitle("BMI "+String.format("%.1f", bmi));
                             img_bmi_circle.setBackgroundResource(R.drawable.obese);
                             img_chaka.startAnimation(anim_anti_rotate);
                             img_bmi_circle.startAnimation(anim_rot);
+                            differenceInWeightPlus();
                             changeAll();
                             change9();
 
@@ -666,8 +762,8 @@ public class HomePage extends AppCompatActivity
 
     private void underWeight(){
         mWaveLoadingView.setAmplitudeRatio(60);
-        mWaveLoadingView.setWaveColor(Color.RED);
-        mWaveLoadingView.setBorderColor(Color.RED);
+        mWaveLoadingView.setWaveColor(ContextCompat.getColor(this, R.color.redWrong));
+        mWaveLoadingView.setBorderColor(ContextCompat.getColor(this, R.color.redWrong));
         mWaveLoadingView.setAnimDuration(3000);
         mWaveLoadingView.pauseAnimation();
         mWaveLoadingView.resumeAnimation();
@@ -677,8 +773,8 @@ public class HomePage extends AppCompatActivity
 
     private void normalWeight(){
         mWaveLoadingView.setAmplitudeRatio(60);
-        mWaveLoadingView.setWaveColor(Color.GREEN);
-        mWaveLoadingView.setBorderColor(Color.GREEN);
+        mWaveLoadingView.setWaveColor(ContextCompat.getColor(this, R.color.greenRight));
+        mWaveLoadingView.setBorderColor(ContextCompat.getColor(this, R.color.greenRight));
         mWaveLoadingView.setAnimDuration(3000);
         mWaveLoadingView.pauseAnimation();
         mWaveLoadingView.resumeAnimation();
@@ -689,8 +785,8 @@ public class HomePage extends AppCompatActivity
 
    private void overWeight(){
        mWaveLoadingView.setAmplitudeRatio(60);
-       mWaveLoadingView.setWaveColor(Color.YELLOW);
-       mWaveLoadingView.setBorderColor(Color.YELLOW);
+       mWaveLoadingView.setWaveColor(ContextCompat.getColor(this, R.color.redWrong));
+       mWaveLoadingView.setBorderColor(ContextCompat.getColor(this, R.color.redWrong));
        mWaveLoadingView.setAnimDuration(3000);
        mWaveLoadingView.pauseAnimation();
        mWaveLoadingView.resumeAnimation();
@@ -700,8 +796,8 @@ public class HomePage extends AppCompatActivity
     }
     private void obese(){
         mWaveLoadingView.setAmplitudeRatio(60);
-        mWaveLoadingView.setWaveColor(Color.RED);
-        mWaveLoadingView.setBorderColor(Color.RED);
+        mWaveLoadingView.setWaveColor(ContextCompat.getColor(this, R.color.redWrong));
+        mWaveLoadingView.setBorderColor(ContextCompat.getColor(this, R.color.redWrong));
         mWaveLoadingView.setAnimDuration(3000);
         mWaveLoadingView.pauseAnimation();
         mWaveLoadingView.resumeAnimation();
@@ -711,8 +807,8 @@ public class HomePage extends AppCompatActivity
     }
     private void extremeObese(){
         mWaveLoadingView.setAmplitudeRatio(60);
-        mWaveLoadingView.setWaveColor(Color.RED);
-        mWaveLoadingView.setBorderColor(Color.RED);
+        mWaveLoadingView.setWaveColor(ContextCompat.getColor(this, R.color.redWrong));
+        mWaveLoadingView.setBorderColor(ContextCompat.getColor(this, R.color.redWrong));
         mWaveLoadingView.setAnimDuration(3000);
         mWaveLoadingView.pauseAnimation();
         mWaveLoadingView.resumeAnimation();
@@ -769,123 +865,142 @@ public class HomePage extends AppCompatActivity
 
     }
     private void change1(){
-        ct1.setTextColor(Color.RED);
-        r1.setTextColor(Color.RED);
+        ct1.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
+        r1.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         ct1.setTypeface(Typeface.DEFAULT_BOLD);
         r1.setTypeface(Typeface.DEFAULT_BOLD);
 
-        placeholder.setText("Severe Thinness");
-        placeholder.setTextColor(Color.RED);
+        placeholder.setText("-" +difference_kg +" kg / "+ difference_lb +" lb");
+        placeholder.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         placeholder.setTypeface(Typeface.DEFAULT_BOLD);
         placeholder.setTextSize(20);
         right_wrong_img.setBackgroundResource(R.drawable.wrong);
+        ideal_weight.setTextColor(ContextCompat.getColor(this, R.color.greenRight));
 
 
     }
     private void change2(){
-        ct2.setTextColor(Color.RED);
-        r2.setTextColor(Color.RED);
+        ct2.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
+        r2.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         ct2.setTypeface(Typeface.DEFAULT_BOLD);
         r2.setTypeface(Typeface.DEFAULT_BOLD);
 
-        placeholder.setText("Moderate Thinness");
+        placeholder.setText("-" +difference_kg +" kg / "+ difference_lb +" lb");
         placeholder.setTextColor(Color.RED);
         placeholder.setTypeface(Typeface.DEFAULT_BOLD);
         placeholder.setTextSize(20);
         right_wrong_img.setBackgroundResource(R.drawable.wrong);
+        ideal_weight.setTextColor(ContextCompat.getColor(this, R.color.greenRight));
 
     }
 
     private void change3(){
-        ct3.setTextColor(Color.RED);
-        r3.setTextColor(Color.RED);
+        ct3.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
+        r3.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         ct3.setTypeface(Typeface.DEFAULT_BOLD);
         r3.setTypeface(Typeface.DEFAULT_BOLD);
 
-        placeholder.setText("Mild Thiness");
-        placeholder.setTextColor(Color.RED);
+        placeholder.setText("-" +difference_kg +" kg / "+ difference_lb +" lb");
+        placeholder.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         placeholder.setTypeface(Typeface.DEFAULT_BOLD);
         placeholder.setTextSize(20);
         right_wrong_img.setBackgroundResource(R.drawable.wrong);
+        ideal_weight.setTextColor(ContextCompat.getColor(this, R.color.greenRight));
 
     }
     private void change4(){
-        ct4.setTextColor(Color.GREEN);
-        r4.setTextColor(Color.GREEN);
+        ct4.setTextColor(ContextCompat.getColor(this, R.color.greenRight));
+        r4.setTextColor(ContextCompat.getColor(this, R.color.greenRight));
         ct4.setTypeface(Typeface.DEFAULT_BOLD);
         r4.setTypeface(Typeface.DEFAULT_BOLD);
         placeholder.setText("Normal");
-        placeholder.setTextColor(Color.GREEN);
+        placeholder.setTextColor(ContextCompat.getColor(this, R.color.greenRight));
         placeholder.setTypeface(Typeface.DEFAULT_BOLD);
         placeholder.setTextSize(20);
         right_wrong_img.setBackgroundResource(R.drawable.right);
+        ideal_weight.setTextColor(ContextCompat.getColor(this, R.color.greenRight));
 
     }
     private void change5(){
-        ct5.setTextColor(Color.RED);
-        r5.setTextColor(Color.RED);
+        ct5.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
+        r5.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         ct5.setTypeface(Typeface.DEFAULT_BOLD);
         r5.setTypeface(Typeface.DEFAULT_BOLD);
 
-        placeholder.setText("Overweight");
-        placeholder.setTextColor(Color.RED);
+        placeholder.setText("+" +difference_kg +" kg / "+ difference_lb +" lb");
+        placeholder.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         placeholder.setTypeface(Typeface.DEFAULT_BOLD);
         placeholder.setTextSize(20);
         right_wrong_img.setBackgroundResource(R.drawable.wrong);
+        ideal_weight.setTextColor(ContextCompat.getColor(this, R.color.greenRight));
 
     }
     private void change6(){
-        ct6.setTextColor(Color.RED);
-        r6.setTextColor(Color.RED);
+        ct6.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
+        r6.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         ct6.setTypeface(Typeface.DEFAULT_BOLD);
         r6.setTypeface(Typeface.DEFAULT_BOLD);
-        placeholder.setText("Obese");
-        placeholder.setTextColor(Color.RED);
+        placeholder.setText("+" +difference_kg +" kg / "+ difference_lb +" lb");
+        placeholder.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         placeholder.setTypeface(Typeface.DEFAULT_BOLD);
         placeholder.setTextSize(20);
         right_wrong_img.setBackgroundResource(R.drawable.wrong);
+        ideal_weight.setTextColor(ContextCompat.getColor(this, R.color.greenRight));
 
     }
     private void change7(){
-        ct7.setTextColor(Color.RED);
-        r7.setTextColor(Color.RED);
+        ct7.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
+        r7.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         ct7.setTypeface(Typeface.DEFAULT_BOLD);
         r7.setTypeface(Typeface.DEFAULT_BOLD);
 
-        placeholder.setText("Type 1 Obese");
-        placeholder.setTextColor(Color.RED);
+        placeholder.setText("+" +difference_kg +" kg / "+ difference_lb +" lb");
+        placeholder.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         placeholder.setTypeface(Typeface.DEFAULT_BOLD);
         placeholder.setTextSize(20);
         right_wrong_img.setBackgroundResource(R.drawable.wrong);
+        ideal_weight.setTextColor(ContextCompat.getColor(this, R.color.greenRight));
     }
     private void change8(){
-        ct8.setTextColor(Color.RED);
-        r8.setTextColor(Color.RED);
+        ct8.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
+        r8.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         ct8.setTypeface(Typeface.DEFAULT_BOLD);
         r8.setTypeface(Typeface.DEFAULT_BOLD);
 
-        placeholder.setText("Type 2 Obese");
-        placeholder.setTextColor(Color.RED);
+        placeholder.setText("+" +difference_kg +" kg / "+ difference_lb +" lb");
+        placeholder.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         placeholder.setTypeface(Typeface.DEFAULT_BOLD);
         placeholder.setTextSize(20);
         right_wrong_img.setBackgroundResource(R.drawable.wrong);
+        ideal_weight.setTextColor(ContextCompat.getColor(this, R.color.greenRight));
 
     }
 
     private void change9(){
-        ct9.setTextColor(Color.RED);
-        r9.setTextColor(Color.RED);
+        ct9.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
+        r9.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         ct9.setTypeface(Typeface.DEFAULT_BOLD);
         r9.setTypeface(Typeface.DEFAULT_BOLD);
 
-        placeholder.setText("Type 3 Obese");
-        placeholder.setTextColor(Color.RED);
+        placeholder.setText("+"+difference_kg +" kg / "+ difference_lb +" lb");
+        placeholder.setTextColor(ContextCompat.getColor(this, R.color.redWrong));
         placeholder.setTypeface(Typeface.DEFAULT_BOLD);
         placeholder.setTextSize(20);
 
         right_wrong_img.setBackgroundResource(R.drawable.wrong);
+        ideal_weight.setTextColor(ContextCompat.getColor(this, R.color.greenRight));
     }
 
+
+    private void differenceInWeightMinus(){
+        difference_kg = ideal_weight_kg - weight_kg;
+        difference_lb = ideal_weight_lb - weight_lb;
+    }
+
+   private void differenceInWeightPlus(){
+        difference_kg = weight_kg - ideal_weight_kg;
+        difference_lb = weight_lb - ideal_weight_lb;
+    }
 
 
 

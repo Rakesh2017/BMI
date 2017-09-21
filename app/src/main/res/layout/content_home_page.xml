@@ -30,8 +30,6 @@
             android:layout_height="wrap_content">
 
 
-
-
       <TextView
           android:layout_width="match_parent"
           android:layout_height="70dp"
@@ -48,23 +46,31 @@
           />
 
 
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignEnd="@id/disp_name"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/moon_sun"
+                />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" "
-        android:textSize="20sp"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/black"
-        android:textStyle="italic"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp"
-        android:layout_below="@id/disp_name"
-        android:background="@drawable/rounded_background_green"
-        android:id="@+id/u_height_text"
-        />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/moon_sun"
+                android:layout_alignBottom="@id/disp_name"
+                android:textSize="25sp"
+                android:textColor="@color/white"
+                android:id="@+id/greeting"
+                android:paddingEnd="10dp"
+                android:paddingBottom="4dp"
+                />
+
+
+
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,53 +79,72 @@
         android:padding="5dp"
         android:layout_marginTop="4dp"
         android:layout_below="@id/disp_name"
-        android:text="change"
+        android:text="change height"
         android:id="@+id/change_height"
-        android:layout_toEndOf="@id/u_height_text"
         android:textColor="@color/white"
         android:background="@drawable/rounded_background_red"
-        android:layout_alignBottom="@id/u_height_text"
+        android:layout_alignParentStart="true"
          />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:layout_below="@id/change_height"
+                android:layout_alignStart="@id/change_height"
+                android:layout_marginTop="20dp"
+                android:id="@+id/u_height_text"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" "
-        android:textSize="20sp"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/black"
-        android:textStyle="italic"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp"
-        android:layout_below="@id/u_height_text"
-        android:background="@drawable/rounded_background_amber"
-        android:id="@+id/u_weight_text"
-        />
+
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:textSize="15sp"
+        android:layout_marginEnd="10dp"
         android:padding="5dp"
         android:layout_marginTop="4dp"
-        android:layout_below="@id/u_height_text"
-        android:text="change"
+        android:layout_below="@id/disp_name"
+        android:text="change weight"
         android:id="@+id/change_weight"
-        android:layout_toEndOf="@id/u_weight_text"
         android:textColor="@color/white"
+        android:layout_alignParentEnd="true"
         android:background="@drawable/rounded_background_red"
-        android:layout_alignBottom="@id/u_weight_text"
+
         />
 
-    <me.itangqi.waveloadingview.WaveLoadingView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:layout_alignEnd="@id/change_weight"
+                android:layout_below="@id/change_weight"
+                android:id="@+id/u_weight_text"
+                />
+
+
+            <me.itangqi.waveloadingview.WaveLoadingView
         android:id="@+id/waveLoadingView"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="20sp"
         app:wlv_borderColor="@color/colorAccent"
-        android:layout_below="@+id/u_weight_text"
+        android:layout_below="@+id/change_weight"
         app:wlv_borderWidth="1dp"
         app:wlv_progressValue="50"
         android:layout_centerInParent="true"
@@ -150,6 +175,7 @@
         android:id="@+id/chaka_bmi"
         android:contentDescription="@string/unable_to_display_background"
         />
+
 
     <ImageView
         android:layout_width="wrap_content"
@@ -458,6 +484,43 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hr2"
+                android:text="IDEAL WEIGHT"
+                android:layout_marginTop="10dp"
+                android:layout_alignStart="@id/classification"
+                android:textStyle="bold"
+                android:textColor="@color/greenRight"
+                android:id="@+id/ideal_weight"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hr2"
+                android:layout_alignStart="@id/range"
+                android:text=""
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:id="@+id/ideal_weight_text"
+                android:layout_marginEnd="10dp"
+                />
+
+            <TableRow
+                android:id="@+id/hr3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#444"
+                android:layout_below="@id/ideal_weight"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                />
+
+
 
         </RelativeLayout>
     </ScrollView>
