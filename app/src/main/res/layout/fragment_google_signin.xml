@@ -16,7 +16,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_background_black"
+        android:background="@drawable/rounded_background_white"
         android:orientation="vertical">
 
         <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -42,17 +42,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/title_bottom_margin"
+            android:textColor="@color/black"
             android:text="@string/google_title_text"
             android:theme="@style/ThemeOverlay.MyTitleText" />
 
         <TextView
             android:id="@+id/status"
             style="@style/ThemeOverlay.MyTextDetail"
+            android:textColor="@color/black"
             android:text="@string/signed_out" />
 
         <TextView
             android:id="@+id/detail"
             style="@style/ThemeOverlay.MyTextDetail"
+            android:textColor="@color/black"
             tools:text="Google User: User Name" />
 
     </LinearLayout>
@@ -62,7 +65,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@drawable/rounded_background_black"
+        android:background="@drawable/rounded_background_white"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -95,6 +98,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/sign_out"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/rounded_background_red"
                 android:contentDescription="@string/unable_to_display_background"
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
 
@@ -103,7 +108,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginStart="5dp"
                 android:text="@string/set_go"
+                android:background="@drawable/rounded_background_green"
                 android:contentDescription="@string/unable_to_display_background"
                 android:theme="@style/ThemeOverlay.MyDarkButtonSetGo" />
         </LinearLayout>

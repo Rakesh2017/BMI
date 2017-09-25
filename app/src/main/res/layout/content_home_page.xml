@@ -16,10 +16,12 @@
 
 
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
+        android:fillViewport="true"
         >
 
 
@@ -33,9 +35,9 @@
       <TextView
           android:layout_width="match_parent"
           android:layout_height="70dp"
-          android:background="@drawable/rounded_background_black"
+          android:background="@drawable/rounded_background_green"
           android:text=" "
-          android:textSize="25sp"
+          android:textSize="20sp"
           android:textColor="@color/white"
           android:textStyle="italic"
           android:paddingTop="4dp"
@@ -98,7 +100,7 @@
                 android:paddingBottom="4dp"
                 android:layout_below="@id/change_height"
                 android:layout_alignStart="@id/change_height"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="4dp"
                 android:id="@+id/u_height_text"/>
 
 
@@ -125,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:text=" "
                 android:textSize="20sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="4dp"
                 android:textColor="@color/black"
                 android:textStyle="italic"
                 android:paddingTop="4dp"
@@ -137,12 +139,11 @@
                 android:id="@+id/u_weight_text"
                 />
 
-
-            <me.itangqi.waveloadingview.WaveLoadingView
+    <me.itangqi.waveloadingview.WaveLoadingView
         android:id="@+id/waveLoadingView"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="40dp"
         app:wlv_borderColor="@color/colorAccent"
         android:layout_below="@+id/change_weight"
         app:wlv_borderWidth="1dp"
@@ -203,7 +204,7 @@
         android:id="@+id/classification"
         android:layout_below="@id/waveLoadingView"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         />
 
             <TextView
@@ -211,7 +212,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/waveLoadingView"
             android:layout_centerInParent="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
                 android:id="@+id/reg_text"
                 android:text="region"
                 android:textColor="@color/black"
@@ -236,9 +237,9 @@
         android:layout_below="@id/waveLoadingView"
         android:layout_marginStart="20dp"
         android:id="@+id/range"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="65dp"
         />
 
     <ImageView
@@ -522,9 +523,10 @@
 
 
 
-        </RelativeLayout>
-    </ScrollView>
 
+
+        </RelativeLayout>
+ </ScrollView>
 
 
 

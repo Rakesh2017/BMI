@@ -1,0 +1,154 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/user_info1_background"
+    tools:context="com.enhabyto.bmiapp.eatHealthyDietAsk">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="150dp"
+      android:layout_marginStart="20dp"
+      android:layout_marginEnd="20dp"
+      android:layout_marginBottom="20dp"
+      android:background="@drawable/rounded_background_white"
+      >
+
+      <ImageView
+          android:layout_width="15dp"
+          android:layout_height="15dp"
+          android:background="@drawable/apple"
+          android:layout_centerHorizontal="true"
+          android:layout_marginTop="20dp"
+          android:id="@+id/apple"
+          android:contentDescription="@string/unable_to_display_background"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:layout_below="@id/apple"
+          android:layout_marginTop="20dp"
+          android:text="How can we help you?"
+          android:textSize="30sp"
+          android:textColor="@color/greenRight"
+          android:textStyle="bold"
+          android:id="@+id/health_text1"
+          android:padding="10dp"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/health_text1"
+          android:layout_marginStart="30dp"
+          android:layout_marginEnd="30dp"
+          android:layout_marginTop="10dp"
+          android:layout_centerHorizontal="true"
+          android:textSize="20sp"
+          android:gravity="center"
+          android:id="@+id/health_text2"
+          android:text="Select your most important goal, you \n can add or change it later."
+          />
+
+      <ScrollView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_below="@id/health_text2"
+          android:layout_marginBottom="10dp"
+          android:scrollbars="none"
+          >
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:layout_marginStart="30dp"
+              android:layout_marginEnd="30dp"
+              android:weightSum="6"
+              >
+
+          <Button
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="eat healthy"
+              android:layout_marginTop="20dp"
+              android:layout_weight="1"
+              android:background="@drawable/rounded_background_blue"
+              android:id="@+id/health_btn1"
+              android:textColor="@color/white"
+              />
+
+              <Button
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Living with diabetes"
+                  android:layout_marginTop="20dp"
+                  android:layout_weight="1"
+                  android:background="@drawable/rounded_background_blue"
+                  android:id="@+id/health_btn2"
+                  android:textColor="@color/white"
+                  />
+
+              <Button
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="lose weight"
+                  android:layout_marginTop="20dp"
+                  android:layout_weight="1"
+                  android:background="@drawable/rounded_background_blue"
+                  android:id="@+id/health_btn3"
+                  android:textColor="@color/white"
+                  />
+
+              <Button
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="gain weight"
+                  android:layout_marginTop="20dp"
+                  android:layout_weight="1"
+                  android:background="@drawable/rounded_background_blue"
+                  android:id="@+id/health_btn4"
+                  android:textColor="@color/white"
+                  />
+
+              <Button
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="gain muscle mass"
+                  android:layout_marginTop="20dp"
+                  android:layout_weight="1"
+                  android:background="@drawable/rounded_background_blue"
+                  android:id="@+id/health_btn5"
+                  android:textColor="@color/white"
+                  />
+
+              <Button
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="reduce fat %"
+                  android:layout_marginTop="20dp"
+                  android:layout_weight="1"
+                  android:background="@drawable/rounded_background_blue"
+                  android:id="@+id/health_btn6"
+                  android:textColor="@color/white"
+                  />
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content" />
+
+
+
+      </LinearLayout>
+
+      </ScrollView>
+
+
+
+  </RelativeLayout>
+
+
+</RelativeLayout>

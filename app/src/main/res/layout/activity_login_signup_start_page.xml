@@ -14,13 +14,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="90dp"
-        android:id="@+id/imageViewBackOne"
+        android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_background_black"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_background_white"
         android:contentDescription="@string/unable_to_display_background"
         >
 
@@ -28,33 +29,27 @@
 
             <ImageView
                 android:id="@+id/imageViewAppLogo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:contentDescription="@string/app_logo"
-                android:background="@drawable/app_logo"
+                android:background="@drawable/apple"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="180dp"
-                android:layout_marginBottom="330dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 />
 
 
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true"
-            android:weightSum="4"
-            android:layout_marginBottom="60dp"
-            android:id="@+id/credentials_login"
-            >
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/imageViewAppLogo"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/textinput1"
                 >
 
                 <EditText
@@ -65,21 +60,21 @@
                     android:layout_gravity="center"
                     android:inputType="textEmailAddress"
                     android:hint="@string/login_email"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="30dp"
                     android:layout_weight="1"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:fontFamily="serif"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
                     android:textSize="20sp"
                     />
+
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/textinput2"
+                android:layout_below="@id/textinput1"
                 >
 
                 <EditText
@@ -88,7 +83,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
                     android:inputType="textPassword"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
@@ -101,62 +95,95 @@
                     />
             </android.support.design.widget.TextInputLayout>
 
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@mipmap/signin"
+            android:layout_marginStart="10dp"
+            android:layout_alignTop="@id/textinput1"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/unable_to_display_background"
+            android:id="@+id/mail_icon"
+            />
+
+
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignTop="@id/textinput2"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:src="@mipmap/password"
+            android:id="@+id/password_icon"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/ll6"
+            android:layout_below="@id/textinput2"
+            android:layout_marginTop="15dp"
+            android:weightSum="2"
+            >
+
             <Button
-                android:id="@+id/btn_login"
-                android:layout_width="match_parent"
+                android:id="@+id/forgot_password"
+                android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
+                android:layout_weight="1"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/rounded_background_red"
+                android:text="Forgot password"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:textStyle="bold"
+                android:background="@drawable/rounded_background_amber"
+                android:contentDescription="@string/unable_to_display_background"
+                android:layout_marginBottom="5dp" />
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_background_green"
                 android:text="@string/btn_login"
                 android:layout_weight="1"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
 
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/forgot_password"
-                android:layout_width="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:visibility="invisible"
-                android:layout_marginTop="15dp"
-                android:contentDescription="@string/unable_to_display_background"
-                android:src="@drawable/forgotpassword"
-                app:riv_corner_radius="5dip"
-                android:layout_marginBottom="5dp"
-                app:riv_mutate_background="true" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:weightSum="2"
-            android:id="@+id/ll2"
-            >
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/sign_in_with_google"
-                android:layout_weight="1"
                 android:src="@drawable/signingoogle"
+                app:riv_corner_radius="5dp"
                 android:scaleType="fitCenter"
-                app:riv_corner_radius="5dip"
-                app:riv_mutate_background="true"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="15dp"
+                android:layout_below="@id/ll6"
                 android:contentDescription="@string/unable_to_display_background"
                 />
 
@@ -164,111 +191,60 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignEnd="@id/sign_in_with_google"
                 android:id="@+id/sign_in_with_fb"
-                android:layout_weight="1"
-                android:layout_marginStart="5dp"
                 android:src="@drawable/fb_login"
+                android:layout_below="@id/sign_in_with_google"
                 android:scaleType="fitCenter"
-                app:riv_corner_radius="5dip"
-                app:riv_mutate_background="true"
-                android:layout_marginEnd="15dp"
-
+                app:riv_corner_radius="5dp"
                 android:contentDescription="@string/unable_to_display_background"
-                />
+                android:layout_alignStart="@+id/sign_in_with_google" />
 
 
-
-        </LinearLayout>
-
-
-
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:src="@mipmap/signin"
-            android:layout_marginBottom="250dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="20dp"
-            android:contentDescription="@string/unable_to_display_background"
-            android:id="@+id/mail_icon"
-            />
-
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginBottom="195dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="20dp"
-            android:src="@mipmap/password"
-            android:id="@+id/password_icon"
-            android:contentDescription="@string/unable_to_display_background"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="or"
+            android:layout_below="@id/sign_in_with_fb"
+            android:layout_centerInParent="true"
+            android:id="@+id/or"
+            android:layout_marginTop="5dp"
+            android:textSize="25sp"
             />
 
 
-        <ImageButton
-            android:layout_width="50dp"
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/paschange"
-            android:visibility="visible"
-            android:id="@+id/forgot_pass_icon"
-            android:layout_above="@+id/ll2"
-            android:layout_alignEnd="@id/ll2"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="15dp"
+            android:id="@+id/sign_up"
+            android:src="@drawable/signupwithmail"
+            android:layout_below="@id/or"
+            android:scaleType="fitCenter"
+            app:riv_corner_radius="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
             android:contentDescription="@string/unable_to_display_background"
+            android:layout_alignStart="@+id/sign_in_with_google"
+
+          />
+
+
+
+
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/login_progressbar"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+           android:layout_below="@id/sign_in_with_google"
             />
-
-
 
 
     </RelativeLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewTwo"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/rounded_background_black"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/imageViewBackOne"
-        android:layout_alignEnd="@+id/imageViewBackOne">
-
-        <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/sign_up"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="15dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/unable_to_display_background"
-            android:scaleType="fitCenter"
-            android:src="@drawable/signupwithmail"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            app:riv_corner_radius="5dip"
-            app:riv_mutate_background="true" />
-
-
-
-    </LinearLayout>
-
-
-
-    <com.mikhaellopez.circularprogressbar.CircularProgressBar
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/login_progressbar"
-        android:layout_centerHorizontal="true"
-       android:layout_above="@id/imageViewTwo"
-        android:visibility="invisible"
-        />
-
-
-
 
 </RelativeLayout>
 

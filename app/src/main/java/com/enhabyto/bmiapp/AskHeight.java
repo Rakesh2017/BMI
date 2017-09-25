@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,9 @@ public class AskHeight extends Fragment {
     Animation anim;
 
     RelativeLayout r1, r2;
+    Animation anim_zoom;
+    ImageView imageView;
+
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
@@ -68,11 +72,17 @@ public class AskHeight extends Fragment {
         r2 = (RelativeLayout)view.findViewById(R.id.rl2);
         f_blur = (Button)view. findViewById(R.id.feet_blur);
         c_blur = (Button)view. findViewById(R.id.cm_blur);
-
+        textView1 = (TextView)view. findViewById(R.id.height_text1);
+        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/ReprineatoRegular.otf");
+        textView1.setTypeface(typeface);
         feet = (NumberPicker) view.findViewById(R.id.number_picker_feet);
         inch = (NumberPicker) view.findViewById(R.id.number_picker_inches);
         centimeter = (NumberPicker) view.findViewById(R.id.number_picker_cm);
-      //  btn = (Button)view. findViewById(R.id.set_height);
+        imageView = (ImageView)view.findViewById(R.id.apple3);
+        anim_zoom = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_in);
+        imageView.startAnimation(anim_zoom);
+
+        //  btn = (Button)view. findViewById(R.id.set_height);
 
 
       f_blur.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +126,7 @@ public class AskHeight extends Fragment {
                 d_parent.child("users").child(user.getUid()).child("height").child("centimeter").setValue(temp);
                 view.findViewById(R.id.tick_height).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.tick_height).startAnimation(anim);
+                btn_f.setBackgroundResource(R.drawable.rounded_background_green);
 
 
             }
@@ -137,6 +148,7 @@ public class AskHeight extends Fragment {
                 d_parent.child("users").child(user.getUid()).child("height").child("feet_and_inches").child("feet").setValue(feetPart);
                 d_parent.child("users").child(user.getUid()).child("height").child("feet_and_inches").child("inches").setValue(inchesPart);
                 view.findViewById(R.id.tick_height).setVisibility(View.VISIBLE);
+                btn_c.setBackgroundResource(R.drawable.rounded_background_green);
                 view.findViewById(R.id.tick_height).startAnimation(anim);
             }
         });

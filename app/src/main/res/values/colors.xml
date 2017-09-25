@@ -19,6 +19,7 @@
     <color name="green_transparent">#9033691E</color>
     <color name="blue_transparent">#9001579B</color>
     <color name="teal_transparent">#90004D40</color>
+    <color name="red_transparent">#90e25b68</color>
 
     <!-- tab layout -->
     <color name="windowBackground">#FFFFFF</color>
@@ -27,6 +28,7 @@
     <color name="lightBlue">#2000bfff</color>
     <color name="greenRight">#3dbb93</color>
     <color name="redWrong">#e25b68</color>
+    <color name="gray">#444444</color>
 
 
 </resources>

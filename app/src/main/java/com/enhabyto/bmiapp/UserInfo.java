@@ -27,6 +27,8 @@ public class UserInfo extends AppCompatActivity {
     private ViewPager viewPager;
 
     private int[] tabIcons = {
+            R.drawable.eat_healty_plan_icon,
+            R.drawable.eat_healty_icon,
             R.drawable.age_icon,
             R.drawable.weight_icon,
             R.drawable.height_icon,
@@ -74,6 +76,8 @@ public class UserInfo extends AppCompatActivity {
             tabLayout.getTabAt(1).setIcon(tabIcons[1]);
             tabLayout.getTabAt(2).setIcon(tabIcons[2]);
             tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+            tabLayout.getTabAt(4).setIcon(tabIcons[4]);
+            tabLayout.getTabAt(5).setIcon(tabIcons[5]);
 
 
         }
@@ -85,6 +89,8 @@ public class UserInfo extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new eatHealthyDietAsk(), "Diet");
+        adapter.addFragment(new eatHealthyInfoAsk(), "plan");
         adapter.addFragment(new AskAge(), "age");
         adapter.addFragment(new AskHeight(), "height");
         adapter.addFragment(new AskWeight(), "weight");

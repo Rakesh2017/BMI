@@ -1,0 +1,128 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/user_info2_background"
+    tools:context="com.enhabyto.bmiapp.eatHealthyInfoAsk">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_background_white"
+        >
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/apple"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:id="@+id/apple1"
+            android:contentDescription="@string/unable_to_display_background"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/apple1"
+            android:layout_marginTop="20dp"
+            android:text="Eat Healthy"
+            android:textSize="30sp"
+            android:textColor="@color/greenRight"
+            android:textStyle="bold"
+            android:id="@+id/health1_text1"
+            android:padding="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/health1_text1"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:id="@+id/health1_text2"
+            android:text="WE want to get to know you better to help you reach your goals"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/health1_text2"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:textSize="20sp"
+            android:text="Leads to \nhealthy life"
+            android:gravity="center"
+            android:textColor="@color/greenRight"
+            android:id="@+id/health1_text3"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/health1_text2"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentStart="true"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"
+            android:text="Leads to \nunhealthy life"
+            android:gravity="center"
+            android:textColor="@color/redWrong"
+            android:id="@+id/health1_text4"
+            />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/health1_text2"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:weightSum="2"
+            android:id="@+id/ll5"
+            >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/health_risk_factors"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="75dp"
+                android:layout_marginBottom="70dp"
+                android:id="@+id/healthy_img1"
+                />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="75dp"
+                android:layout_marginBottom="70dp"
+                android:background="@drawable/healty_life"
+                android:id="@+id/healthy_img2"
+                />
+
+        </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>

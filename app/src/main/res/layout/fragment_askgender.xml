@@ -7,14 +7,32 @@
     tools:context="com.enhabyto.bmiapp.Askgender">
 
 
+
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:scrollbars="vertical"
+        android:scrollbarSize="3dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:backgroundTint="@color/amber_transparent"
+        android:background="@drawable/rounded_background_white"
+        />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/iv1"
         android:orientation="horizontal"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/spinner"
         android:background="@drawable/rounded_background_black"
         android:padding="10dp"
         android:id="@+id/l1"
@@ -51,8 +69,9 @@
         android:orientation="horizontal"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
+        android:layout_below="@id/spinner"
         android:layout_centerHorizontal="true"
         android:weightSum="2"
         android:id="@+id/ll4"
@@ -81,18 +100,7 @@
 
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:scrollbars="vertical"
-        android:scrollbarSize="3dp"
-        android:gravity="center"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/ll4"
-        android:background="@drawable/rounded_background_white"
-        />
+
 
     <ImageView
         android:layout_width="15dp"
@@ -118,7 +126,7 @@
         android:id="@+id/enter_home"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/l1"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="50dp"
 
         />
 

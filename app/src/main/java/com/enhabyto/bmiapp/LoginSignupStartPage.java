@@ -50,8 +50,8 @@ import java.util.regex.Pattern;
  public class LoginSignupStartPage extends AppCompatActivity {
 
      protected EditText email, password;
-     RoundedImageView imageButton1, imageButton2, imageButton3, imageButton4;
-     protected Button button_login;
+     RoundedImageView imageButton1, imageButton2, imageButton4;
+     protected Button button_login, imageButton3;
      private FirebaseAuth mAuth;
      private String TAG = "tag message ";
      private String emailText, passwordText;
@@ -71,11 +71,9 @@ import java.util.regex.Pattern;
      private SharedPreferences sharedPreferences;
      private SharedPreferences.Editor editor;
 
-     private  ScaleAnimation animation_left_to_right;
-     private ScaleAnimation animation_right_to_left;
 
      private ImageView app_logo;
-     Animation animBlink, fadeIn, animRot;
+     Animation animBlink, zoom, animRot;
 
 
 
@@ -106,21 +104,15 @@ import java.util.regex.Pattern;
 
         app_logo = (ImageView)findViewById(R.id.imageViewAppLogo);
         animBlink = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
-        fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+        zoom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+        app_logo.startAnimation(zoom);
         animRot = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
 
 
 
-        animation_left_to_right = new ScaleAnimation(0,1,1,1);
-        animation_left_to_right.setDuration(1100);
-
-        animation_right_to_left = new ScaleAnimation(0,1,1,1, Animation.RELATIVE_TO_SELF, 1, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation_right_to_left.setDuration(1100);
         email=(EditText)findViewById(R.id.login_email);
         password=(EditText)findViewById(R.id.login_password);
 
-        forgot_icon = (ImageButton)findViewById(R.id.forgot_pass_icon);
-        forgot_icon.startAnimation(animRot);
         circularProgressBar = (CircularProgressBar)findViewById(R.id.login_progressbar);
         circularProgressBar.setColor(ContextCompat.getColor(this, R.color.red));
         circularProgressBar.setBackgroundColor(ContextCompat.getColor(this, R.color.blue_grey_700));
@@ -144,12 +136,9 @@ import java.util.regex.Pattern;
 
         imageButton1=(RoundedImageView) findViewById(R.id.sign_in_with_google);
         imageButton2=(RoundedImageView) findViewById(R.id.sign_in_with_fb);
-        imageButton3=(RoundedImageView) findViewById(R.id.forgot_password);
+        imageButton3=(Button) findViewById(R.id.forgot_password);
         imageButton4=(RoundedImageView) findViewById(R.id.sign_up);
 
-        imageButton1.startAnimation(animation_left_to_right);
-        imageButton2.startAnimation(animation_right_to_left);
-        imageButton4.startAnimation(animation_right_to_left);
 
         button_login=(Button)findViewById(R.id.btn_login);
 
@@ -169,17 +158,6 @@ import java.util.regex.Pattern;
             }
         });
 
-        forgot_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(num == 2 ){
-                    imageButton3.setVisibility(View.VISIBLE);
-                    imageButton3.startAnimation(animation_right_to_left);
-                    num++;
-                    forgot_icon.setVisibility(View.GONE);
-                }
-            }
-        });
 
 
 

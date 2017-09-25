@@ -7,234 +7,261 @@
     android:clickable="true"
     tools:context="com.enhabyto.bmiapp.AskHeight">
 
-
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp"
-        android:id="@+id/relativeHeight"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_background_black"
-        android:contentDescription="@string/unable_to_display_background"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/relativeHeight"
+        android:background="@drawable/rounded_background_white"
+        >
 
-        />
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearHeight"
-        android:weightSum="4"
-        android:layout_alignTop="@+id/relativeHeight"
-        android:layout_alignStart="@id/relativeHeight"
-        android:layout_alignEnd="@id/relativeHeight"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_centerHorizontal="true">
-
-        <com.shawnlin.numberpicker.NumberPicker
-            android:id="@+id/number_picker_feet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:np_width="50dp"
-            app:np_height="160dp"
-            app:np_dividerColor="@color/red"
-            app:np_max="7"
-            app:np_min="2"
-            app:np_selectedTextColor="@color/white"
-            app:np_selectedTextSize="25dp"
-            app:np_textColor="@color/red"
-            app:np_textSize="15dp"
-            app:np_orientation="vertical"
-            android:layout_weight="1"
-            app:np_value="5" />
-
-        <TextView
-            android:id="@+id/textView_feet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:text="feet"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <com.shawnlin.numberpicker.NumberPicker
-            android:id="@+id/number_picker_inches"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:np_width="50dp"
-            app:np_height="160dp"
-            app:np_dividerColor="@color/red"
-            app:np_max="11"
-            app:np_min="0"
-            app:np_selectedTextColor="@color/white"
-            app:np_selectedTextSize="25dp"
-            app:np_textColor="@color/red"
-            app:np_textSize="15dp"
-            app:np_orientation="vertical"
-            android:layout_weight="1"
-            app:np_value="9" />
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/apple"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:id="@+id/apple3"
+            android:contentDescription="@string/unable_to_display_background"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="inches"
-            android:gravity="center"
-            android:textSize="15sp"
-            android:id="@+id/textView_inches"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/apple3"
+            android:layout_marginTop="20dp"
+            android:text="May we know your height?"
+            android:textSize="25sp"
             android:textStyle="bold"
-            android:layout_weight="1"
+            android:id="@+id/height_text1"
+            android:padding="10dp"
             />
 
 
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearHeight1"
-        android:layout_below="@id/linearHeight"
-        android:weightSum="2"
-        android:layout_alignStart="@id/relativeHeight"
-        android:layout_alignEnd="@id/relativeHeight"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        >
-        <com.shawnlin.numberpicker.NumberPicker
-            android:id="@+id/number_picker_cm"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:np_width="160dp"
-            app:np_height="50dp"
-            app:np_dividerColor="@color/red"
-            app:np_max="241"
-            app:np_min="61"
-            app:np_selectedTextColor="@color/white"
-            app:np_selectedTextSize="25dp"
-            app:np_textColor="@color/red"
-            app:np_textSize="15dp"
-            app:np_orientation="horizontal"
-            android:layout_weight="1.5"
-            app:np_value="175" />
+            android:orientation="horizontal"
+            android:id="@+id/linearHeight"
+            android:layout_below="@id/height_text1"
+            android:weightSum="4"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_centerHorizontal="true">
 
-        <TextView
-            android:id="@+id/textView_cm"
-            android:layout_width="wrap_content"
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker_feet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:np_width="50dp"
+                app:np_height="160dp"
+                app:np_dividerColor="@color/red"
+                app:np_max="7"
+                app:np_min="2"
+                app:np_selectedTextColor="@color/black"
+                app:np_selectedTextSize="25dp"
+                app:np_textColor="@color/red"
+                app:np_textSize="15dp"
+                app:np_orientation="vertical"
+                android:layout_weight="1"
+                app:np_value="5" />
+
+            <TextView
+                android:id="@+id/textView_feet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="feet"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker_inches"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:np_width="50dp"
+                app:np_height="160dp"
+                app:np_dividerColor="@color/red"
+                app:np_max="11"
+                app:np_min="0"
+                app:np_selectedTextColor="@color/black"
+                app:np_selectedTextSize="25dp"
+                app:np_textColor="@color/red"
+                app:np_textSize="15dp"
+                app:np_orientation="vertical"
+                android:layout_weight="1"
+                app:np_value="9" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="inches"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:id="@+id/textView_inches"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                />
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="cm"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_weight="0.5"
-            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/linearHeight1"
+            android:layout_below="@id/linearHeight"
+            android:weightSum="2"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            >
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/number_picker_cm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:np_width="160dp"
+                app:np_height="50dp"
+                app:np_dividerColor="@color/red"
+                app:np_max="241"
+                app:np_min="61"
+                app:np_selectedTextColor="@color/black"
+                app:np_selectedTextSize="25dp"
+                app:np_textColor="@color/red"
+                app:np_textSize="15dp"
+                app:np_orientation="horizontal"
+                android:layout_weight="1.5"
+                app:np_value="175" />
+
+            <TextView
+                android:id="@+id/textView_cm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="cm"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_weight="0.5"
+                android:layout_gravity="center"
+                />
+
+
+        </LinearLayout>
+
+
+
+
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:contentDescription="@string/unable_to_display_background"
+            android:background="@drawable/tick"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="2dp"
+            android:id="@+id/tick_height"
+            android:visibility="invisible"
+            android:layout_alignParentEnd="true"
             />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignStart="@id/linearHeight"
+            android:layout_alignTop="@id/linearHeight"
+            android:layout_alignEnd="@id/linearHeight"
+            android:layout_alignBottom="@id/linearHeight"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/rounded_yellow"
+            android:id="@+id/rl1"
+            android:visibility="invisible"
+            >
 
-    </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_background_red"
+                android:id="@+id/feet_blur"
+                android:layout_centerHorizontal="true"
+                android:text="feet +  inches"
+                android:layout_centerInParent="true"
+                android:padding="10dp"
+                />
+
+        </RelativeLayout>
 
 
-      <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="set"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        android:background="@drawable/rounded_background_red"
-        android:id="@+id/set_height_feet"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignStart="@id/linearHeight1"
+            android:layout_alignTop="@id/linearHeight1"
+            android:layout_alignEnd="@id/linearHeight1"
+            android:layout_alignBottom="@id/linearHeight1"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/rounded_yellow"
+            android:id="@+id/rl2"
+            >
 
-        />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_background_red"
+                android:id="@+id/cm_blur"
+                android:layout_centerHorizontal="true"
+                android:text="Centimeter"
+                android:layout_centerInParent="true"
+                android:padding="10dp"
+                />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="set"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        android:background="@drawable/rounded_background_red"
-        android:id="@+id/set_height_cm"
-        android:visibility="invisible"
-
-        />
-
-    <ImageView
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:contentDescription="@string/unable_to_display_background"
-        android:layout_alignEnd="@+id/relativeHeight"
-        android:background="@drawable/tick"
-        android:layout_alignTop="@id/relativeHeight"
-        android:layout_marginEnd="2dp"
-        android:layout_marginTop="2dp"
-        android:id="@+id/tick_height"
-        android:visibility="invisible"
-        />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignStart="@id/linearHeight"
-        android:layout_alignTop="@id/linearHeight"
-        android:layout_alignEnd="@id/linearHeight"
-        android:layout_alignBottom="@id/linearHeight"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/rounded_yellow"
-        android:id="@+id/rl1"
-        android:visibility="invisible"
-        >
+        </RelativeLayout>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_background_red"
-            android:id="@+id/feet_blur"
+            android:text="set"
             android:layout_centerHorizontal="true"
-            android:text="feet +  inches"
-            android:layout_centerInParent="true"
-            android:padding="10dp"
+            android:background="@drawable/rounded_background_blue"
+            android:id="@+id/set_height_feet"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/rl2"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="set"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_background_blue"
+            android:id="@+id/set_height_cm"
+            android:visibility="invisible"
+            android:layout_below="@id/rl2"
+            android:layout_marginTop="20dp"
             />
 
     </RelativeLayout>
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignStart="@id/linearHeight1"
-        android:layout_alignTop="@id/linearHeight1"
-        android:layout_alignEnd="@id/linearHeight1"
-        android:layout_alignBottom="@id/linearHeight1"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/rounded_yellow"
-        android:id="@+id/rl2"
-        >
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_background_red"
-            android:id="@+id/cm_blur"
-            android:layout_centerHorizontal="true"
-            android:text="Centimeter"
-            android:layout_centerInParent="true"
-            android:padding="10dp"
-            />
 
-    </RelativeLayout>
+
 
 
 

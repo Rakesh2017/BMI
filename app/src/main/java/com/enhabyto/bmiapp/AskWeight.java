@@ -2,6 +2,7 @@ package com.enhabyto.bmiapp;
 
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +32,9 @@ public class AskWeight extends Fragment {
     private NumberPicker kg, lb;
     private int kg_num, lb_num;
     private Button p_blur;
+    TextView textView1;
+    Animation anim_zoom;
+    ImageView imageView;
 
     private Button btn_kg, btn_lb;
     private Animation anim;
@@ -52,6 +58,12 @@ public class AskWeight extends Fragment {
         p_blur = (Button)view.findViewById(R.id.pounds_blur);
         kg = (NumberPicker)view. findViewById(R.id.number_picker_kg);
         lb = (NumberPicker)view. findViewById(R.id.number_picker_lb);
+        textView1 = (TextView)view. findViewById(R.id.weight_text1);
+        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/ReprineatoRegular.otf");
+        textView1.setTypeface(typeface);
+        imageView = (ImageView)view.findViewById(R.id.apple4);
+        anim_zoom = AnimationUtils.loadAnimation(getActivity(), R.anim.zoom_in);
+        imageView.startAnimation(anim_zoom);
 
         view.findViewById(R.id.kg_blur).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +106,7 @@ public class AskWeight extends Fragment {
                 d_parent.child("users").child(user.getUid()).child("weight").child("pounds").setValue(converted_lb);
                 view.findViewById(R.id.tick_weight).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.tick_weight).startAnimation(anim);
+                btn_kg.setBackgroundResource(R.drawable.rounded_background_green);
             }
         });
 
@@ -109,6 +122,8 @@ public class AskWeight extends Fragment {
                 d_parent.child("users").child(user.getUid()).child("weight").child("kilograms").setValue(converted_kg);
                 view.findViewById(R.id.tick_weight).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.tick_weight).startAnimation(anim);
+                btn_lb.setBackgroundResource(R.drawable.rounded_background_green);
+
             }
         });
 
