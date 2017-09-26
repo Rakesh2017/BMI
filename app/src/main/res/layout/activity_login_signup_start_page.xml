@@ -135,10 +135,11 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:layout_marginTop="15dp"
-                android:text="Forgot password"
+                android:text="Forgot Password"
+                android:textAllCaps="false"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
-                android:textStyle="bold"
+                android:textColor="@color/white"
                 android:background="@drawable/rounded_background_amber"
                 android:contentDescription="@string/unable_to_display_background"
                 android:layout_marginBottom="5dp" />
@@ -152,11 +153,12 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
+                android:textAllCaps="false"
                 android:background="@drawable/rounded_background_green"
                 android:text="@string/btn_login"
                 android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                android:textColor="@color/white"
+                />
 
 
 
@@ -230,11 +232,7 @@
 
           />
 
-
-
-
-
-        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+     <com.mikhaellopez.circularprogressbar.CircularProgressBar
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/login_progressbar"

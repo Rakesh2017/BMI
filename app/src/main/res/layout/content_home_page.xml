@@ -67,85 +67,217 @@
                 android:id="@+id/greeting"
                 android:paddingEnd="10dp"
                 android:paddingBottom="4dp"
+
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/disp_name"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:id="@+id/til1"
+                >
+                <EditText
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="ft"
+                    android:maxLength="1"
+                    android:id="@+id/home_text1"
+                    android:inputType="number"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/disp_name"
+                android:layout_marginTop="10dp"
+                android:id="@+id/til2"
+                android:layout_marginStart="50dp"
+                >
+
+                <EditText
+                    android:id="@+id/home_text2"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="in"
+                    android:maxLength="2"
+                    android:inputType="number"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/disp_name"
+                android:layout_marginTop="10dp"
+                android:id="@+id/til3"
+                android:layout_marginStart="30dp"
+                android:visibility="invisible"
+                >
+                <EditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="cm"
+                    android:gravity="center"
+                    android:maxLength="3"
+                    android:id="@+id/home_text3"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <Spinner
+                android:id="@+id/spinner_height"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:scrollbars="vertical"
+                android:layout_below="@id/disp_name"
+                android:scrollbarSize="3dp"
+                android:layout_marginStart="80dp"
+                android:layout_alignTop="@id/til1"
+                android:layout_marginTop="15dp"
+                android:layout_alignBottom="@id/til1"
+                android:gravity="center"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/til1"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="50dp"
+                android:id="@+id/til6"
+                >
+                <EditText
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:hint="age"
+                    android:maxLength="3"
+                    android:gravity="center"
+                    android:id="@+id/home_text6"
+                    android:inputType="number"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <View
+                android:id="@+id/view1"
+                android:layout_centerHorizontal="true"
+                android:layout_width="2dip"
+                android:layout_marginTop="10dp"
+                android:layout_height="150dp"
+                android:layout_below="@id/disp_name"
+                android:background="#444"/>
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/Home_btn"
+                android:textColor="@color/white"
+                android:background="@drawable/right"
+                android:layout_alignBottom="@+id/spinner_height"
+                android:layout_toStartOf="@id/view1"
+                android:layout_marginEnd="10dp"
                 />
 
 
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/Home_btn3"
+                android:textColor="@color/white"
+                android:background="@drawable/right"
+                android:layout_alignBottom="@+id/til6"
+                android:layout_alignStart="@+id/Home_btn" />
 
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:textSize="15sp"
-        android:padding="5dp"
-        android:layout_marginTop="4dp"
-        android:layout_below="@id/disp_name"
-        android:text="change height"
-        android:id="@+id/change_height"
-        android:textColor="@color/white"
-        android:background="@drawable/rounded_background_red"
-        android:layout_alignParentStart="true"
-         />
-            <TextView
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" "
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:textStyle="italic"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:layout_below="@id/change_height"
-                android:layout_alignStart="@id/change_height"
-                android:layout_marginTop="4dp"
-                android:id="@+id/u_height_text"/>
+                android:layout_below="@id/disp_name"
+                android:layout_toEndOf="@id/view1"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="30dp"
+                android:id="@+id/til4"
+                >
+                <EditText
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="kg"
+                    android:maxLength="3"
+                    android:id="@+id/home_text4"
+                    android:inputType="number"
+                    />
 
+            </android.support.design.widget.TextInputLayout>
 
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:layout_marginEnd="10dp"
-        android:padding="5dp"
-        android:layout_marginTop="4dp"
-        android:layout_below="@id/disp_name"
-        android:text="change weight"
-        android:id="@+id/change_weight"
-        android:textColor="@color/white"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/rounded_background_red"
-
-        />
-
-            <TextView
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" "
-                android:textSize="20sp"
-                android:layout_marginTop="4dp"
-                android:textColor="@color/black"
-                android:textStyle="italic"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:layout_alignEnd="@id/change_weight"
-                android:layout_below="@id/change_weight"
-                android:id="@+id/u_weight_text"
-                />
+                android:layout_below="@id/disp_name"
+                android:layout_toEndOf="@id/view1"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="40dp"
+                android:id="@+id/til5"
+                android:visibility="invisible"
+                >
+                <EditText
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="lb"
+                    android:maxLength="3"
+                    android:id="@+id/home_text5"
+                    />
 
-    <me.itangqi.waveloadingview.WaveLoadingView
+            </android.support.design.widget.TextInputLayout>
+
+
+            <Spinner
+                android:id="@+id/spinner_weight"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:scrollbars="vertical"
+                android:layout_toEndOf="@id/til4"
+                android:scrollbarSize="3dp"
+                android:layout_marginStart="10dp"
+                android:layout_alignBottom="@id/til1"
+                android:gravity="center"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_alignTop="@+id/spinner_height" />
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/Home_btn2"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:background="@drawable/right"
+                android:layout_above="@+id/til6"
+                android:layout_alignEnd="@+id/hr1" />
+
+
+
+
+
+
+            <me.itangqi.waveloadingview.WaveLoadingView
         android:id="@+id/waveLoadingView"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         app:wlv_borderColor="@color/colorAccent"
-        android:layout_below="@+id/change_weight"
+        android:layout_below="@id/view1"
         app:wlv_borderWidth="1dp"
         app:wlv_progressValue="50"
         android:layout_centerInParent="true"

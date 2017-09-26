@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -26,9 +28,12 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +47,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 import me.itangqi.waveloadingview.WaveLoadingView;
 
@@ -49,18 +56,20 @@ import me.itangqi.waveloadingview.WaveLoadingView;
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView name, agetx, heighttx, weighttx, texxxt;
+    TextView name;
+    private EditText text1, text2, text3, text4, text5, text6;
     DatabaseReference d_parent = FirebaseDatabase.getInstance().getReference();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     DatabaseReference d_ref;
+    private TextInputLayout textInputLayout1, textInputLayout2, textInputLayout3, textInputLayout4, textInputLayout5;
 
     private int weight_kg, height_ft, height_in , age, height_cm, weight_lb;
-    private Button btn_age, btn_height, btn_weight;
+    private Button btn_height, btn_weight, btn_age;
 
     private int weight_for_bmi, difference_kg, difference_lb, ideal_weight_lb, ideal_weight_kg;
     private float height_for_bmi, temp, bmi_temp, bmi;
-    private String region, gender;
+    private String region, gender, item1, item2;
     private WaveLoadingView mWaveLoadingView;
     int convert_bmi;
     private ImageView img_chaka, img_bmi_circle;
@@ -73,7 +82,7 @@ public class HomePage extends AppCompatActivity
     ImageView right_wrong_img, moon_or_sun;
     private Toolbar toolbar;
     private Window window;
-    Button btnn;
+    private Spinner spinner, spinner2;
 
 
 
@@ -92,10 +101,108 @@ public class HomePage extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Body Mass Index");
 
+        textInputLayout1 = (TextInputLayout)findViewById(R.id.til1);
+        textInputLayout2 = (TextInputLayout)findViewById(R.id.til2);
+        textInputLayout3 = (TextInputLayout)findViewById(R.id.til3);
+        textInputLayout4 = (TextInputLayout)findViewById(R.id.til4);
+        textInputLayout5 = (TextInputLayout)findViewById(R.id.til5);
+
+        text1 = (EditText)findViewById(R.id.home_text1);
+        text2 = (EditText) findViewById(R.id.home_text2);
+        text3 = (EditText) findViewById(R.id.home_text3);
+        text4 = (EditText) findViewById(R.id.home_text4);
+        text5 = (EditText) findViewById(R.id.home_text5);
+        text6 = (EditText) findViewById(R.id.home_text6);
+
+        btn_height = (Button)findViewById(R.id.Home_btn);
+        btn_weight = (Button)findViewById(R.id.Home_btn2);
+        btn_age = (Button)findViewById(R.id.Home_btn3);
+
         setSupportActionBar(toolbar);
+        spinner = (Spinner)findViewById(R.id.spinner_height);
+        spinner2 = (Spinner)findViewById(R.id.spinner_weight);
+
+        final List<String> categories = new ArrayList<>();
+        categories.add("ft+in");
+        categories.add("cm");
 
 
-        ct1 = (TextView)findViewById(R.id.class_text1);
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
+
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                              @Override
+                                              public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                  item1 = parent.getItemAtPosition(position).toString();
+                                                  if(item1.equals("cm")){
+                                                    textInputLayout1.setVisibility(View.INVISIBLE);
+                                                    textInputLayout2.setVisibility(View.INVISIBLE);
+                                                    textInputLayout3.setVisibility(View.VISIBLE);
+                                                      text1.setText("");
+                                                      text2.setText("");
+
+
+                                                  }
+                                                  else {
+                                                      textInputLayout1.setVisibility(View.VISIBLE);
+                                                      textInputLayout2.setVisibility(View.VISIBLE);
+                                                      textInputLayout3.setVisibility(View.INVISIBLE);
+                                                      text3.setText("");
+                                                  }
+                                              }
+
+                                              @Override
+                                              public void onNothingSelected(AdapterView<?> parent) {
+
+                                              }
+                                          });
+
+
+        final List<String> categories2 = new ArrayList<>();
+        categories2.add("Kg");
+        categories2.add("lb");
+        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories2);
+        dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner2.setAdapter(dataAdapter2);
+
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent2, View view, int position2, long id) {
+                item2 = parent2.getItemAtPosition(position2).toString();
+                if(item2.equals("lb")){
+                    textInputLayout4.setVisibility(View.INVISIBLE);
+                    textInputLayout5.setVisibility(View.VISIBLE);
+                    text4.setText("");
+
+
+                }
+                else {
+                    textInputLayout4.setVisibility(View.VISIBLE);
+                    textInputLayout5.setVisibility(View.INVISIBLE);
+                    text5.setText("");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+        ct1 = (TextView) findViewById(R.id.class_text1);
         ct2 = (TextView)findViewById(R.id.class_text2);
         ct3 = (TextView)findViewById(R.id.class_text3);
         ct4 = (TextView)findViewById(R.id.class_text4);
@@ -114,7 +221,6 @@ public class HomePage extends AppCompatActivity
         r7 = (TextView)findViewById(R.id.place_type1);
         r8 = (TextView)findViewById(R.id.place_type2);
         r9 = (TextView)findViewById(R.id.place_type3);
-        texxxt = (TextView)findViewById(R.id.texxxt);
         ideal_weight = (TextView)findViewById(R.id.ideal_weight_text);
         right_wrong_img  = (ImageView)findViewById(R.id.right_wrong);
         moon_or_sun = (ImageView)findViewById(R.id.moon_sun);
@@ -125,11 +231,6 @@ public class HomePage extends AppCompatActivity
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/ReprineatoRegular.otf");
 
         regiontext = (TextView)findViewById(R.id.reg_text);
-        heighttx = (TextView)findViewById(R.id.u_height_text);
-        weighttx = (TextView)findViewById(R.id.u_weight_text);
-        btn_height = (Button)findViewById(R.id.change_height);
-        btn_weight = (Button)findViewById(R.id.change_weight);
-        btnn = (Button)findViewById(R.id.bttn);
         img_chaka = (ImageView)findViewById(R.id.chaka_bmi);
         img_bmi_circle = (ImageView)findViewById(R.id.bmi_descriptor_circle);
 
@@ -142,12 +243,148 @@ public class HomePage extends AppCompatActivity
         d_ref = d_parent.child("users").child(user.getUid());
         name = (TextView)findViewById(R.id.disp_name);
         name.setTypeface(typeface);
-        heighttx.setTypeface(typeface);
-        weighttx.setTypeface(typeface);
         greeting_btn.setTypeface(typeface);
 
 
         mWaveLoadingView = (WaveLoadingView)findViewById(R.id.waveLoadingView);
+
+        btn_height.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int h_ft;
+                int h_in;
+                int h_cm;
+
+                if(item1.equals("cm")){
+                    if(TextUtils.isEmpty(text3.getText().toString())){
+                        Toast.makeText(HomePage.this, "cm field empty!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    h_cm = Integer.parseInt(text3.getText().toString());
+                    if(h_cm < 61 || h_cm > 275 ){
+                        Toast.makeText(HomePage.this, "cm(61 - 275)", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    int feetPart = 0;
+                    int inchesPart = 0;
+
+                    double dCentimeter = h_cm;
+                    feetPart = (int) Math.floor((dCentimeter / 2.54) / 12);
+                    inchesPart = (int) Math.ceil((dCentimeter / 2.54) - (feetPart * 12));
+
+                    d_parent.child("users").child(user.getUid()).child("height").child("feet_and_inches").child("feet").setValue(feetPart);
+                    d_parent.child("users").child(user.getUid()).child("height").child("feet_and_inches").child("inches").setValue(inchesPart);
+                    d_parent.child("users").child(user.getUid()).child("height").child("centimeter").setValue(h_cm);
+
+
+                }
+
+                else{
+
+                    if(TextUtils.isEmpty(text1.getText().toString())){
+                        Toast.makeText(HomePage.this, "ft field empty!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if(TextUtils.isEmpty(text2.getText().toString())){
+                        Toast.makeText(HomePage.this, "in field empty!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
+                    h_ft = Integer.parseInt(text1.getText().toString());
+                        h_in = Integer.parseInt(text2.getText().toString());
+
+
+                    if(h_ft < 2 || h_ft > 8 || h_in < 0 ||h_in >11){
+                        Toast.makeText(HomePage.this, "ft(2'' - 8'') and inch(1' - 11')", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    double temp_total_feet, converted_centimeter;
+                    int temp;
+                    temp_total_feet = (h_ft * 12) + h_in;
+                    converted_centimeter = temp_total_feet * 2.54;
+                    temp = (int)(converted_centimeter + 0.5d);
+                    d_parent.child("users").child(user.getUid()).child("height").child("feet_and_inches").child("feet").setValue(h_ft);
+                    d_parent.child("users").child(user.getUid()).child("height").child("feet_and_inches").child("inches").setValue(h_in);
+                    d_parent.child("users").child(user.getUid()).child("height").child("centimeter").setValue(temp);
+
+
+                }
+            }
+        });
+
+        btn_weight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int w_kg, w_lb;
+                if(item2.equals("lb")){
+                    if(TextUtils.isEmpty(text4.getText().toString())){
+                        Toast.makeText(HomePage.this, "lb field empty!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    w_lb = Integer.parseInt(text5.getText().toString());
+                    if(w_lb < 10 || w_lb > 882){
+                        Toast.makeText(HomePage.this, "recheck weight", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    double temp;
+                    int converted_kg;
+                    temp = w_lb * 0.453592;
+                    converted_kg = (int)(temp+0.5d);
+                    d_parent.child("users").child(user.getUid()).child("weight").child("kilograms").setValue(converted_kg);
+                    d_parent.child("users").child(user.getUid()).child("weight").child("pounds").setValue(w_lb);
+                }
+
+                else {
+
+                    if(TextUtils.isEmpty(text5.getText().toString())){
+                        Toast.makeText(HomePage.this, "kg field empty!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    w_kg = Integer.parseInt(text4.getText().toString());
+
+                    if(w_kg < 4 || w_kg > 400){
+                        Toast.makeText(HomePage.this, "recheck weight", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
+                    double temp;
+                    int converted_lb;
+                    temp = w_kg * 2.20462;
+                    converted_lb = (int)(temp+0.5d);
+                    d_parent.child("users").child(user.getUid()).child("weight").child("pounds").setValue(converted_lb);
+                    d_parent.child("users").child(user.getUid()).child("weight").child("kilograms").setValue(w_kg);
+
+
+                }
+            }
+        });
+
+        btn_age.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int age;
+
+                    if(TextUtils.isEmpty(text6.getText().toString())) {
+                        Toast.makeText(HomePage.this, "age field empty!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    age = Integer.parseInt(text6.getText().toString());
+                    if(age < 2 || age > 120){
+                        Toast.makeText(HomePage.this, "recheck age", Toast.LENGTH_SHORT).show();
+                       return;
+                    }
+                d_parent.child("users").child(user.getUid()).child("age").setValue(age);
+
+            }
+        });
 
 
 
@@ -160,35 +397,6 @@ public class HomePage extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        btnn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int num78 = Integer.parseInt(texxxt.getText().toString());
-
-                d_parent.child("users").child(user.getUid()).child("height").child("centimeter").setValue(num78);
-                calculate_bmi();
-            }
-        });
-
-        btn_height.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home_page,new changeHeight()).addToBackStack(null).commit();
-                btn_weight.setVisibility(View.INVISIBLE);
-                btn_height.setVisibility(View.INVISIBLE);
-
-            }
-        });
-
-        btn_weight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home_page,new changeWeight()).addToBackStack(null).commit();
-                btn_weight.setVisibility(View.INVISIBLE);
-                btn_height.setVisibility(View.INVISIBLE);
-
-            }
-        });
 
 
     }
@@ -196,9 +404,6 @@ public class HomePage extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        btn_weight.setVisibility(View.VISIBLE);
-        btn_height.setVisibility(View.VISIBLE);
-
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -352,10 +557,6 @@ public class HomePage extends AppCompatActivity
                     moon_or_sun.startAnimation(rot_slow);
                 }
 
-
-
-                heighttx.setText(height_ft+"'' " +height_in+"' / "+ height_cm+" cm");
-                weighttx.setText(weight_kg+" kg / "+ weight_lb+" lb");
 
                 weight_for_bmi = weight_kg;
                 height_for_bmi = height_cm / 100f;
