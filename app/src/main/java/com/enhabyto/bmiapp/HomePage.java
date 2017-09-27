@@ -8,6 +8,7 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.ColorRes;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputLayout;
@@ -27,6 +28,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,6 +46,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Time;
@@ -69,20 +72,20 @@ public class HomePage extends AppCompatActivity
 
     private int weight_for_bmi, difference_kg, difference_lb, ideal_weight_lb, ideal_weight_kg;
     private float height_for_bmi, temp, bmi_temp, bmi;
-    private String region, gender, item1, item2;
+    private String region, gender, item1, item2, item3;
     private WaveLoadingView mWaveLoadingView;
-    int convert_bmi;
+    int convert_bmi, count=0;
     private ImageView img_chaka, img_bmi_circle;
     Animation anim_anti_rotate, anim_rot, rot_slow;
 
-    TextView regiontext, ideal_weight;
+    private TextView regiontext, ideal_weight, t1, t2, t3, t4;
     TextView ct1, ct2, ct3, ct4, ct5, ct6, ct7, ct8, ct9;
     TextView r1, r2, r3, r4, r5, r6, r7, r8, r9;
     private TextView placeholder, greeting_btn;
-    ImageView right_wrong_img, moon_or_sun;
+    ImageView right_wrong_img, moon_or_sun, b1,g1, b2,g2;
     private Toolbar toolbar;
     private Window window;
-    private Spinner spinner, spinner2;
+    private Spinner spinner, spinner2, spinner3;
 
 
 
@@ -114,6 +117,22 @@ public class HomePage extends AppCompatActivity
         text5 = (EditText) findViewById(R.id.home_text5);
         text6 = (EditText) findViewById(R.id.home_text6);
 
+        ScaleAnimation sanim = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
+        sanim.setDuration(1500);
+
+        t1 = (TextView) findViewById(R.id.home_text_height);
+        t2 = (TextView) findViewById(R.id.home_text_weight);
+        t3 = (TextView) findViewById(R.id.home_text_age);
+
+        t1.startAnimation(sanim);
+        t2.startAnimation(sanim);
+        t3.startAnimation(sanim);
+
+        b1 = (ImageView)findViewById(R.id.boy1);
+        g1 = (ImageView)findViewById(R.id.girl1);
+        b2 = (ImageView)findViewById(R.id.boy2);
+        g2 = (ImageView)findViewById(R.id.girl2);
+
         btn_height = (Button)findViewById(R.id.Home_btn);
         btn_weight = (Button)findViewById(R.id.Home_btn2);
         btn_age = (Button)findViewById(R.id.Home_btn3);
@@ -121,6 +140,7 @@ public class HomePage extends AppCompatActivity
         setSupportActionBar(toolbar);
         spinner = (Spinner)findViewById(R.id.spinner_height);
         spinner2 = (Spinner)findViewById(R.id.spinner_weight);
+        spinner3 = (Spinner)findViewById(R.id.spinner_region);
 
         final List<String> categories = new ArrayList<>();
         categories.add("ft+in");
@@ -171,6 +191,7 @@ public class HomePage extends AppCompatActivity
         final List<String> categories2 = new ArrayList<>();
         categories2.add("Kg");
         categories2.add("lb");
+
         ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories2);
         dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -199,6 +220,38 @@ public class HomePage extends AppCompatActivity
 
             }
         });
+
+
+        final List<String> categories3 = new ArrayList<>();
+        categories3.add("WHO STANDARDS");
+        categories3.add("ASIA");
+        categories3.add("AUSTRALIA/NEW ZEALAND");
+        categories3.add("USA/CANADA/EUROPE");
+        categories3.add("AFRICA");
+        categories3.add("SOUTH AMERICA");
+        categories3.add("ANTARCTICA");
+
+
+        ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories3);
+        dataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner3.setAdapter(dataAdapter3);
+
+        spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent2, View view, int position2, long id) {
+                item3 = parent2.getItemAtPosition(position2).toString();
+                d_parent.child("users").child(user.getUid()).child("region").setValue(item3);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
 
 
@@ -322,7 +375,7 @@ public class HomePage extends AppCompatActivity
             public void onClick(View v) {
                 int w_kg, w_lb;
                 if(item2.equals("lb")){
-                    if(TextUtils.isEmpty(text4.getText().toString())){
+                    if(TextUtils.isEmpty(text5.getText().toString())){
                         Toast.makeText(HomePage.this, "lb field empty!", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -342,7 +395,7 @@ public class HomePage extends AppCompatActivity
 
                 else {
 
-                    if(TextUtils.isEmpty(text5.getText().toString())){
+                    if(TextUtils.isEmpty(text4.getText().toString())){
                         Toast.makeText(HomePage.this, "kg field empty!", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -385,6 +438,25 @@ public class HomePage extends AppCompatActivity
 
             }
         });
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d_parent.child("users").child(user.getUid()).child("gender").setValue("male");
+                b2.setVisibility(View.VISIBLE);
+                g2.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        g1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d_parent.child("users").child(user.getUid()).child("gender").setValue("female");
+                b2.setVisibility(View.INVISIBLE);
+                g2.setVisibility(View.VISIBLE);
+            }
+        });
+
 
 
 
@@ -489,6 +561,41 @@ public class HomePage extends AppCompatActivity
 
 
                 RelativeLayout layout =(RelativeLayout)findViewById(R.id.fragment_container_home_page);
+
+
+
+                if(count>0){
+                    t1.setText(height_ft +"'' "+height_in+"'"+" /\n"+height_cm+" cm");
+                    t2.setText(weight_kg+" kg/\n" + weight_lb+" lb");
+                    t3.setText(age+" years");
+
+                }
+
+
+               if(count==0){
+                   if(gender.equals("male")){
+                       b2.setVisibility(View.VISIBLE);
+                   }
+                   else{
+                       g2.setVisibility(View.VISIBLE);
+                   }
+                   new Handler().postDelayed(new Runnable() {
+
+                       @Override
+                       public void run() {
+
+                           t1.setText(height_ft +"'' "+height_in+"'"+" /\n"+height_cm+" cm");
+                           t2.setText(weight_kg+" kg/\n" + weight_lb+" lb");
+                           t3.setText(age+" years");
+
+                           t1.setTextColor(ContextCompat.getColor(HomePage.this, R.color.gray));
+                           t2.setTextColor(ContextCompat.getColor(HomePage.this, R.color.gray));
+                           t3.setTextColor(ContextCompat.getColor(HomePage.this, R.color.gray));
+                       }
+                   }, 5*1000);
+                   count++;
+
+               }
 
                 if(gender.equals("male")){
                     layout.setBackgroundResource(R.color.lightBlue);

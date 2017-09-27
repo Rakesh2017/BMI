@@ -22,7 +22,8 @@
         android:layout_height="match_parent"
         android:scrollbars="none"
         android:fillViewport="true"
-        >
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
 
 
@@ -178,6 +179,7 @@
                 android:layout_height="150dp"
                 android:layout_below="@id/disp_name"
                 android:background="#444"/>
+
             <Button
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -226,7 +228,7 @@
                 android:layout_below="@id/disp_name"
                 android:layout_toEndOf="@id/view1"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="30dp"
                 android:id="@+id/til5"
                 android:visibility="invisible"
                 >
@@ -249,7 +251,6 @@
                 android:scrollbars="vertical"
                 android:layout_toEndOf="@id/til4"
                 android:scrollbarSize="3dp"
-                android:layout_marginStart="10dp"
                 android:layout_alignBottom="@id/til1"
                 android:gravity="center"
                 android:focusable="true"
@@ -267,11 +268,104 @@
                 android:layout_alignEnd="@+id/hr1" />
 
 
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/boy"
+                android:id="@+id/boy1"
+                android:layout_below="@+id/til4"
+                android:layout_marginStart="30dp"
+                android:layout_alignBottom="@id/view1"
+                android:contentDescription="@string/unable_to_display_background"
+                android:layout_toRightOf="@id/view1" />
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/girl"
+                android:id="@+id/girl1"
+                android:layout_alignBottom="@id/view1"
+                android:contentDescription="@string/unable_to_display_background"
+                android:layout_below="@+id/spinner_weight"
+                android:layout_toStartOf="@+id/Home_btn2" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/boy_right"
+                android:id="@+id/boy2"
+                android:layout_below="@+id/til4"
+                android:layout_marginStart="30dp"
+                android:visibility="invisible"
+                android:layout_alignBottom="@id/view1"
+                android:contentDescription="@string/unable_to_display_background"
+                android:layout_toRightOf="@id/view1" />
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/girl_right"
+                android:id="@+id/girl2"
+                android:layout_alignBottom="@id/view1"
+                android:visibility="invisible"
+                android:contentDescription="@string/unable_to_display_background"
+                android:layout_below="@+id/spinner_weight"
+                android:layout_toStartOf="@+id/Home_btn2" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/home_text_height"
+                android:layout_below="@id/til6"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="80dp"
+                android:text="Height"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:padding="4dp"
+                android:background="@drawable/rounded_background_amber"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/home_text_weight"
+                android:layout_below="@id/home_text_height"
+                android:layout_marginTop="20dp"
+                android:text="Weight"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:textStyle="bold"
+                android:padding="4dp"
+                android:background="@drawable/rounded_background_amber"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/home_text_age"
+                android:layout_below="@id/home_text_weight"
+                android:layout_marginTop="20dp"
+                android:text="Age"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:textStyle="bold"
+                android:padding="4dp"
+                android:background="@drawable/rounded_background_amber"
+                android:textColor="@color/black"
+                />
 
 
 
 
-            <me.itangqi.waveloadingview.WaveLoadingView
+
+
+
+
+       <me.itangqi.waveloadingview.WaveLoadingView
         android:id="@+id/waveLoadingView"
         android:layout_width="250dp"
         android:layout_height="250dp"
@@ -280,7 +374,7 @@
         android:layout_below="@id/view1"
         app:wlv_borderWidth="1dp"
         app:wlv_progressValue="50"
-        android:layout_centerInParent="true"
+        android:layout_marginStart="10dp"
         app:wlv_shapeType="circle"
         app:wlv_round_rectangle="false"
         app:wlv_triangle_direction="east"
@@ -291,7 +385,6 @@
         app:wlv_titleBottomSize="20sp"
         app:wlv_titleBottomColor="@color/black"
         app:wlv_titleBottomStrokeColor="@color/white"
-        app:wlv_titleCenterColor="@android:color/black"
         app:wlv_titleCenterSize="18sp"
         app:wlv_waveAmplitude="24"
         app:wlv_waveColor="@color/colorAccent"/>
@@ -345,13 +438,28 @@
             android:layout_below="@id/waveLoadingView"
             android:layout_centerInParent="true"
             android:layout_marginTop="20dp"
-                android:id="@+id/reg_text"
-                android:text="region"
-                android:textColor="@color/black"
-                android:textStyle="bold"
+            android:id="@+id/reg_text"
+            android:text="region"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             />
 
-            <TextView
+            <Spinner
+                android:id="@+id/spinner_region"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:scrollbars="vertical"
+                android:layout_below="@id/waveLoadingView"
+                android:scrollbarSize="3dp"
+                android:layout_marginStart="5dp"
+                android:focusable="true"
+                android:layout_toEndOf="@id/reg_text"
+                android:focusableInTouchMode="true"
+                android:layout_marginTop="15dp"
+                />
+
+
+      <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/classification"
